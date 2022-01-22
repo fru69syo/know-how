@@ -6,7 +6,8 @@ https://docs.microsoft.com/ja-jp/visualstudio/python/learn-flask-visual-studio-s
  ①VisualStudioのインストーラー起動＞変更＞ワークロードからPythonを選択（64bitか32bitを選択）  
  ![image](https://user-images.githubusercontent.com/61240070/150640834-7ed6e787-5809-479b-8a93-a7a55a731b0f.png)  
  ②ツール＞ツールと機能を取得＞インストーラが起動するので後は①と同じ流れ  
-・Windows 向け Git と Visual Studio 向け GitHub 拡張 ( [個別のコンポーネント] タブの [コード ツール] )。  
+
+【※対応不要】Windows 向け Git と Visual Studio 向け GitHub 拡張 ( [個別のコンポーネント] タブの [コード ツール] )。  
  ①VisualStudioのインストーラー起動＞変更＞個別のコンポーネント  
  https://www.ipentec.com/document/visual-studio-install-github-extension-for-visual-studio
  
