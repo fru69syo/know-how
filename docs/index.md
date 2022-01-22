@@ -2,14 +2,18 @@ VisualStudio2022　Flask
 https://docs.microsoft.com/ja-jp/visualstudio/python/learn-flask-visual-studio-step-01-project-solution?view=vs-2022  
 ※前提条件あり  
 ・Python 開発ワークロード (インストーラーの [ワークロード] タブ)。   
-　2パターンの方法  
-　①VisualStudioのインストーラー起動＞変更＞ワークロードからPythonを選択（64bitか32bitを選択）  
+ 2パターンの方法  
+ ①VisualStudioのインストーラー起動＞変更＞ワークロードからPythonを選択（64bitか32bitを選択）  
  ![image](https://user-images.githubusercontent.com/61240070/150640834-7ed6e787-5809-479b-8a93-a7a55a731b0f.png)  
-  ②ツール＞ツールと機能を取得＞インストーラが起動するので後は①と同じ流れ  
+ ②ツール＞ツールと機能を取得＞インストーラが起動するので後は①と同じ流れ  
 ・Windows 向け Git と Visual Studio 向け GitHub 拡張 ( [個別のコンポーネント] タブの [コード ツール] )。  
-　①VisualStudioのインストーラー起動＞変更＞個別のコンポーネント  
-
-
+ ①VisualStudioのインストーラー起動＞変更＞個別のコンポーネント  
+ https://www.ipentec.com/document/visual-studio-install-github-extension-for-visual-studio
+ 
+ ◆Githubの拡張が表示されない場合
+  2022は拡張機能ではなく標準で搭載されている  
+  参考：https://marketplace.visualstudio.com/items?itemName=GitHub.GitHubExtensionforVisualStudio
+ 
 
 
 
