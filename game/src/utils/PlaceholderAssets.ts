@@ -4,7 +4,7 @@ type DrawFn = (g: Phaser.GameObjects.Graphics) => void;
 
 function tex(scene: Phaser.Scene, key: string, w: number, h: number, fn: DrawFn) {
   if (scene.textures.exists(key)) return;
-  const g = scene.make.graphics({ x: 0, y: 0, add: false });
+  const g = scene.make.graphics({ x: 0, y: 0 }, false);
   fn(g);
   g.generateTexture(key, w, h);
   g.destroy();
