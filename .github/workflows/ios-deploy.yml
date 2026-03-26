@@ -8,9 +8,6 @@ on:
         required: false
         default: "Bug fixes and improvements"
 
-env:
-  NODE_VERSION: "20"
-
 # Required GitHub Secrets:
 #   APP_STORE_CONNECT_API_KEY_ID       - Key ID (e.g. XXXXXXXXXX)
 #   APP_STORE_CONNECT_API_ISSUER_ID    - Issuer ID (UUID)
@@ -31,13 +28,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-          cache-dependency-path: game/package-lock.json
+          node-version: "20"
 
       - name: Install Node dependencies
         working-directory: game
-        run: npm ci
+        run: npm install
 
       - name: Build web app
         working-directory: game
@@ -85,9 +80,7 @@ jobs:
 
       - name: Bump build number
         working-directory: game/ios/App
-        run: |
-          BUILD_NUMBER=${{ github.run_number }}
-          xcrun agvtool new-version -all $BUILD_NUMBER
+        run: xcrun agvtool new-version -all ${{ github.run_number }}
 
       - name: Build & upload via Fastlane
         working-directory: game
