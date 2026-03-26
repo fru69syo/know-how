@@ -1,0 +1,106 @@
+name: iOS Build Check
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  build-web:
+    name: Build Web App
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: game/package-lock.json
+
+      - name: Install dependencies
+        working-directory: game
+        run: npm ci
+
+      - name: Type check
+        working-directory: game
+        run: npx tsc --noEmit
+
+      - name: Build web
+        working-directory: game
+        run: npm run build
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: game/dist/
+          retention-days: 1
+
+  build-ios-simulator:
+    name: Build iOS (Simulator)
+    runs-on: macos-latest
+    needs: build-web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: game/package-lock.json
+
+      - name: Download dist
+        uses: actions/download-artifact@v4
+        with:
+          name: web-dist
+          path: game/dist/
+
+      - name: Install dependencies
+        working-directory: game
+        run: npm ci
+
+      - name: Add iOS platform
+        working-directory: game
+        run: npx cap add ios
+
+      - name: Sync Capacitor
+        working-directory: game
+        run: npx cap sync ios
+
+      - name: Install CocoaPods
+        working-directory: game/ios/App
+        run: pod install
+
+      - name: Build for Simulator (no signing)
+        working-directory: game
+        run: |
+          xcodebuild \
+            -workspace ios/App/App.xcworkspace \
+            -scheme App \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ~/build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcpretty || xcodebuild \
+            -workspace ios/App/App.xcworkspace \
+            -scheme App \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ~/build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Upload .app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-simulator-app
+          path: ~/build/Build/Products/Debug-iphonesimulator/App.app
+          retention-days: 7
