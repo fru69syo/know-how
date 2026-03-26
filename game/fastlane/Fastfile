@@ -1,0 +1,36 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    api_key = app_store_connect_api_key(
+      key_id:         ENV["APP_STORE_CONNECT_API_KEY_ID"],
+      issuer_id:      ENV["APP_STORE_CONNECT_API_ISSUER_ID"],
+      key_content:    ENV["APP_STORE_CONNECT_API_KEY_CONTENT"],
+      is_key_content_base64: true,
+    )
+
+    build_app(
+      workspace:      "ios/App/App.xcworkspace",
+      scheme:         "App",
+      configuration:  "Release",
+      export_method:  "app-store",
+      export_options: {
+        provisioningProfiles: {
+          "com.yourname.spaceshooter" => ENV["PROVISIONING_PROFILE_NAME"],
+        },
+        signingCertificate: ENV["CODE_SIGN_IDENTITY"],
+        signingStyle:       "manual",
+      },
+      output_directory: "build",
+      output_name:      "SpaceShooter.ipa",
+    )
+
+    upload_to_testflight(
+      api_key:                           api_key,
+      ipa:                               "build/SpaceShooter.ipa",
+      changelog:                         ENV["RELEASE_NOTES"] || "New build",
+      skip_waiting_for_build_processing: true,
+    )
+  end
+end

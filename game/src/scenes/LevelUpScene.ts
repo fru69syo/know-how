@@ -1,0 +1,39 @@
+import Phaser from 'phaser';
+import { GAME_WIDTH, GAME_HEIGHT, COLORS, DEPTHS } from '../config';
+import { getSkillChoices } from '../skills/SkillDefinitions';
+import type { SkillDef } from '../skills/SkillDefinitions';
+import { GameState } from '../store/GameState';
+
+export class LevelUpScene extends Phaser.Scene {
+  constructor() { super({ key: 'LevelUpScene' }); }
+
+  create() {
+    const state = GameState.get();
+    const choices = getSkillChoices(state.activeSkills, 3);
+    this.add.rectangle(GAME_WIDTH/2, GAME_HEIGHT/2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.75).setDepth(DEPTHS.OVERLAY).setInteractive();
+    this.add.text(GAME_WIDTH/2, 120, `LEVEL UP!  Lv.${state.level}`, { fontSize:'26px', color:'#ffdd00', fontFamily:'monospace', stroke:'#885500', strokeThickness:3 }).setOrigin(0.5).setDepth(DEPTHS.OVERLAY+1);
+    this.add.text(GAME_WIDTH/2, 158, '\u30b9\u30ad\u30eb\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044', { fontSize:'14px', color:'#aaaaff', fontFamily:'monospace' }).setOrigin(0.5).setDepth(DEPTHS.OVERLAY+1);
+    choices.forEach((skill, i) => this.createCard(GAME_WIDTH/2, 210 + i*120, GAME_WIDTH-48, 110, skill));
+    this.cameras.main.setAlpha(0);
+    this.tweens.add({ targets: this.cameras.main, alpha:1, duration:180 });
+  }
+
+  private createCard(cx: number, cy: number, w: number, h: number, skill: SkillDef) {
+    const d = DEPTHS.OVERLAY + 2;
+    const rarityColors = { common:0x4444aa, rare:0x0066cc, epic:0x8800cc, legendary:0xcc8800 };
+    const border = rarityColors[skill.rarity];
+    const bg = this.add.rectangle(cx, cy, w, h, COLORS.SKILL_CARD_BG).setStrokeStyle(2, border).setDepth(d).setInteractive({ useHandCursor:true });
+    this.add.text(cx+w/2-8, cy-h/2+8, skill.rarity.toUpperCase(), { fontSize:'10px', color:`#${border.toString(16).padStart(6,'0')}`, fontFamily:'monospace' }).setOrigin(1,0).setDepth(d+1);
+    this.add.text(cx, cy-22, skill.name, { fontSize:'18px', color:'#ffffff', fontFamily:'monospace' }).setOrigin(0.5).setDepth(d+1);
+    this.add.text(cx, cy+10, skill.description, { fontSize:'13px', color:'#bbbbbb', fontFamily:'monospace' }).setOrigin(0.5).setDepth(d+1);
+    const existing = GameState.get().activeSkills.find(s => s.def.id === skill.id);
+    if (existing) this.add.text(cx, cy+32, `Lv.${existing.level} \u2192 Lv.${existing.level+1}`, { fontSize:'12px', color:'#ffdd00', fontFamily:'monospace' }).setOrigin(0.5).setDepth(d+1);
+    bg.on('pointerover', () => { bg.setFillStyle(0x2a2a50); this.tweens.add({ targets:bg, scaleX:1.02, scaleY:1.02, duration:80 }); });
+    bg.on('pointerout',  () => { bg.setFillStyle(COLORS.SKILL_CARD_BG); this.tweens.add({ targets:bg, scaleX:1, scaleY:1, duration:80 }); });
+    bg.on('pointerdown', () => {
+      this.sound.play('sfx_select', { volume:0.6 });
+      (this.scene.get('GameScene') as any).skillSystem?.applySkill(skill);
+      this.tweens.add({ targets:this.cameras.main, alpha:0, duration:150, onComplete:()=>{ this.scene.stop(); this.scene.resume('GameScene'); } });
+    });
+  }
+}
