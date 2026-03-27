@@ -19,6 +19,7 @@ export interface PlayerStats {
   homing: boolean;
   magnetRadius: number;
   shieldHp: number;
+  invincibleExtendMs: number;
 }
 
 export interface GameStateData {
@@ -51,6 +52,7 @@ const BASE_STATS: PlayerStats = {
   homing: false,
   magnetRadius: 60,
   shieldHp: 0,
+  invincibleExtendMs: 0,
 };
 
 let _state: GameStateData | null = null;

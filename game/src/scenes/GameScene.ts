@@ -3,6 +3,7 @@ import { GAME_WIDTH, GAME_HEIGHT, WAVE, DEPTHS } from '../config';
 import { Player } from '../entities/Player';
 import { Enemy } from '../entities/Enemy';
 import { Bullet } from '../entities/Bullet';
+import { DroppedItem } from '../entities/DroppedItem';
 import { EnemyManager } from '../systems/EnemyManager';
 import { BulletManager } from '../systems/BulletManager';
 import { XPSystem } from '../systems/XPSystem';
@@ -26,6 +27,7 @@ export class GameScene extends Phaser.Scene {
   private starData: { x: number; y: number; speed: number; size: number }[] = [];
   private droneSprites: Phaser.GameObjects.Arc[] = [];
   private droneFireTimes: number[] = [];
+  private droppedItems: DroppedItem[] = [];
 
   constructor() { super({ key: 'GameScene' }); }
 
@@ -82,6 +84,7 @@ export class GameScene extends Phaser.Scene {
     this.hudController.update();
     this.checkCollisions(time);
     this.updateDrones(time);
+    this.updateItems(time, delta);
   }
 
   private updateDrones(time: number) {
@@ -132,6 +135,10 @@ export class GameScene extends Phaser.Scene {
             this.xpSystem.addXP(xp);
             GameState.addScore(enemy.def.scoreValue);
             if (coin > 0) GameState.addCurrency(coin);
+            if (xp > 0) {
+              if (Math.random() < 0.40) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'coin'));
+              if (Math.random() < 0.10) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'heart'));
+            }
             if (bullet.explosive) this.splashDamage(enemy.x, enemy.y, 60, bullet.damage * 0.5);
           }
           if (!bullet.active) break;
@@ -158,6 +165,38 @@ export class GameScene extends Phaser.Scene {
         this.enemyManager.killEnemy(enemy);
         if (this.player.takeDamage(15, time)) this.gameOver();
       }
+    }
+  }
+
+  private updateItems(_time: number, delta: number) {
+    const stats = GameState.get().stats;
+    const px = this.player.x, py = this.player.y;
+    const toRemove: DroppedItem[] = [];
+    for (const item of this.droppedItems) {
+      item.update(delta);
+      if (item.y > GAME_HEIGHT + 20) { toRemove.push(item); continue; }
+      const dist = Phaser.Math.Distance.Between(px, py, item.x, item.y);
+      if (dist < stats.magnetRadius && dist > 1) {
+        const angle = Phaser.Math.Angle.Between(item.x, item.y, px, py);
+        const pull = 200;
+        item.velX = Math.cos(angle) * pull;
+        item.velY = Math.sin(angle) * pull;
+      }
+      if (dist < 20) {
+        if (item.itemType === 'coin') {
+          GameState.addCurrency(1);
+          try { this.sound.play('sfx_coin', { volume: 0.5 }); } catch (_) {}
+        } else {
+          const s = GameState.get().stats;
+          s.hp = Math.min(s.maxHp, s.hp + Math.floor(s.maxHp * 0.05));
+          try { this.sound.play('sfx_select', { volume: 0.5 }); } catch (_) {}
+        }
+        toRemove.push(item);
+      }
+    }
+    for (const item of toRemove) {
+      item.destroy();
+      this.droppedItems.splice(this.droppedItems.indexOf(item), 1);
     }
   }
 

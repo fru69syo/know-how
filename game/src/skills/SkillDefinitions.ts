@@ -29,7 +29,7 @@ export const SKILL_DEFS: Record<SkillId, SkillDef> = {
   hp_up:            { id:'hp_up',            name:'HP増加',               description:'最大HP+25%',               icon:'icon_heart',maxLevel:5, rarity:'common',    applyLevel:(s,_)=>{ const b=Math.floor(s.maxHp*0.25); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); } },
   heal:             { id:'heal',             name:'回復',                 description:'HPを 20%回復',             icon:'icon_heart',maxLevel:3, rarity:'common',    applyLevel:(s,_)=>{ s.hp=Math.min(s.maxHp,s.hp+Math.floor(s.maxHp*0.2)); } },
   shield:           { id:'shield',           name:'シールド',               description:'ダメージを 1回無効化',        icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,lv)=>{ s.shieldHp+=lv*30; } },
-  invincible_extend:{ id:'invincible_extend',name:'無敵時間延長',         description:'被弾後の無敵+0.5秒',        icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(_,__)=>{ /* PlayerControllerで参照 */ } },
+  invincible_extend:{ id:'invincible_extend',name:'無敵時間延長',         description:'被弾後の無敵+0.5秒',        icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,lv)=>{ (s as any).invincibleExtendMs = lv * 500; } },
   magnet:           { id:'magnet',           name:'磁力フィールド',         description:'アイテム吸引範囲拡大',       icon:'icon_coin', maxLevel:3, rarity:'common',    applyLevel:(s,lv)=>{ s.magnetRadius=60+lv*40; } },
   coin_boost:       { id:'coin_boost',       name:'コインブースト',          description:'通貨ドロップ+50%',          icon:'icon_coin', maxLevel:3, rarity:'common',    applyLevel:(_,__)=>{ /* GameStateで参照 */ } },
   speed_up:         { id:'speed_up',         name:'移動速度UP',            description:'移動速度+20%',              icon:'icon_star', maxLevel:4, rarity:'common',    applyLevel:(s,lv)=>{ s.speed=Math.floor(s.speed*(1+lv*0.2)); } },
@@ -41,8 +41,8 @@ export const SKILL_DEFS: Record<SkillId, SkillDef> = {
 
 export function getSkillChoices(activeSkills: ActiveSkill[], count = 3): SkillDef[] {
   const allIds = Object.keys(SKILL_DEFS) as SkillId[];
-  // speed_up has no effect on touch controls; magnet requires item drops (not implemented)
-  const EXCLUDED = new Set<SkillId>(['speed_up', 'magnet']);
+  // speed_up has no effect on touch controls
+  const EXCLUDED = new Set<SkillId>(['speed_up']);
   const activeIds = new Set(activeSkills.map(s => s.def.id));
   const available = allIds.filter(id => !activeIds.has(id) && !EXCLUDED.has(id)).map(id => SKILL_DEFS[id]);
   const upgradeable = activeSkills.filter(s => s.level < s.def.maxLevel).map(s => s.def);

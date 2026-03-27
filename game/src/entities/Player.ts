@@ -1,17 +1,17 @@
 import Phaser from 'phaser';
 import { GAME_WIDTH, GAME_HEIGHT, PLAYER, DEPTHS } from '../config';
 import { GameState } from '../store/GameState';
+import { PersistentState } from '../store/PersistentState';
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
   private lastFireTime = 0;
   private invincibleUntil = 0;
-  private invincibleDuration = PLAYER.INVINCIBLE_MS;
   private touchStartX = 0; private touchStartY = 0;
   private playerStartX = 0; private playerStartY = 0;
   private isPointerDown = false;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    const skinId = localStorage.getItem('equipped_skin') ?? 'ship_default';
+    const skinId = PersistentState.get().equippedSkinId ?? 'ship_default';
     super(scene, x, y, skinId);
     scene.add.existing(this); scene.physics.add.existing(this);
     this.setDepth(DEPTHS.PLAYER); this.setCollideWorldBounds(true);
@@ -57,7 +57,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   takeDamage(amount: number, time: number): boolean {
     if (time < this.invincibleUntil) return false;
     const died = GameState.takeDamage(amount);
-    this.invincibleUntil = time + this.invincibleDuration;
+    const extMs = (GameState.get().stats as any).invincibleExtendMs ?? 0;
+    this.invincibleUntil = time + PLAYER.INVINCIBLE_MS + extMs;
     if (!died) {
       this.scene.sound.play('sfx_hit', { volume: 0.5 });
       this.scene.tweens.add({ targets: this, tintFill: true, tint: { from: 0xff0000, to: 0xffffff }, duration: 200 });
