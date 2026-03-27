@@ -62,8 +62,8 @@ export class EnemyManager {
       }
     }
 
-    // Cooldown: fire at most once per second
-    if (this.gridY + 3 * WAVE.CELL_H > GAME_HEIGHT * 0.6 && time - this.bottomReachedAt > 1000) {
+    // Trigger damage only when enemy grid bottom row is near the player (player is at 82% of screen)
+    if (this.gridY + WAVE.ROWS * WAVE.CELL_H > GAME_HEIGHT * 0.78 && time - this.bottomReachedAt > 2000) {
       this.bottomReachedAt = time;
       this.onEnemyReachedBottom?.();
     }
