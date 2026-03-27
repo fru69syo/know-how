@@ -39,15 +39,14 @@ export class GameScene extends Phaser.Scene {
     this.setupCollisions();
     this.enemyManager.onWaveCleared        = () => this.time.delayedCall(1200, () => this.startWave(GameState.get().wave + 1));
     this.enemyManager.onEnemyReachedBottom = () => { if (this.player.takeDamage(30, this.time.now)) this.gameOver(); else this.cameras.main.shake(300, 0.015); };
-    this.xpSystem.onLevelUp = (level) => {
+    this.xpSystem.onLevelUp = (_level) => {
       GameState.get().isPaused = true;
       this.scene.pause();
       this.scene.launch('LevelUpScene');
       this.scene.get('LevelUpScene').events.once('shutdown', () => { GameState.get().isPaused = false; });
     };
     this.startWave(1);
-    this.bgMusic = this.sound.add('bgm_game', { loop:true, volume:0.4 });
-    this.bgMusic.play();
+    try { this.bgMusic = this.sound.add('bgm_game', { loop:true, volume:0.4 }); this.bgMusic.play(); } catch (_) {}
     this.cameras.main.fadeIn(400, 0, 0, 0);
   }
 
@@ -69,31 +68,40 @@ export class GameScene extends Phaser.Scene {
 
   private setupCollisions() {
     this.physics.add.overlap(this.bulletManager.playerBullets, this.enemyManager.enemies, (bo, eo) => {
-      const bullet = bo as Bullet, enemy = eo as Enemy;
-      if (!bullet.active || !enemy.active) return;
-      const died = enemy.takeDamage(bullet.damage);
-      if (!bullet.penetrate) bullet.destroy();
-      if (died) {
-        const { xp, coin } = this.enemyManager.killEnemy(enemy);
-        this.xpSystem.addXP(xp); GameState.addScore(enemy.def.scoreValue);
-        if (coin > 0) GameState.addCurrency(coin);
-        if (bullet.explosive) this.splashDamage(enemy.x, enemy.y, 60, bullet.damage * 0.5);
-      }
+      try {
+        const bullet = bo as Bullet, enemy = eo as Enemy;
+        if (!bullet.active || !enemy.active) return;
+        const died = enemy.takeDamage(bullet.damage);
+        if (!bullet.penetrate) bullet.destroy();
+        if (died) {
+          const { xp, coin } = this.enemyManager.killEnemy(enemy);
+          this.xpSystem.addXP(xp); GameState.addScore(enemy.def.scoreValue);
+          if (coin > 0) GameState.addCurrency(coin);
+          if (bullet.explosive) this.splashDamage(enemy.x, enemy.y, 60, bullet.damage * 0.5);
+        }
+      } catch (err) { console.error('playerBullet overlap error:', err); }
     });
     this.physics.add.overlap(this.bulletManager.enemyBullets, this.player, (_, bo) => {
-      const bullet = bo as Bullet; bullet.destroy();
-      if (this.player.takeDamage(bullet.damage, this.time.now)) this.gameOver();
+      try {
+        const bullet = bo as Bullet;
+        if (!bullet.active) return;
+        bullet.destroy();
+        if (this.player.takeDamage(bullet.damage, this.time.now)) this.gameOver();
+      } catch (err) { console.error('enemyBullet overlap error:', err); }
     });
     this.physics.add.overlap(this.player, this.enemyManager.enemies, (_, eo) => {
-      const enemy = eo as Enemy;
-      if (!enemy.active) return;
-      enemy.takeDamage(999); this.enemyManager.killEnemy(enemy);
-      if (this.player.takeDamage(15, this.time.now)) this.gameOver();
+      try {
+        const enemy = eo as Enemy;
+        if (!enemy.active) return;
+        enemy.takeDamage(999); this.enemyManager.killEnemy(enemy);
+        if (this.player.takeDamage(15, this.time.now)) this.gameOver();
+      } catch (err) { console.error('player overlap error:', err); }
     });
   }
 
   private splashDamage(cx: number, cy: number, r: number, dmg: number) {
     (this.enemyManager.enemies.getChildren() as Enemy[]).forEach(e => {
+      if (!e.active) return;
       if (Phaser.Math.Distance.Between(cx, cy, e.x, e.y) <= r) {
         if (e.takeDamage(Math.floor(dmg))) {
           const { xp, coin } = this.enemyManager.killEnemy(e);
@@ -112,7 +120,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private gameOver() {
-    this.bgMusic?.stop();
+    try { this.bgMusic?.stop(); } catch (_) {}
     this.cameras.main.shake(400, 0.02);
     this.cameras.main.flash(500, 255, 0, 0);
     this.time.delayedCall(600,  () => this.cameras.main.fadeOut(400, 0, 0, 0));

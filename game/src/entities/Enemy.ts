@@ -4,6 +4,8 @@ import type { EnemyDef } from '../data/EnemyData';
 
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
   def: EnemyDef; hp: number; maxHp: number;
+  gridRow: number = 0;
+  gridCol: number = 0;
   private hpBar!: Phaser.GameObjects.Rectangle;
   private hpBarBg!: Phaser.GameObjects.Rectangle;
   private lastShootTime: number = 0;
@@ -27,7 +29,6 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
       this.hpBar.width = this.def.width * r;
       this.hpBar.setFillStyle(r > 0.5 ? COLORS.HP_BAR_FILL : r > 0.25 ? 0xffdd00 : 0xff4444);
     }
-    this.scene.tweens.add({ targets: this, alpha: { from: 1, to: 0.4 }, duration: 80, yoyo: true });
     return this.hp <= 0;
   }
 
