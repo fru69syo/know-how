@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { GAME_WIDTH, GAME_HEIGHT } from '../config';
+import { GAME_WIDTH, GAME_HEIGHT, WAVE, DEPTHS } from '../config';
 import { Player } from '../entities/Player';
 import { Enemy } from '../entities/Enemy';
 import { Bullet } from '../entities/Bullet';
@@ -44,6 +44,14 @@ export class GameScene extends Phaser.Scene {
       this.scene.launch('LevelUpScene');
       this.scene.get('LevelUpScene').events.once('shutdown', () => { GameState.get().isPaused = false; });
     };
+    // ── debug: game-over threshold line ──────────────────────────────────────
+    const lineY = GAME_HEIGHT * 0.85;
+    const dbg = this.add.graphics().setDepth(DEPTHS.HUD - 1);
+    dbg.lineStyle(1, 0xff0000, 0.5);
+    for (let x = 0; x < GAME_WIDTH; x += 12) dbg.lineBetween(x, lineY, x + 6, lineY);
+    this.add.text(GAME_WIDTH - 4, lineY - 3, 'DANGER', { fontSize: '9px', color: '#ff4444', fontFamily: 'monospace' }).setOrigin(1, 1).setDepth(DEPTHS.HUD - 1).setAlpha(0.7);
+    // ─────────────────────────────────────────────────────────────────────────
+
     this.startWave(1);
     try { this.bgMusic = this.sound.add('bgm_game', { loop:true, volume:0.4 }); this.bgMusic.play(); } catch (_) {}
     this.cameras.main.fadeIn(400, 0, 0, 0);
