@@ -9,6 +9,7 @@ export interface PlayerStats {
   fireRateMs: number;
   damage: number;
   bulletCount: number;
+  baseBulletCount: number;
   critChance: number;
   critMultiplier: number;
   penetrate: boolean;
@@ -37,6 +38,7 @@ const BASE_STATS: PlayerStats = {
   fireRateMs: 400,
   damage: 10,
   bulletCount: 1,
+  baseBulletCount: 1,
   critChance: 0,
   critMultiplier: 2.0,
   penetrate: false,
@@ -62,7 +64,7 @@ export const GameState = {
 
     _state = {
       wave: 1, score: 0, xp: 0, level: 1, sessionCurrency: 0,
-      stats: { ...BASE_STATS, hp: maxHp, maxHp, damage, bulletCount, fireRateMs },
+      stats: { ...BASE_STATS, hp: maxHp, maxHp, damage, bulletCount, baseBulletCount: bulletCount, fireRateMs },
       activeSkills: [], isGameOver: false, isPaused: false,
     };
     return _state;
