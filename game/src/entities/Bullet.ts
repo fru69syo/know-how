@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { DEPTHS } from '../config';
+import { DEPTHS, PLAYER } from '../config';
 
 export type BulletOwner = 'player' | 'enemy';
 
@@ -25,8 +25,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
   update(_time: number, _delta: number) {
     if (this.homing && this.homingTarget && this.homingTarget.active) {
       const angle = Phaser.Math.Angle.Between(this.x, this.y, this.homingTarget.x, this.homingTarget.y);
-      const speed = (this.body as Phaser.Physics.Arcade.Body).speed;
-      this.scene.physics.velocityFromAngle(Phaser.Math.RadToDeg(angle), speed, (this.body as Phaser.Physics.Arcade.Body).velocity);
+      this.scene.physics.velocityFromAngle(Phaser.Math.RadToDeg(angle), PLAYER.BULLET_SPEED, (this.body as Phaser.Physics.Arcade.Body).velocity);
       this.setRotation(angle + Math.PI / 2);
     }
     if (this.y < -20 || this.y > this.scene.scale.height + 20 || this.x < -20 || this.x > this.scene.scale.width + 20) {
