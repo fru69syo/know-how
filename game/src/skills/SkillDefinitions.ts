@@ -41,8 +41,10 @@ export const SKILL_DEFS: Record<SkillId, SkillDef> = {
 
 export function getSkillChoices(activeSkills: ActiveSkill[], count = 3): SkillDef[] {
   const allIds = Object.keys(SKILL_DEFS) as SkillId[];
+  // speed_up has no effect on touch controls; magnet requires item drops (not implemented)
+  const EXCLUDED = new Set<SkillId>(['speed_up', 'magnet']);
   const activeIds = new Set(activeSkills.map(s => s.def.id));
-  const available = allIds.filter(id => !activeIds.has(id)).map(id => SKILL_DEFS[id]);
+  const available = allIds.filter(id => !activeIds.has(id) && !EXCLUDED.has(id)).map(id => SKILL_DEFS[id]);
   const upgradeable = activeSkills.filter(s => s.level < s.def.maxLevel).map(s => s.def);
   const weights: Record<SkillDef['rarity'], number> = { common: 60, rare: 25, epic: 12, legendary: 3 };
   const pool = [
