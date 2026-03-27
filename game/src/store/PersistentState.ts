@@ -32,7 +32,14 @@ export const PersistentState = {
   get(): PersistentStateData {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return { ...DEFAULT_STATE, ...JSON.parse(raw) };
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return {
+          ...DEFAULT_STATE,
+          ...parsed,
+          upgrades: { ...DEFAULT_STATE.upgrades, ...(parsed.upgrades ?? {}) },
+        };
+      }
     } catch {}
     return { ...DEFAULT_STATE };
   },

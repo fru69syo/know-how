@@ -15,7 +15,11 @@ export class MainMenuScene extends Phaser.Scene {
     this.createButton(cx, 430, 'PLAY',   () => this.scene.start('GameScene'));
     this.createButton(cx, 510, 'HANGAR', () => this.scene.start('HangarScene'));
     this.createButton(cx, 590, 'SHOP',   () => this.showToast('Coming Soon!'));
-    if (!this.sound.get('bgm_menu')) this.sound.add('bgm_menu', { loop:true, volume:0.5 }).play();
+    try {
+      if (!this.sound.get('bgm_menu') && this.cache.audio.has('bgm_menu')) {
+        this.sound.add('bgm_menu', { loop: true, volume: 0.5 }).play();
+      }
+    } catch (_) {}
     this.add.text(GAME_WIDTH-8, GAME_HEIGHT-8, 'v0.1.0', { fontSize:'11px', color:'#444466', fontFamily:'monospace' }).setOrigin(1,1);
   }
 
