@@ -6,7 +6,7 @@ import type { UpgradeTree } from '../store/PersistentState';
 const UPGRADE_ITEMS: { key: keyof UpgradeTree; label: string; description: string; maxLevel: number }[] = [
   { key: 'attackLevel',   label: '\u653b\u6483\u529b',   description: '\u30c0\u30e1\u30fc\u30b8 +12%/Lv',  maxLevel: 5 },
   { key: 'hpLevel',       label: 'HP',          description: '\u6700\u5927HP +15%/Lv', maxLevel: 5 },
-  { key: 'speedLevel',    label: '\u79fb\u52d5\u901f\u5ea6',   description: '\u901f\u5ea6 +20px/Lv',    maxLevel: 5 },
+  { key: 'bulletLevel',   label: '開始弾数',   description: '初期弾数 +1/Lv',   maxLevel: 3 },
   { key: 'fireRateLevel', label: '\u653b\u6483\u901f\u5ea6',   description: '\u767a\u5c04\u9593\u9694 -30ms/Lv', maxLevel: 5 },
   { key: 'currencyLevel', label: '\u30b3\u30a4\u30f3\u904b',   description: '\u30c9\u30ed\u30c3\u30d7 +30%/Lv',  maxLevel: 3 },
 ];

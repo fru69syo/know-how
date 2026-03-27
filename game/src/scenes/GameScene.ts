@@ -11,6 +11,9 @@ import { HUDController } from '../systems/HUDController';
 import { GameState } from '../store/GameState';
 import { PersistentState } from '../store/PersistentState';
 
+const DRONE_OFFSETS = [{ x: -32, y: 8 }, { x: 32, y: 8 }, { x: 0, y: -20 }];
+const DRONE_FIRE_MS = 600;
+
 export class GameScene extends Phaser.Scene {
   player!: Player;
   enemyManager!: EnemyManager;
@@ -21,6 +24,8 @@ export class GameScene extends Phaser.Scene {
   private bgMusic!: Phaser.Sound.BaseSound;
   private stars!: Phaser.GameObjects.Graphics;
   private starData: { x: number; y: number; speed: number; size: number }[] = [];
+  private droneSprites: Phaser.GameObjects.Arc[] = [];
+  private droneFireTimes: number[] = [];
 
   constructor() { super({ key: 'GameScene' }); }
 
@@ -76,6 +81,34 @@ export class GameScene extends Phaser.Scene {
     this.skillSystem.update(time, delta);
     this.hudController.update();
     this.checkCollisions(time);
+    this.updateDrones(time);
+  }
+
+  private updateDrones(time: number) {
+    const droneSkill = GameState.get().activeSkills.find(s => s.def.id === 'drone');
+    const count = droneSkill ? droneSkill.level : 0;
+    while (this.droneSprites.length < count) {
+      const d = this.add.circle(0, 0, 7, 0x00cfff, 0.9).setDepth(DEPTHS.PLAYER - 1);
+      this.droneSprites.push(d);
+      this.droneFireTimes.push(0);
+    }
+    while (this.droneSprites.length > count) {
+      this.droneSprites.pop()?.destroy();
+      this.droneFireTimes.pop();
+    }
+    const enemies = (this.enemyManager.enemies.getChildren() as Enemy[]).filter(e => e.active);
+    this.droneSprites.forEach((drone, i) => {
+      const off = DRONE_OFFSETS[i] ?? DRONE_OFFSETS[0];
+      drone.x = this.player.x + off.x;
+      drone.y = this.player.y + off.y;
+      if (enemies.length > 0 && time - this.droneFireTimes[i] >= DRONE_FIRE_MS) {
+        this.droneFireTimes[i] = time;
+        const target = enemies[i % enemies.length];
+        const angle = Phaser.Math.Angle.Between(drone.x, drone.y, target.x, target.y);
+        const s = GameState.get().stats;
+        this.bulletManager.firePlayerBullet(drone.x, drone.y, angle, { ...s, homing: false, penetrate: false, explosive: false }, i + 10);
+      }
+    });
   }
 
   // ── Manual AABB collision detection ──────────────────────────────────────

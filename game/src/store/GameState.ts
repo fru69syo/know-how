@@ -52,17 +52,17 @@ export const GameState = {
   init(upgrades: {
     attackLevel: number;
     hpLevel: number;
-    speedLevel: number;
+    bulletLevel?: number;
     fireRateLevel: number;
   }) {
     const maxHp = Math.floor(100 * (1 + (upgrades.hpLevel - 1) * 0.15));
     const damage = Math.floor(10  * (1 + (upgrades.attackLevel - 1) * 0.12));
-    const speed  = 250 + (upgrades.speedLevel - 1) * 20;
+    const bulletCount = Math.min(3, upgrades.bulletLevel ?? 1);
     const fireRateMs = Math.max(150, 400 - (upgrades.fireRateLevel - 1) * 30);
 
     _state = {
       wave: 1, score: 0, xp: 0, level: 1, sessionCurrency: 0,
-      stats: { ...BASE_STATS, hp: maxHp, maxHp, damage, speed, fireRateMs },
+      stats: { ...BASE_STATS, hp: maxHp, maxHp, damage, bulletCount, fireRateMs },
       activeSkills: [], isGameOver: false, isPaused: false,
     };
     return _state;
