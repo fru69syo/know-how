@@ -7,7 +7,9 @@ export interface PlayerStats {
   maxHp: number;
   speed: number;
   fireRateMs: number;
+  baseFireRateMs: number;
   damage: number;
+  baseDamage: number;
   bulletCount: number;
   baseBulletCount: number;
   critChance: number;
@@ -25,6 +27,7 @@ export interface GameStateData {
   xp: number;
   level: number;
   sessionCurrency: number;
+  coinMultiplier: number;
   stats: PlayerStats;
   activeSkills: ActiveSkill[];
   isGameOver: boolean;
@@ -36,7 +39,9 @@ const BASE_STATS: PlayerStats = {
   maxHp: 100,
   speed: 250,
   fireRateMs: 400,
+  baseFireRateMs: 400,
   damage: 10,
+  baseDamage: 10,
   bulletCount: 1,
   baseBulletCount: 1,
   critChance: 0,
@@ -56,15 +61,24 @@ export const GameState = {
     hpLevel: number;
     bulletLevel?: number;
     fireRateLevel: number;
+    currencyLevel?: number;
   }) {
     const maxHp = Math.floor(100 * (1 + (upgrades.hpLevel - 1) * 0.15));
     const damage = Math.floor(10  * (1 + (upgrades.attackLevel - 1) * 0.12));
     const bulletCount = Math.min(3, upgrades.bulletLevel ?? 1);
     const fireRateMs = Math.max(150, 400 - (upgrades.fireRateLevel - 1) * 30);
+    const coinMultiplier = 1 + ((upgrades.currencyLevel ?? 1) - 1) * 0.30;
 
     _state = {
       wave: 1, score: 0, xp: 0, level: 1, sessionCurrency: 0,
-      stats: { ...BASE_STATS, hp: maxHp, maxHp, damage, bulletCount, baseBulletCount: bulletCount, fireRateMs },
+      coinMultiplier,
+      stats: {
+        ...BASE_STATS,
+        hp: maxHp, maxHp,
+        damage, baseDamage: damage,
+        bulletCount, baseBulletCount: bulletCount,
+        fireRateMs, baseFireRateMs: fireRateMs,
+      },
       activeSkills: [], isGameOver: false, isPaused: false,
     };
     return _state;
@@ -84,7 +98,12 @@ export const GameState = {
   },
 
   addScore(amount: number) { this.get().score += amount; },
-  addCurrency(amount: number) { this.get().sessionCurrency += amount; },
+  addCurrency(amount: number) {
+    const s = this.get();
+    const boostSkill = s.activeSkills.find(sk => sk.def.id === 'coin_boost');
+    const boostMult = boostSkill ? 1 + boostSkill.level * 0.50 : 1;
+    s.sessionCurrency += Math.floor(amount * s.coinMultiplier * boostMult);
+  },
 
   takeDamage(amount: number): boolean {
     const s = this.get();
