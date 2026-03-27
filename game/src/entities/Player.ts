@@ -49,7 +49,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     const spread = count > 1 ? 12 : 0;
     for (let i = 0; i < count; i++) {
       const angleOffset = count > 1 ? -((count-1)/2)*spread + i*spread : 0;
-      scene.bulletManager.firePlayerBullet(this.x, this.y - this.height/2, Phaser.Math.DegToRad(-90 + angleOffset), stats);
+      scene.bulletManager.firePlayerBullet(this.x, this.y - this.height/2, Phaser.Math.DegToRad(-90 + angleOffset), stats, i);
     }
     scene.sound.play('sfx_shoot', { volume: 0.4 });
   }

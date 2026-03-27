@@ -37,7 +37,11 @@ export class GameScene extends Phaser.Scene {
     this.hudController = new HUDController(this);
     this.player = new Player(this, GAME_WIDTH/2, GAME_HEIGHT*0.82);
     this.enemyManager.onWaveCleared        = () => this.time.delayedCall(1200, () => this.startWave(GameState.get().wave + 1));
-    this.enemyManager.onEnemyReachedBottom = () => { if (this.player.takeDamage(30, this.time.now)) this.gameOver(); else this.cameras.main.shake(300, 0.015); };
+    this.enemyManager.onEnemyReachedBottom = () => {
+      const dmg = Math.floor(GameState.get().stats.maxHp * 0.25);
+      if (this.player.takeDamage(dmg, this.time.now)) this.gameOver();
+      else this.cameras.main.shake(300, 0.015);
+    };
     this.xpSystem.onLevelUp = (_level) => {
       GameState.get().isPaused = true;
       this.scene.pause();

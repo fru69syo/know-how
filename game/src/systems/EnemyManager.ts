@@ -63,7 +63,7 @@ export class EnemyManager {
     }
 
     // Trigger damage only when enemy grid bottom row is at player level (player is at 82% of screen)
-    if (this.gridY + WAVE.ROWS * WAVE.CELL_H > GAME_HEIGHT * 0.85 && time - this.bottomReachedAt > 3000) {
+    if (this.gridY + WAVE.ROWS * WAVE.CELL_H > GAME_HEIGHT * 0.85 && time - this.bottomReachedAt > 1000) {
       this.bottomReachedAt = time;
       this.onEnemyReachedBottom?.();
     }
