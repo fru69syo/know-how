@@ -70,6 +70,7 @@ export class GameScene extends Phaser.Scene {
   private setupCollisions() {
     this.physics.add.overlap(this.bulletManager.playerBullets, this.enemyManager.enemies, (bo, eo) => {
       const bullet = bo as Bullet, enemy = eo as Enemy;
+      if (!bullet.active || !enemy.active) return;
       const died = enemy.takeDamage(bullet.damage);
       if (!bullet.penetrate) bullet.destroy();
       if (died) {
@@ -85,6 +86,7 @@ export class GameScene extends Phaser.Scene {
     });
     this.physics.add.overlap(this.player, this.enemyManager.enemies, (_, eo) => {
       const enemy = eo as Enemy;
+      if (!enemy.active) return;
       enemy.takeDamage(999); this.enemyManager.killEnemy(enemy);
       if (this.player.takeDamage(15, this.time.now)) this.gameOver();
     });
