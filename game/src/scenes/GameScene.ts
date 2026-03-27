@@ -36,7 +36,6 @@ export class GameScene extends Phaser.Scene {
     this.skillSystem   = new SkillSystem(this);
     this.hudController = new HUDController(this);
     this.player = new Player(this, GAME_WIDTH/2, GAME_HEIGHT*0.82);
-    this.setupCollisions();
     this.enemyManager.onWaveCleared        = () => this.time.delayedCall(1200, () => this.startWave(GameState.get().wave + 1));
     this.enemyManager.onEnemyReachedBottom = () => { if (this.player.takeDamage(30, this.time.now)) this.gameOver(); else this.cameras.main.shake(300, 0.015); };
     this.xpSystem.onLevelUp = (_level) => {
@@ -64,39 +63,57 @@ export class GameScene extends Phaser.Scene {
     this.bulletManager.update(time, delta);
     this.skillSystem.update(time, delta);
     this.hudController.update();
+    this.checkCollisions(time);
   }
 
-  private setupCollisions() {
-    this.physics.add.overlap(this.bulletManager.playerBullets, this.enemyManager.enemies, (bo, eo) => {
-      try {
-        const bullet = bo as Bullet, enemy = eo as Enemy;
-        if (!bullet.active || !enemy.active) return;
-        const died = enemy.takeDamage(bullet.damage);
-        if (!bullet.penetrate) bullet.destroy();
-        if (died) {
-          const { xp, coin } = this.enemyManager.killEnemy(enemy);
-          this.xpSystem.addXP(xp); GameState.addScore(enemy.def.scoreValue);
-          if (coin > 0) GameState.addCurrency(coin);
-          if (bullet.explosive) this.splashDamage(enemy.x, enemy.y, 60, bullet.damage * 0.5);
+  // ── Manual AABB collision detection ──────────────────────────────────────
+  private checkCollisions(time: number) {
+    const enemies = this.enemyManager.enemies.getChildren() as Enemy[];
+    const pBullets = this.bulletManager.playerBullets.getChildren() as Bullet[];
+    const eBullets = this.bulletManager.enemyBullets.getChildren() as Bullet[];
+
+    // Player bullets vs enemies
+    for (const bullet of pBullets) {
+      if (!bullet.active) continue;
+      const bx = bullet.x, by = bullet.y, bhw = 3, bhh = 9;
+      for (const enemy of enemies) {
+        if (!enemy.active) continue;
+        const ehw = enemy.def.width / 2, ehh = enemy.def.height / 2;
+        if (Math.abs(bx - enemy.x) < bhw + ehw && Math.abs(by - enemy.y) < bhh + ehh) {
+          const died = enemy.takeDamage(bullet.damage);
+          if (!bullet.penetrate) { bullet.destroy(); }
+          if (died) {
+            const { xp, coin } = this.enemyManager.killEnemy(enemy);
+            this.xpSystem.addXP(xp);
+            GameState.addScore(enemy.def.scoreValue);
+            if (coin > 0) GameState.addCurrency(coin);
+            if (bullet.explosive) this.splashDamage(enemy.x, enemy.y, 60, bullet.damage * 0.5);
+          }
+          if (!bullet.active) break;
         }
-      } catch (err) { console.error('playerBullet overlap error:', err); }
-    });
-    this.physics.add.overlap(this.bulletManager.enemyBullets, this.player, (_, bo) => {
-      try {
-        const bullet = bo as Bullet;
-        if (!bullet.active) return;
+      }
+    }
+
+    // Enemy bullets vs player
+    const phw = 16, phh = 16;
+    for (const bullet of eBullets) {
+      if (!bullet.active) continue;
+      if (Math.abs(bullet.x - this.player.x) < phw + 4 && Math.abs(bullet.y - this.player.y) < phh + 6) {
         bullet.destroy();
-        if (this.player.takeDamage(bullet.damage, this.time.now)) this.gameOver();
-      } catch (err) { console.error('enemyBullet overlap error:', err); }
-    });
-    this.physics.add.overlap(this.player, this.enemyManager.enemies, (_, eo) => {
-      try {
-        const enemy = eo as Enemy;
-        if (!enemy.active) return;
-        enemy.takeDamage(999); this.enemyManager.killEnemy(enemy);
-        if (this.player.takeDamage(15, this.time.now)) this.gameOver();
-      } catch (err) { console.error('player overlap error:', err); }
-    });
+        if (this.player.takeDamage(bullet.damage, time)) this.gameOver();
+      }
+    }
+
+    // Enemies vs player (ram)
+    for (const enemy of enemies) {
+      if (!enemy.active) continue;
+      const ehw = enemy.def.width / 2, ehh = enemy.def.height / 2;
+      if (Math.abs(enemy.x - this.player.x) < phw + ehw && Math.abs(enemy.y - this.player.y) < phh + ehh) {
+        enemy.takeDamage(999);
+        this.enemyManager.killEnemy(enemy);
+        if (this.player.takeDamage(15, time)) this.gameOver();
+      }
+    }
   }
 
   private splashDamage(cx: number, cy: number, r: number, dmg: number) {

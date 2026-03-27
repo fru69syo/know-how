@@ -55,7 +55,6 @@ export class EnemyManager {
       if (!e.active) continue;
       e.x = this.gridX + e.gridCol * WAVE.CELL_W + WAVE.CELL_W/2 + (e.def.sideMovement ? Math.sin(time*0.003 + e.gridCol)*15 : 0);
       e.y = this.gridY + e.gridRow * WAVE.CELL_H + WAVE.CELL_H/2;
-      if (e.body) (e.body as Phaser.Physics.Arcade.StaticBody).reset(e.x, e.y);
       e.syncHpBarPosition();
       if (e.canShoot(time)) {
         const gs = this.scene as any;
