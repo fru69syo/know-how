@@ -11,9 +11,11 @@ import {
 } from '../data/PartData';
 import type { PartDef, OwnedPart } from '../data/PartData';
 
-const CARD_W = 160;
-const CARD_H = 200;
-const CARDS_PER_ROW = 2;
+// Card layout adapts to pull count: 1 pull = large single card, 11 pulls = 3-col small cards
+function cardLayout(n: number): { cols: number; cardW: number; cardH: number } {
+  if (n === 1) return { cols: 1, cardW: 240, cardH: 260 };
+  return { cols: 3, cardW: 108, cardH: 130 };
+}
 
 export class GachaScene extends Phaser.Scene {
   private coinText!: Phaser.GameObjects.Text;
@@ -154,78 +156,78 @@ export class GachaScene extends Phaser.Scene {
       .setDepth(d)
       .setInteractive();
 
-    const panelH = Math.min(GAME_HEIGHT - 100, 120 + Math.ceil(parts.length / CARDS_PER_ROW) * (CARD_H + 12) + 80);
+    const { cols, cardW, cardH } = cardLayout(parts.length);
+    const colGap = 8;
+    const rowGap = 8;
+    const rows = Math.ceil(parts.length / cols);
+    const contentH = rows * (cardH + rowGap) - rowGap;
+    const panelH = Math.min(GAME_HEIGHT - 60, contentH + 120);
     const panelY = GAME_HEIGHT / 2;
 
-    const panel = this.add.rectangle(cx, panelY, GAME_WIDTH - 20, panelH, COLORS.SKILL_CARD_BG)
+    const panel = this.add.rectangle(cx, panelY, GAME_WIDTH - 16, panelH, COLORS.SKILL_CARD_BG)
       .setStrokeStyle(2, COLORS.SKILL_CARD_BORDER)
       .setDepth(d + 1);
 
-    const title = this.add.text(cx, panelY - panelH / 2 + 30, 'ガチャ結果', {
-      fontSize: '20px', color: '#ffdd00', fontFamily: 'monospace',
+    const title = this.add.text(cx, panelY - panelH / 2 + 24, 'ガチャ結果', {
+      fontSize: '18px', color: '#ffdd00', fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(d + 2);
 
-    const startY = panelY - panelH / 2 + 75;
-    const startX = cx - (CARDS_PER_ROW === 2 ? CARD_W / 2 + 5 : 0);
+    // Center the card grid horizontally
+    const totalGridW = cols * cardW + (cols - 1) * colGap;
+    const gridStartX = cx - totalGridW / 2 + cardW / 2;
+    const gridStartY = panelY - panelH / 2 + 58;
 
     const cards: Phaser.GameObjects.GameObject[] = [];
+    const nameFontSize  = cols >= 3 ? '10px' : '13px';
+    const labelFontSize = cols >= 3 ? '8px'  : '10px';
 
     parts.forEach((def, i) => {
-      const col = i % CARDS_PER_ROW;
-      const row = Math.floor(i / CARDS_PER_ROW);
-      const cardX = startX + col * (CARD_W + 10);
-      const cardY = startY + row * (CARD_H + 10);
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      const cardX = gridStartX + col * (cardW + colGap);
+      const cardY = gridStartY + row * (cardH + rowGap);
 
       const rarityColor = RARITY_COLORS[def.rarity];
-      const card = this.add.rectangle(cardX, cardY, CARD_W, CARD_H, COLORS.UI_BG)
-        .setStrokeStyle(3, rarityColor)
+      const card = this.add.rectangle(cardX, cardY, cardW, cardH, COLORS.UI_BG)
+        .setStrokeStyle(2, rarityColor)
         .setDepth(d + 2);
       cards.push(card);
 
-      // Rarity label
       const rarityHex = '#' + rarityColor.toString(16).padStart(6, '0');
-      const rarityText = this.add.text(cardX, cardY - CARD_H / 2 + 14, def.rarity.toUpperCase(), {
-        fontSize: '10px', color: rarityHex, fontFamily: 'monospace',
+      const rarityText = this.add.text(cardX, cardY - cardH / 2 + 10, def.rarity.toUpperCase(), {
+        fontSize: labelFontSize, color: rarityHex, fontFamily: 'monospace',
       }).setOrigin(0.5).setDepth(d + 3);
       cards.push(rarityText);
 
-      // Slot label
-      const slotLabel = this.add.text(cardX, cardY - CARD_H / 2 + 28, SLOT_LABELS[def.slot], {
-        fontSize: '10px', color: '#888888', fontFamily: 'monospace',
+      const slotLabel = this.add.text(cardX, cardY - cardH / 2 + 22, SLOT_LABELS[def.slot], {
+        fontSize: labelFontSize, color: '#888888', fontFamily: 'monospace',
       }).setOrigin(0.5).setDepth(d + 3);
       cards.push(slotLabel);
 
-      // Part name
       const nameText = this.add.text(cardX, cardY, def.name, {
-        fontSize: '13px', color: '#ffffff', fontFamily: 'monospace',
-        wordWrap: { width: CARD_W - 10 }, align: 'center',
+        fontSize: nameFontSize, color: '#ffffff', fontFamily: 'monospace',
+        wordWrap: { width: cardW - 6 }, align: 'center',
       }).setOrigin(0.5).setDepth(d + 3);
       cards.push(nameText);
 
-      // Description
-      const descText = this.add.text(cardX, cardY + CARD_H / 2 - 38, def.description, {
-        fontSize: '10px', color: '#aaaaaa', fontFamily: 'monospace',
-        wordWrap: { width: CARD_W - 10 }, align: 'center',
+      const descText = this.add.text(cardX, cardY + cardH / 2 - (cols >= 3 ? 20 : 32), def.description, {
+        fontSize: labelFontSize, color: '#aaaaaa', fontFamily: 'monospace',
+        wordWrap: { width: cardW - 6 }, align: 'center',
       }).setOrigin(0.5).setDepth(d + 3);
       cards.push(descText);
 
-      // NEW badge
       if (!existingIds.has(def.id)) {
-        const newBadge = this.add.text(cardX + CARD_W / 2 - 4, cardY - CARD_H / 2 + 4, 'NEW', {
-          fontSize: '9px', color: '#ff4444', fontFamily: 'monospace',
-          backgroundColor: '#330000', padding: { x: 3, y: 2 },
+        const newBadge = this.add.text(cardX + cardW / 2 - 2, cardY - cardH / 2 + 2, 'NEW', {
+          fontSize: '8px', color: '#ff4444', fontFamily: 'monospace',
+          backgroundColor: '#330000', padding: { x: 2, y: 1 },
         }).setOrigin(1, 0).setDepth(d + 4);
         cards.push(newBadge);
       }
 
-      // Shine effect for rare+
       if (def.rarity === 'epic' || def.rarity === 'legendary') {
         this.tweens.add({
-          targets: card,
-          alpha: { from: 0.8, to: 1.0 },
-          duration: 600,
-          yoyo: true,
-          repeat: -1,
+          targets: card, alpha: { from: 0.8, to: 1.0 },
+          duration: 600, yoyo: true, repeat: -1,
         });
       }
     });

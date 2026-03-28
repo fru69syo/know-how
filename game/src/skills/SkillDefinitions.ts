@@ -19,7 +19,7 @@ export interface ActiveSkill { def: SkillDef; level: number; }
 
 export const SKILL_DEFS: Record<SkillId, SkillDef> = {
   multi_shot:       { id:'multi_shot',       name:'マルチショット',         description:'弾数+1（最大5発）',        icon:'icon_star', maxLevel:4, rarity:'common',    applyLevel:(s,lv)=>{ s.bulletCount=Math.min(5, s.baseBulletCount + lv); } },
-  spread_shot:      { id:'spread_shot',      name:'スプレッド弾',           description:'弾が扇状に広がる',        icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,_)=>{ s.bulletCount=Math.max(s.bulletCount, s.baseBulletCount + 2); } },
+  spread_shot:      { id:'spread_shot',      name:'スプレッド弾',           description:'弾が扇状に広がる',        icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,_)=>{ s.spreadShot=true; } },
   penetrate:        { id:'penetrate',        name:'貫通弾',               description:'弾が敵を貫通する',          icon:'icon_star', maxLevel:1, rarity:'rare',     applyLevel:(s,_)=>{ s.penetrate=true; } },
   explosive:        { id:'explosive',        name:'爆発弾',               description:'着弾時に範囲ダメージ',       icon:'icon_star', maxLevel:3, rarity:'epic',     applyLevel:(s,_)=>{ s.explosive=true; } },
   homing:           { id:'homing',           name:'ホーミング弾',           description:'最寄り敵に自動追尾',         icon:'icon_star', maxLevel:1, rarity:'epic',     applyLevel:(s,_)=>{ s.homing=true; } },
