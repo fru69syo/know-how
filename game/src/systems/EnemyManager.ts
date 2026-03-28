@@ -15,6 +15,7 @@ export class EnemyManager {
   private descendSpeed = WAVE.DESCEND_SPEED_BASE;
   private waveComplete = false;
   private bottomReachedAt = 0;
+  private frozenUntil = 0;
 
   onWaveCleared?: () => void;
   onEnemyReachedBottom?: () => void;
@@ -44,26 +45,29 @@ export class EnemyManager {
   update(time: number, delta: number) {
     const children = this.enemies.getChildren() as Enemy[];
     if (children.length === 0) { if (!this.waveComplete) { this.waveComplete = true; this.onWaveCleared?.(); } return; }
+    const frozen = time < this.frozenUntil;
     const dt = delta / 1000;
-    this.gridX += this.lateralDir * this.lateralSpeed * dt;
-    const w = WAVE.COLS * WAVE.CELL_W;
-    if (this.gridX < WAVE.LATERAL_BOUNCE_X_MIN - WAVE.MARGIN_SIDE) { this.gridX = WAVE.LATERAL_BOUNCE_X_MIN - WAVE.MARGIN_SIDE; this.lateralDir = 1; this.gridY += WAVE.CELL_H * 0.5; }
-    else if (this.gridX + w > WAVE.LATERAL_BOUNCE_X_MAX + WAVE.MARGIN_SIDE) { this.gridX = WAVE.LATERAL_BOUNCE_X_MAX + WAVE.MARGIN_SIDE - w; this.lateralDir = -1; this.gridY += WAVE.CELL_H * 0.5; }
-    this.gridY += this.descendSpeed * dt;
+
+    if (!frozen) {
+      this.gridX += this.lateralDir * this.lateralSpeed * dt;
+      const w = WAVE.COLS * WAVE.CELL_W;
+      if (this.gridX < WAVE.LATERAL_BOUNCE_X_MIN - WAVE.MARGIN_SIDE) { this.gridX = WAVE.LATERAL_BOUNCE_X_MIN - WAVE.MARGIN_SIDE; this.lateralDir = 1; this.gridY += WAVE.CELL_H * 0.5; }
+      else if (this.gridX + w > WAVE.LATERAL_BOUNCE_X_MAX + WAVE.MARGIN_SIDE) { this.gridX = WAVE.LATERAL_BOUNCE_X_MAX + WAVE.MARGIN_SIDE - w; this.lateralDir = -1; this.gridY += WAVE.CELL_H * 0.5; }
+      this.gridY += this.descendSpeed * dt;
+    }
 
     for (const e of children) {
       if (!e.active) continue;
       e.x = this.gridX + e.gridCol * WAVE.CELL_W + WAVE.CELL_W/2 + (e.def.sideMovement ? Math.sin(time*0.003 + e.gridCol)*15 : 0);
       e.y = this.gridY + e.gridRow * WAVE.CELL_H + WAVE.CELL_H/2;
       e.syncHpBarPosition();
-      if (e.canShoot(time)) {
+      if (!frozen && e.canShoot(time)) {
         const gs = this.scene as any;
         gs.bulletManager?.fireEnemyBullet(e.x, e.y + e.def.height/2, gs.player?.x ?? GAME_WIDTH/2, gs.player?.y ?? GAME_HEIGHT*0.8, e.def.bulletSpeed, e.def.bulletDamage);
       }
     }
 
-    // Trigger damage only when enemy grid bottom row is at player level (player is at 82% of screen)
-    if (this.gridY + WAVE.ROWS * WAVE.CELL_H > GAME_HEIGHT * 0.85 && time - this.bottomReachedAt > 1000) {
+    if (!frozen && this.gridY + WAVE.ROWS * WAVE.CELL_H > GAME_HEIGHT * 0.85 && time - this.bottomReachedAt > 1000) {
       this.bottomReachedAt = time;
       this.onEnemyReachedBottom?.();
     }
@@ -86,6 +90,7 @@ export class EnemyManager {
   }
 
   freezeAll(ms: number) {
+    this.frozenUntil = this.scene.time.now + ms;
     (this.enemies.getChildren() as Enemy[]).forEach(e => { e.isFrozen = true; this.scene.time.delayedCall(ms, () => { if (e.active) e.isFrozen = false; }); });
   }
 }
