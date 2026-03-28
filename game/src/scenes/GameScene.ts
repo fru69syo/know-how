@@ -163,7 +163,7 @@ export class GameScene extends Phaser.Scene {
       if (Math.abs(enemy.x - this.player.x) < phw + ehw && Math.abs(enemy.y - this.player.y) < phh + ehh) {
         enemy.takeDamage(999);
         this.enemyManager.killEnemy(enemy);
-        if (this.player.takeDamage(15, time)) this.gameOver();
+        if (this.player.takeDamage(15, time, true)) this.gameOver();
       }
     }
   }

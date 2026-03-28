@@ -54,11 +54,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     scene.sound.play('sfx_shoot', { volume: 0.4 });
   }
 
-  takeDamage(amount: number, time: number): boolean {
-    if (time < this.invincibleUntil) return false;
+  takeDamage(amount: number, time: number, noInvincibility = false): boolean {
+    if (!noInvincibility && time < this.invincibleUntil) return false;
     const died = GameState.takeDamage(amount);
-    const extMs = (GameState.get().stats as any).invincibleExtendMs ?? 0;
-    this.invincibleUntil = time + PLAYER.INVINCIBLE_MS + extMs;
+    if (!noInvincibility) {
+      const extMs = (GameState.get().stats as any).invincibleExtendMs ?? 0;
+      this.invincibleUntil = time + PLAYER.INVINCIBLE_MS + extMs;
+    }
     if (!died) {
       this.scene.sound.play('sfx_hit', { volume: 0.5 });
       this.scene.tweens.add({ targets: this, tintFill: true, tint: { from: 0xff0000, to: 0xffffff }, duration: 200 });

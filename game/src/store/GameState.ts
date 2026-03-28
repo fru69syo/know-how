@@ -29,6 +29,7 @@ export interface GameStateData {
   level: number;
   sessionCurrency: number;
   coinMultiplier: number;
+  xpMultiplier: number;
   stats: PlayerStats;
   activeSkills: ActiveSkill[];
   isGameOver: boolean;
@@ -64,16 +65,18 @@ export const GameState = {
     bulletLevel?: number;
     fireRateLevel: number;
     currencyLevel?: number;
+    xpLevel?: number;
   }) {
     const maxHp = Math.floor(100 * (1 + (upgrades.hpLevel - 1) * 0.15));
     const damage = Math.floor(10  * (1 + (upgrades.attackLevel - 1) * 0.12));
     const bulletCount = Math.min(3, upgrades.bulletLevel ?? 1);
     const fireRateMs = Math.max(150, 400 - (upgrades.fireRateLevel - 1) * 30);
     const coinMultiplier = 1 + ((upgrades.currencyLevel ?? 1) - 1) * 0.30;
+    const xpMultiplier  = 1 + ((upgrades.xpLevel ?? 1) - 1) * 0.15;
 
     _state = {
       wave: 1, score: 0, xp: 0, level: 1, sessionCurrency: 0,
-      coinMultiplier,
+      coinMultiplier, xpMultiplier,
       stats: {
         ...BASE_STATS,
         hp: maxHp, maxHp,
@@ -93,8 +96,10 @@ export const GameState = {
 
   addXP(amount: number): boolean {
     const s = this.get();
+    const xpBoostSkill = s.activeSkills.find(sk => sk.def.id === 'xp_boost');
+    const skillMult = xpBoostSkill ? 1 + xpBoostSkill.level * 0.20 : 1;
     const needed = Math.floor(50 * Math.pow(1.35, s.level - 1));
-    s.xp += amount;
+    s.xp += Math.floor(amount * s.xpMultiplier * skillMult);
     if (s.xp >= needed) { s.xp -= needed; s.level += 1; return true; }
     return false;
   },

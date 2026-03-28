@@ -6,6 +6,7 @@ export interface UpgradeTree {
   bulletLevel: number;
   fireRateLevel: number;
   currencyLevel: number;
+  xpLevel: number;
 }
 
 export interface PersistentStateData {
@@ -24,7 +25,7 @@ const STORAGE_KEY = 'space_shooter_save';
 const DEFAULT_STATE: PersistentStateData = {
   totalCurrency: 0, highScore: 0,
   equippedSkinId: 'ship_default', ownedSkinIds: ['ship_default'],
-  upgrades: { attackLevel: 1, hpLevel: 1, bulletLevel: 1, fireRateLevel: 1, currencyLevel: 1 },
+  upgrades: { attackLevel: 1, hpLevel: 1, bulletLevel: 1, fireRateLevel: 1, currencyLevel: 1, xpLevel: 1 },
   adFree: false, totalRuns: 0, totalKills: 0,
 };
 

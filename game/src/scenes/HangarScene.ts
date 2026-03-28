@@ -9,6 +9,7 @@ const UPGRADE_ITEMS: { key: keyof UpgradeTree; label: string; description: strin
   { key: 'bulletLevel',   label: '開始弾数',   description: '初期弾数 +1/Lv',   maxLevel: 3 },
   { key: 'fireRateLevel', label: '\u653b\u6483\u901f\u5ea6',   description: '\u767a\u5c04\u9593\u9694 -30ms/Lv', maxLevel: 5 },
   { key: 'currencyLevel', label: '\u30b3\u30a4\u30f3\u904b',   description: '\u30c9\u30ed\u30c3\u30d7 +30%/Lv',  maxLevel: 3 },
+  { key: 'xpLevel',       label: '経験値効率', description: 'XP獲得 +15%/Lv',   maxLevel: 5 },
 ];
 
 export class HangarScene extends Phaser.Scene {
