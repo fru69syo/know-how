@@ -9,6 +9,8 @@ import { PauseScene } from './scenes/PauseScene';
 import { ResultScene } from './scenes/ResultScene';
 import { HangarScene } from './scenes/HangarScene';
 import { ShopScene } from './scenes/ShopScene';
+import { GachaScene } from './scenes/GachaScene';
+import { PartsScene } from './scenes/PartsScene';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -32,6 +34,8 @@ const config: Phaser.Types.Core.GameConfig = {
     MainMenuScene,
     HangarScene,
     ShopScene,
+    GachaScene,
+    PartsScene,
     GameScene,
     LevelUpScene,
     PauseScene,

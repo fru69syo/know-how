@@ -12,9 +12,11 @@ export class MainMenuScene extends Phaser.Scene {
     const state = PersistentState.get();
     this.add.text(cx, 310, `BEST: ${state.highScore.toLocaleString()}`, { fontSize:'16px', color:'#aaaaff', fontFamily:'monospace' }).setOrigin(0.5);
     this.add.text(cx, 340, `\ud83e\ude99 ${state.totalCurrency.toLocaleString()}`, { fontSize:'18px', color:'#ffdd00', fontFamily:'monospace' }).setOrigin(0.5);
-    this.createButton(cx, 430, 'PLAY',   () => this.scene.start('GameScene'));
-    this.createButton(cx, 510, 'HANGAR', () => this.scene.start('HangarScene'));
-    this.createButton(cx, 590, 'SHOP',   () => this.scene.start('ShopScene'));
+    this.createButton(cx, 400, 'PLAY',   () => this.scene.start('GameScene'));
+    this.createButton(cx, 465, 'HANGAR', () => this.scene.start('HangarScene'));
+    this.createButton(cx, 530, 'SHOP',   () => this.scene.start('ShopScene'));
+    this.createButton(cx, 595, 'GACHA',  () => this.scene.start('GachaScene'));
+    this.createButton(cx, 660, 'PARTS',  () => this.scene.start('PartsScene'));
     try {
       if (!this.sound.get('bgm_menu') && this.cache.audio.has('bgm_menu')) {
         this.sound.add('bgm_menu', { loop: true, volume: 0.5 }).play();

@@ -1,5 +1,8 @@
 // ランをまたいで永続するデータ（localStorage + 後でFirestore同期）
 
+import type { OwnedPart } from '../data/PartData';
+import type { PartSlot } from '../data/PartData';
+
 export interface UpgradeTree {
   attackLevel: number;
   hpLevel: number;
@@ -20,6 +23,9 @@ export interface PersistentStateData {
   adFree: boolean;
   totalRuns: number;
   totalKills: number;
+  partInventory: OwnedPart[];
+  equippedParts: Partial<Record<PartSlot, string>>; // slot → uid
+  junkCount: number;
 }
 
 const STORAGE_KEY = 'space_shooter_save';
@@ -29,6 +35,9 @@ const DEFAULT_STATE: PersistentStateData = {
   equippedSkinId: 'ship_default', ownedSkinIds: ['ship_default'],
   upgrades: { attackLevel: 1, hpLevel: 1, bulletLevel: 1, fireRateLevel: 1, currencyLevel: 1, xpLevel: 1, shieldLevel: 1, critLevel: 1 },
   adFree: false, totalRuns: 0, totalKills: 0,
+  partInventory: [],
+  equippedParts: {},
+  junkCount: 0,
 };
 
 export const PersistentState = {
@@ -70,5 +79,36 @@ export const PersistentState = {
 
   upgradeCost(level: number): number {
     return Math.floor(100 * Math.pow(2.2, level - 1));
+  },
+
+  addParts(parts: OwnedPart[]) {
+    const state = this.get();
+    this.save({ partInventory: [...state.partInventory, ...parts] });
+  },
+
+  equipPart(slot: PartSlot, uid: string | null) {
+    const eq = { ...this.get().equippedParts };
+    if (uid === null) delete eq[slot];
+    else eq[slot] = uid;
+    this.save({ equippedParts: eq });
+  },
+
+  removePart(uid: string) {
+    const state = this.get();
+    this.save({ partInventory: state.partInventory.filter(p => p.uid !== uid) });
+  },
+
+  upgradePart(uid: string): boolean {
+    const state = this.get();
+    const idx = state.partInventory.findIndex(p => p.uid === uid);
+    if (idx < 0) return false;
+    const updated = [...state.partInventory];
+    updated[idx] = { ...updated[idx], level: updated[idx].level + 1 };
+    this.save({ partInventory: updated });
+    return true;
+  },
+
+  addJunk(n = 1) {
+    this.save({ junkCount: this.get().junkCount + n });
   },
 };
