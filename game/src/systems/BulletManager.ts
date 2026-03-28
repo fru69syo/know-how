@@ -15,7 +15,9 @@ export class BulletManager {
   }
 
   firePlayerBullet(x: number, y: number, angle: number, stats: PlayerStats, bulletIndex = 0) {
-    const bullet = new Bullet(this.scene, x, y, 'player', stats.damage, { penetrate: stats.penetrate, explosive: stats.explosive, homing: stats.homing });
+    const isCrit = stats.critChance > 0 && Math.random() < stats.critChance;
+    const damage = isCrit ? Math.floor(stats.damage * stats.critMultiplier) : stats.damage;
+    const bullet = new Bullet(this.scene, x, y, 'player', damage, { penetrate: stats.penetrate, explosive: stats.explosive, homing: stats.homing, isCrit });
     this.playerBullets.add(bullet, true);
     this.scene.physics.velocityFromAngle(Phaser.Math.RadToDeg(angle), PLAYER.BULLET_SPEED, (bullet.body as Phaser.Physics.Arcade.Body).velocity);
     bullet.setRotation(angle + Math.PI / 2);

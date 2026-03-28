@@ -131,6 +131,7 @@ export class GameScene extends Phaser.Scene {
         const ehw = enemy.def.width / 2, ehh = enemy.def.height / 2;
         if (Math.abs(bx - enemy.x) < bhw + ehw && Math.abs(by - enemy.y) < bhh + ehh) {
           const died = enemy.takeDamage(bullet.damage);
+          if (bullet.isCrit) this.showCritEffect(enemy.x, enemy.y, bullet.damage);
           if (!bullet.penetrate) { bullet.destroy(); }
           if (died) {
             const { xp, coin } = this.enemyManager.killEnemy(enemy);
@@ -204,6 +205,22 @@ export class GameScene extends Phaser.Scene {
       item.destroy();
       this.droppedItems.splice(this.droppedItems.indexOf(item), 1);
     }
+  }
+
+  private showCritEffect(x: number, y: number, damage: number) {
+    const d = DEPTHS.HUD - 1;
+    const t = this.add.text(x, y - 8, `${damage}\nCRIT!`, {
+      fontSize: '18px', color: '#ffaa00', fontFamily: 'monospace',
+      stroke: '#000000', strokeThickness: 3, align: 'center',
+    }).setOrigin(0.5).setDepth(d).setScale(0.5);
+    this.tweens.add({
+      targets: t,
+      scaleX: 1.2, scaleY: 1.2, alpha: { from: 1, to: 0 },
+      y: y - 55,
+      duration: 700,
+      ease: 'Cubic.easeOut',
+      onComplete: () => t.destroy(),
+    });
   }
 
   private updateAutoHeal(time: number) {
