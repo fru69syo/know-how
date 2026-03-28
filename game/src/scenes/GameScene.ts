@@ -11,6 +11,8 @@ import { SkillSystem } from '../systems/SkillSystem';
 import { HUDController } from '../systems/HUDController';
 import { GameState } from '../store/GameState';
 import { PersistentState } from '../store/PersistentState';
+import { COLORS } from '../config';
+import { AdService } from '../services/AdService';
 
 const DRONE_OFFSETS = [{ x: -32, y: 8 }, { x: 32, y: 8 }, { x: 0, y: -20 }];
 const DRONE_FIRE_MS = 600;
@@ -29,6 +31,7 @@ export class GameScene extends Phaser.Scene {
   private droneFireTimes: number[] = [];
   private droppedItems: DroppedItem[] = [];
   private lastAutoHealTime = 0;
+  private continueUsed = false;
 
   constructor() { super({ key: 'GameScene' }); }
 
@@ -253,6 +256,77 @@ export class GameScene extends Phaser.Scene {
   }
 
   private gameOver() {
+    if (!this.continueUsed) {
+      this.showContinueOverlay();
+    } else {
+      this.doGameOver();
+    }
+  }
+
+  private showContinueOverlay() {
+    const cx = GAME_WIDTH / 2;
+    const d = DEPTHS.OVERLAY + 5;
+
+    const bg = this.add.rectangle(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.88)
+      .setDepth(d).setInteractive();
+
+    this.add.text(cx, GAME_HEIGHT / 2 - 140, 'GAME OVER', {
+      fontSize: '34px', color: '#ff4444', fontFamily: 'monospace',
+      stroke: '#000000', strokeThickness: 4,
+    }).setOrigin(0.5).setDepth(d + 1);
+
+    this.add.text(cx, GAME_HEIGHT / 2 - 90, 'コンテニューしますか？', {
+      fontSize: '15px', color: '#aaaaaa', fontFamily: 'monospace',
+    }).setOrigin(0.5).setDepth(d + 1);
+
+    this.add.text(cx, GAME_HEIGHT / 2 - 60, '（1回のみ・敵全滅でウェーブ突破）', {
+      fontSize: '12px', color: '#666688', fontFamily: 'monospace',
+    }).setOrigin(0.5).setDepth(d + 1);
+
+    // Continue button
+    const contBtn = this.add.rectangle(cx, GAME_HEIGHT / 2 + 10, 310, 54, 0x0a1a3a)
+      .setStrokeStyle(2, 0x4466cc).setInteractive({ useHandCursor: true }).setDepth(d + 1);
+    const contTxt = this.add.text(cx, GAME_HEIGHT / 2 + 10, '📺 広告を見てコンテニュー', {
+      fontSize: '15px', color: '#88aaff', fontFamily: 'monospace',
+    }).setOrigin(0.5).setDepth(d + 2);
+
+    // Quit button
+    const quitBtn = this.add.rectangle(cx, GAME_HEIGHT / 2 + 88, 200, 46, COLORS.UI_BG)
+      .setStrokeStyle(2, COLORS.SKILL_CARD_BORDER).setInteractive({ useHandCursor: true }).setDepth(d + 1);
+    const quitTxt = this.add.text(cx, GAME_HEIGHT / 2 + 88, 'ギブアップ', {
+      fontSize: '16px', color: '#aaaaaa', fontFamily: 'monospace',
+    }).setOrigin(0.5).setDepth(d + 2);
+
+    const elements = [bg, contBtn, contTxt, quitBtn, quitTxt];
+
+    const doContinue = () => {
+      elements.forEach(o => { if (o && o.active) o.destroy(); });
+      // Kill all enemies in the current wave
+      const alive = [...(this.enemyManager.enemies.getChildren() as Enemy[])];
+      alive.forEach(e => { if (e.active) this.enemyManager.killEnemy(e); });
+      // Restore HP to 50%
+      const gs = GameState.get();
+      gs.stats.hp = Math.floor(gs.stats.maxHp * 0.5);
+      gs.isGameOver = false;
+      this.continueUsed = true;
+    };
+
+    contBtn.on('pointerover', () => contBtn.setFillStyle(0x0a2a5a));
+    contBtn.on('pointerout', () => contBtn.setFillStyle(0x0a1a3a));
+    contBtn.on('pointerdown', () => {
+      contBtn.disableInteractive();
+      AdService.showRewardedAd(this, doContinue);
+    });
+
+    quitBtn.on('pointerover', () => quitBtn.setFillStyle(0x2a2a4e));
+    quitBtn.on('pointerout', () => quitBtn.setFillStyle(COLORS.UI_BG));
+    quitBtn.on('pointerdown', () => {
+      elements.forEach(o => { if (o && o.active) o.destroy(); });
+      this.doGameOver();
+    });
+  }
+
+  private doGameOver() {
     try { this.bgMusic?.stop(); } catch (_) {}
     this.cameras.main.shake(400, 0.02);
     this.cameras.main.flash(500, 255, 0, 0);

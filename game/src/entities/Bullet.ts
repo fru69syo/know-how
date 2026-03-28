@@ -47,7 +47,11 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
       this.scene.physics.velocityFromAngle(Phaser.Math.RadToDeg(angle), PLAYER.BULLET_SPEED, (this.body as Phaser.Physics.Arcade.Body).velocity);
       this.setRotation(angle + Math.PI / 2);
     }
-    if (this.y < -20 || this.y > this.scene.scale.height + 20 || this.x < -20 || this.x > this.scene.scale.width + 20) {
+    // Homing bullets with an active target are kept alive even off-screen so they can hit
+    if (this.homing && this.homingTarget && this.homingTarget.active) return;
+    const h = this.scene.scale.height;
+    const w = this.scene.scale.width;
+    if (this.y < -20 || this.y > h + 300 || this.x < -30 || this.x > w + 30) {
       this.destroy();
     }
   }
