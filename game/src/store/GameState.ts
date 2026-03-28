@@ -1,6 +1,8 @@
 // 1ランのみ有効なランタイムステート
 
 import type { ActiveSkill } from '../skills/SkillDefinitions';
+import { getPartDef } from '../data/PartData';
+import type { OwnedPart, PartSlot } from '../data/PartData';
 
 export interface PlayerStats {
   hp: number;
@@ -81,7 +83,7 @@ export const GameState = {
     xpLevel?: number;
     shieldLevel?: number;
     critLevel?: number;
-  }) {
+  }, equippedParts: Partial<Record<PartSlot, string>> = {}, partInventory: OwnedPart[] = []) {
     const maxHp = Math.floor(100 * (1 + (upgrades.hpLevel - 1) * 0.15));
     const damage = Math.floor(10  * (1 + (upgrades.attackLevel - 1) * 0.12));
     const bulletCount = Math.min(3, upgrades.bulletLevel ?? 1);
@@ -105,6 +107,19 @@ export const GameState = {
       },
       activeSkills: [], isGameOver: false, isPaused: false,
     };
+
+    // Apply equipped parts
+    const slots = Object.keys(equippedParts) as PartSlot[];
+    for (const slot of slots) {
+      const uid = equippedParts[slot];
+      if (!uid) continue;
+      const ownedPart = partInventory.find(p => p.uid === uid);
+      if (!ownedPart) continue;
+      const def = getPartDef(ownedPart.id);
+      if (!def) continue;
+      def.apply(_state.stats, ownedPart.level);
+    }
+
     return _state;
   },
 

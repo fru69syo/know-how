@@ -34,7 +34,7 @@ export class GameScene extends Phaser.Scene {
 
   create() {
     const persistent = PersistentState.get();
-    GameState.init(persistent.upgrades);
+    GameState.init(persistent.upgrades, persistent.equippedParts ?? {}, persistent.partInventory ?? []);
     this.starData = [];
     this.stars = this.add.graphics();
     for (let i = 0; i < 100; i++) this.starData.push({ x: Phaser.Math.Between(0,GAME_WIDTH), y: Phaser.Math.Between(0,GAME_HEIGHT), speed: Phaser.Math.FloatBetween(20,100), size: Math.random()<0.2?2:1 });
