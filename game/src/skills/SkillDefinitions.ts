@@ -6,6 +6,7 @@ export type SkillId =
   | 'crit_chance' | 'crit_damage' | 'damage_up' | 'fire_rate_up'
   | 'hp_up' | 'heal' | 'shield' | 'invincible_extend'
   | 'magnet' | 'coin_boost' | 'xp_boost' | 'speed_up'
+  | 'armor' | 'vampire' | 'auto_heal' | 'rage' | 'lucky_drop' | 'dodge'
   | 'drone' | 'overdrive' | 'black_hole' | 'time_stop';
 
 export interface SkillDef {
@@ -34,6 +35,12 @@ export const SKILL_DEFS: Record<SkillId, SkillDef> = {
   coin_boost:       { id:'coin_boost',       name:'コインブースト',          description:'通貨ドロップ+50%',          icon:'icon_coin', maxLevel:3, rarity:'common',    applyLevel:(_,__)=>{ /* GameStateで参照 */ } },
   xp_boost:         { id:'xp_boost',         name:'経験値UP',               description:'XP獲得 +20%/Lv',           icon:'icon_star', maxLevel:5, rarity:'common',    applyLevel:(_,__)=>{ /* GameState.addXPで参照 */ } },
   speed_up:         { id:'speed_up',         name:'移動速度UP',            description:'移動速度+20%',              icon:'icon_star', maxLevel:4, rarity:'common',    applyLevel:(s,lv)=>{ s.speed=Math.floor(s.speed*(1+lv*0.2)); } },
+  armor:            { id:'armor',            name:'装甲強化',               description:'被ダメージ-10%/Lv',         icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,lv)=>{ s.damageMitigation=Math.min(0.5, lv*0.10); } },
+  vampire:          { id:'vampire',          name:'吸血',                   description:'撃破時HP+2%回復/Lv',        icon:'icon_heart',maxLevel:3, rarity:'rare',     applyLevel:(s,lv)=>{ s.vampireHealPct=lv*0.02; } },
+  auto_heal:        { id:'auto_heal',        name:'自動回復',               description:'10秒ごとHP+2%回復/Lv',     icon:'icon_heart',maxLevel:3, rarity:'common',    applyLevel:(s,lv)=>{ s.autoHealPct=lv*0.02; } },
+  rage:             { id:'rage',             name:'激怒',                   description:'HP30%以下で攻撃力+50%',    icon:'icon_star', maxLevel:1, rarity:'epic',     applyLevel:(s,_)=>{ s.rageMultiplier=1.5; } },
+  lucky_drop:       { id:'lucky_drop',       name:'幸運',                   description:'アイテムドロップ率+20%/Lv', icon:'icon_coin', maxLevel:3, rarity:'common',    applyLevel:(s,lv)=>{ s.dropBoost=lv*0.20; } },
+  dodge:            { id:'dodge',            name:'回避',                   description:'ダメージ回避率+8%/Lv',      icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,lv)=>{ s.dodgeChance=Math.min(0.5, lv*0.08); } },
   drone:            { id:'drone',            name:'ドローン召喚',           description:'随伴ドローンが自動射撃',       icon:'icon_star', maxLevel:3, rarity:'epic',     applyLevel:(_,__)=>{ /* DroneManagerで参照 */ } },
   overdrive:        { id:'overdrive',        name:'オーバードライブ',          description:'10秒間全ステータス2倍（CD:60s）',icon:'icon_star', maxLevel:1, rarity:'legendary', applyLevel:(_,__)=>{ /* SkillSystemで管理 */ } },
   black_hole:       { id:'black_hole',       name:'ブラックホール',          description:'敵を引き寄せてまとめてダメージ',  icon:'icon_star', maxLevel:1, rarity:'legendary', applyLevel:(_,__)=>{ /* SkillSystemで管理 */ } },

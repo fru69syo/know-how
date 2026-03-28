@@ -42,9 +42,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   private fire(time: number) {
-    const stats = GameState.get().stats;
+    const rawStats = GameState.get().stats;
     const scene = this.scene as any;
     if (!scene.bulletManager) return;
+    // Rage: boost damage when HP is critically low
+    const stats = (rawStats.rageMultiplier > 1 && rawStats.hp < rawStats.maxHp * 0.3)
+      ? { ...rawStats, damage: Math.floor(rawStats.damage * rawStats.rageMultiplier) }
+      : rawStats;
     const count = stats.bulletCount;
     const spread = count > 1 ? 12 : 0;
     for (let i = 0; i < count; i++) {

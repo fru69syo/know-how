@@ -28,6 +28,7 @@ export class GameScene extends Phaser.Scene {
   private droneSprites: Phaser.GameObjects.Arc[] = [];
   private droneFireTimes: number[] = [];
   private droppedItems: DroppedItem[] = [];
+  private lastAutoHealTime = 0;
 
   constructor() { super({ key: 'GameScene' }); }
 
@@ -85,6 +86,7 @@ export class GameScene extends Phaser.Scene {
     this.checkCollisions(time);
     this.updateDrones(time);
     this.updateItems(time, delta);
+    this.updateAutoHeal(time);
   }
 
   private updateDrones(time: number) {
@@ -136,8 +138,12 @@ export class GameScene extends Phaser.Scene {
             GameState.addScore(enemy.def.scoreValue);
             if (coin > 0) GameState.addCurrency(coin);
             if (xp > 0) {
-              if (Math.random() < 0.40) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'coin'));
-              if (Math.random() < 0.10) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'heart'));
+              const stats = GameState.get().stats;
+              const boost = stats.dropBoost;
+              if (Math.random() < 0.40 + boost) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'coin'));
+              if (Math.random() < 0.10 + boost * 0.5) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'heart'));
+              // Vampire: heal on kill
+              if (stats.vampireHealPct > 0) stats.hp = Math.min(stats.maxHp, stats.hp + Math.floor(stats.maxHp * stats.vampireHealPct));
             }
             if (bullet.explosive) this.splashDamage(enemy.x, enemy.y, 60, bullet.damage * 0.5);
           }
@@ -197,6 +203,15 @@ export class GameScene extends Phaser.Scene {
     for (const item of toRemove) {
       item.destroy();
       this.droppedItems.splice(this.droppedItems.indexOf(item), 1);
+    }
+  }
+
+  private updateAutoHeal(time: number) {
+    const stats = GameState.get().stats;
+    if (stats.autoHealPct <= 0) return;
+    if (time - this.lastAutoHealTime >= 10000) {
+      this.lastAutoHealTime = time;
+      stats.hp = Math.min(stats.maxHp, stats.hp + Math.floor(stats.maxHp * stats.autoHealPct));
     }
   }
 
