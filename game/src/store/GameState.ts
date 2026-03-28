@@ -19,6 +19,7 @@ export interface PlayerStats {
   penetrate: boolean;
   explosive: boolean;
   homing: boolean;
+  spreadShot: boolean;
   magnetRadius: number;
   shieldHp: number;
   invincibleExtendMs: number;
@@ -60,6 +61,7 @@ const BASE_STATS: PlayerStats = {
   penetrate: false,
   explosive: false,
   homing: false,
+  spreadShot: false,
   magnetRadius: 60,
   shieldHp: 0,
   invincibleExtendMs: 0,

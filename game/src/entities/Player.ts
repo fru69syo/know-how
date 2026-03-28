@@ -50,9 +50,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       ? { ...rawStats, damage: Math.floor(rawStats.damage * rawStats.rageMultiplier) }
       : rawStats;
     const count = stats.bulletCount;
-    const spread = count > 1 ? 12 : 0;
+    const spread = stats.spreadShot && count > 1 ? 14 : 0;
     for (let i = 0; i < count; i++) {
-      const angleOffset = count > 1 ? -((count-1)/2)*spread + i*spread : 0;
+      const angleOffset = spread > 0 ? -((count-1)/2)*spread + i*spread : 0;
       scene.bulletManager.firePlayerBullet(this.x, this.y - this.height/2, Phaser.Math.DegToRad(-90 + angleOffset), stats, i);
     }
     scene.sound.play('sfx_shoot', { volume: 0.4 });

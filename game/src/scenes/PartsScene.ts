@@ -430,17 +430,14 @@ export class PartsScene extends Phaser.Scene {
         enhBtn.on('pointerdown', () => {
           enhBtn.disableInteractive();
           this.doEnhance(targetPart, totalRate, (success) => {
-            // Show feedback then refresh
-            if (feedbackText) feedbackText.destroy();
-            if (success) {
-              feedbackText = this.add.text(cx, enhBtnY - 30, '成功! ✓', {
-                fontSize: '18px', color: '#00ff88', fontFamily: 'monospace',
-              }).setOrigin(0.5).setDepth(d + 4);
-            } else {
-              feedbackText = this.add.text(cx, enhBtnY - 30, '失敗... ガラクタ+1', {
-                fontSize: '15px', color: '#ff4444', fontFamily: 'monospace',
-              }).setOrigin(0.5).setDepth(d + 4);
-            }
+            if (feedbackText && feedbackText.active) feedbackText.destroy();
+            const fbMsg  = success ? '成功! ✓'          : '失敗... ガラクタ+1';
+            const fbColor = success ? '#00ff88'          : '#ff4444';
+            feedbackText = this.add.text(cx, panelY, fbMsg, {
+              fontSize: '22px', color: fbColor, fontFamily: 'monospace',
+              stroke: '#000000', strokeThickness: 4,
+              backgroundColor: '#000000cc', padding: { x: 16, y: 8 },
+            }).setOrigin(0.5).setDepth(d + 10);
             this.time.delayedCall(1200, () => {
               if (feedbackText && feedbackText.active) feedbackText.destroy();
               feedbackText = null;
@@ -465,6 +462,8 @@ export class PartsScene extends Phaser.Scene {
       closeBtn.on('pointerout', () => closeBtn.setFillStyle(COLORS.UI_BG));
       closeBtn.on('pointerdown', () => {
         try { this.sound.play('sfx_select'); } catch (_) {}
+        if (feedbackText && feedbackText.active) feedbackText.destroy();
+        feedbackText = null;
         elements.forEach(o => { if (o && o.active) o.destroy(); });
         onClose();
       });
