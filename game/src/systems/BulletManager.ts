@@ -14,14 +14,14 @@ export class BulletManager {
     this.enemyBullets  = scene.physics.add.group({ classType: Bullet, maxSize: 150, runChildUpdate: true });
   }
 
-  firePlayerBullet(x: number, y: number, angle: number, stats: PlayerStats) {
+  firePlayerBullet(x: number, y: number, angle: number, stats: PlayerStats, bulletIndex = 0) {
     const bullet = new Bullet(this.scene, x, y, 'player', stats.damage, { penetrate: stats.penetrate, explosive: stats.explosive, homing: stats.homing });
     this.playerBullets.add(bullet, true);
     this.scene.physics.velocityFromAngle(Phaser.Math.RadToDeg(angle), PLAYER.BULLET_SPEED, (bullet.body as Phaser.Physics.Arcade.Body).velocity);
     bullet.setRotation(angle + Math.PI / 2);
     if (stats.homing) {
       const enemies = (this.scene as any).enemyManager?.enemies?.getChildren?.() ?? [];
-      if (enemies.length > 0) bullet.homingTarget = enemies[0];
+      if (enemies.length > 0) bullet.homingTarget = enemies[bulletIndex % enemies.length];
     }
   }
 

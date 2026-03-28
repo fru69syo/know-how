@@ -8,6 +8,7 @@ import { LevelUpScene } from './scenes/LevelUpScene';
 import { PauseScene } from './scenes/PauseScene';
 import { ResultScene } from './scenes/ResultScene';
 import { HangarScene } from './scenes/HangarScene';
+import { ShopScene } from './scenes/ShopScene';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -30,6 +31,7 @@ const config: Phaser.Types.Core.GameConfig = {
     PreloadScene,
     MainMenuScene,
     HangarScene,
+    ShopScene,
     GameScene,
     LevelUpScene,
     PauseScene,

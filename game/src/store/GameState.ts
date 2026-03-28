@@ -7,8 +7,11 @@ export interface PlayerStats {
   maxHp: number;
   speed: number;
   fireRateMs: number;
+  baseFireRateMs: number;
   damage: number;
+  baseDamage: number;
   bulletCount: number;
+  baseBulletCount: number;
   critChance: number;
   critMultiplier: number;
   penetrate: boolean;
@@ -16,6 +19,14 @@ export interface PlayerStats {
   homing: boolean;
   magnetRadius: number;
   shieldHp: number;
+  invincibleExtendMs: number;
+  // skill-driven stats
+  damageMitigation: number;   // 0-1: fraction of incoming damage absorbed
+  dodgeChance: number;        // 0-1: probability to fully dodge a hit
+  vampireHealPct: number;     // heal this fraction of maxHp on each kill
+  autoHealPct: number;        // heal this fraction of maxHp every 10 seconds
+  dropBoost: number;          // additive bonus to item drop probabilities
+  rageMultiplier: number;     // damage multiplier when HP < 30%
 }
 
 export interface GameStateData {
@@ -24,6 +35,8 @@ export interface GameStateData {
   xp: number;
   level: number;
   sessionCurrency: number;
+  coinMultiplier: number;
+  xpMultiplier: number;
   stats: PlayerStats;
   activeSkills: ActiveSkill[];
   isGameOver: boolean;
@@ -35,8 +48,11 @@ const BASE_STATS: PlayerStats = {
   maxHp: 100,
   speed: 250,
   fireRateMs: 400,
+  baseFireRateMs: 400,
   damage: 10,
+  baseDamage: 10,
   bulletCount: 1,
+  baseBulletCount: 1,
   critChance: 0,
   critMultiplier: 2.0,
   penetrate: false,
@@ -44,6 +60,13 @@ const BASE_STATS: PlayerStats = {
   homing: false,
   magnetRadius: 60,
   shieldHp: 0,
+  invincibleExtendMs: 0,
+  damageMitigation: 0,
+  dodgeChance: 0,
+  vampireHealPct: 0,
+  autoHealPct: 0,
+  dropBoost: 0,
+  rageMultiplier: 1,
 };
 
 let _state: GameStateData | null = null;
@@ -52,17 +75,34 @@ export const GameState = {
   init(upgrades: {
     attackLevel: number;
     hpLevel: number;
-    speedLevel: number;
+    bulletLevel?: number;
     fireRateLevel: number;
+    currencyLevel?: number;
+    xpLevel?: number;
+    shieldLevel?: number;
+    critLevel?: number;
   }) {
     const maxHp = Math.floor(100 * (1 + (upgrades.hpLevel - 1) * 0.15));
     const damage = Math.floor(10  * (1 + (upgrades.attackLevel - 1) * 0.12));
-    const speed  = 250 + (upgrades.speedLevel - 1) * 20;
+    const bulletCount = Math.min(3, upgrades.bulletLevel ?? 1);
     const fireRateMs = Math.max(150, 400 - (upgrades.fireRateLevel - 1) * 30);
+    const coinMultiplier = 1 + ((upgrades.currencyLevel ?? 1) - 1) * 0.30;
+    const xpMultiplier  = 1 + ((upgrades.xpLevel ?? 1) - 1) * 0.15;
+    const shieldHp      = ((upgrades.shieldLevel ?? 1) - 1) * 30;
+    const critChance    = ((upgrades.critLevel ?? 1) - 1) * 0.08;
 
     _state = {
       wave: 1, score: 0, xp: 0, level: 1, sessionCurrency: 0,
-      stats: { ...BASE_STATS, hp: maxHp, maxHp, damage, speed, fireRateMs },
+      coinMultiplier, xpMultiplier,
+      stats: {
+        ...BASE_STATS,
+        hp: maxHp, maxHp,
+        damage, baseDamage: damage,
+        bulletCount, baseBulletCount: bulletCount,
+        fireRateMs, baseFireRateMs: fireRateMs,
+        shieldHp,
+        critChance,
+      },
       activeSkills: [], isGameOver: false, isPaused: false,
     };
     return _state;
@@ -75,19 +115,30 @@ export const GameState = {
 
   addXP(amount: number): boolean {
     const s = this.get();
+    const xpBoostSkill = s.activeSkills.find(sk => sk.def.id === 'xp_boost');
+    const skillMult = xpBoostSkill ? 1 + xpBoostSkill.level * 0.20 : 1;
     const needed = Math.floor(50 * Math.pow(1.35, s.level - 1));
-    s.xp += amount;
+    s.xp += Math.floor(amount * s.xpMultiplier * skillMult);
     if (s.xp >= needed) { s.xp -= needed; s.level += 1; return true; }
     return false;
   },
 
   addScore(amount: number) { this.get().score += amount; },
-  addCurrency(amount: number) { this.get().sessionCurrency += amount; },
+  addCurrency(amount: number) {
+    const s = this.get();
+    const boostSkill = s.activeSkills.find(sk => sk.def.id === 'coin_boost');
+    const boostMult = boostSkill ? 1 + boostSkill.level * 0.50 : 1;
+    s.sessionCurrency += Math.floor(amount * s.coinMultiplier * boostMult);
+  },
 
   takeDamage(amount: number): boolean {
     const s = this.get();
-    if (s.stats.shieldHp > 0) { s.stats.shieldHp = Math.max(0, s.stats.shieldHp - amount); return false; }
-    s.stats.hp = Math.max(0, s.stats.hp - amount);
+    // Dodge check
+    if (s.stats.dodgeChance > 0 && Math.random() < s.stats.dodgeChance) return false;
+    // Damage mitigation
+    const mitigated = Math.max(1, Math.ceil(amount * (1 - s.stats.damageMitigation)));
+    if (s.stats.shieldHp > 0) { s.stats.shieldHp = Math.max(0, s.stats.shieldHp - mitigated); return false; }
+    s.stats.hp = Math.max(0, s.stats.hp - mitigated);
     if (s.stats.hp <= 0) { s.isGameOver = true; return true; }
     return false;
   },

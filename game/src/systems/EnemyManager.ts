@@ -55,7 +55,6 @@ export class EnemyManager {
       if (!e.active) continue;
       e.x = this.gridX + e.gridCol * WAVE.CELL_W + WAVE.CELL_W/2 + (e.def.sideMovement ? Math.sin(time*0.003 + e.gridCol)*15 : 0);
       e.y = this.gridY + e.gridRow * WAVE.CELL_H + WAVE.CELL_H/2;
-      if (e.body) (e.body as Phaser.Physics.Arcade.StaticBody).reset(e.x, e.y);
       e.syncHpBarPosition();
       if (e.canShoot(time)) {
         const gs = this.scene as any;
@@ -63,8 +62,8 @@ export class EnemyManager {
       }
     }
 
-    // Cooldown: fire at most once per second
-    if (this.gridY + 3 * WAVE.CELL_H > GAME_HEIGHT * 0.6 && time - this.bottomReachedAt > 1000) {
+    // Trigger damage only when enemy grid bottom row is at player level (player is at 82% of screen)
+    if (this.gridY + WAVE.ROWS * WAVE.CELL_H > GAME_HEIGHT * 0.85 && time - this.bottomReachedAt > 1000) {
       this.bottomReachedAt = time;
       this.onEnemyReachedBottom?.();
     }

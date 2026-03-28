@@ -1,17 +1,17 @@
 import Phaser from 'phaser';
 import { GAME_WIDTH, GAME_HEIGHT, PLAYER, DEPTHS } from '../config';
 import { GameState } from '../store/GameState';
+import { PersistentState } from '../store/PersistentState';
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
   private lastFireTime = 0;
   private invincibleUntil = 0;
-  private invincibleDuration = PLAYER.INVINCIBLE_MS;
   private touchStartX = 0; private touchStartY = 0;
   private playerStartX = 0; private playerStartY = 0;
   private isPointerDown = false;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    const skinId = localStorage.getItem('equipped_skin') ?? 'ship_default';
+    const skinId = PersistentState.get().equippedSkinId ?? 'ship_default';
     super(scene, x, y, skinId);
     scene.add.existing(this); scene.physics.add.existing(this);
     this.setDepth(DEPTHS.PLAYER); this.setCollideWorldBounds(true);
@@ -42,22 +42,29 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   private fire(time: number) {
-    const stats = GameState.get().stats;
+    const rawStats = GameState.get().stats;
     const scene = this.scene as any;
     if (!scene.bulletManager) return;
+    // Rage: boost damage when HP is critically low
+    const stats = (rawStats.rageMultiplier > 1 && rawStats.hp < rawStats.maxHp * 0.3)
+      ? { ...rawStats, damage: Math.floor(rawStats.damage * rawStats.rageMultiplier) }
+      : rawStats;
     const count = stats.bulletCount;
     const spread = count > 1 ? 12 : 0;
     for (let i = 0; i < count; i++) {
       const angleOffset = count > 1 ? -((count-1)/2)*spread + i*spread : 0;
-      scene.bulletManager.firePlayerBullet(this.x, this.y - this.height/2, Phaser.Math.DegToRad(-90 + angleOffset), stats);
+      scene.bulletManager.firePlayerBullet(this.x, this.y - this.height/2, Phaser.Math.DegToRad(-90 + angleOffset), stats, i);
     }
     scene.sound.play('sfx_shoot', { volume: 0.4 });
   }
 
-  takeDamage(amount: number, time: number): boolean {
-    if (time < this.invincibleUntil) return false;
+  takeDamage(amount: number, time: number, noInvincibility = false): boolean {
+    if (!noInvincibility && time < this.invincibleUntil) return false;
     const died = GameState.takeDamage(amount);
-    this.invincibleUntil = time + this.invincibleDuration;
+    if (!noInvincibility) {
+      const extMs = (GameState.get().stats as any).invincibleExtendMs ?? 0;
+      this.invincibleUntil = time + PLAYER.INVINCIBLE_MS + extMs;
+    }
     if (!died) {
       this.scene.sound.play('sfx_hit', { volume: 0.5 });
       this.scene.tweens.add({ targets: this, tintFill: true, tint: { from: 0xff0000, to: 0xffffff }, duration: 200 });
