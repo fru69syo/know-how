@@ -67,13 +67,27 @@ export class GachaScene extends Phaser.Scene {
       this.doPull(11, GACHA_COST_MULTI);
     });
 
+    // Junk conversion button
+    this.createPullButton(cx, 380, `ガラクタ10個で引く (所持: ${PersistentState.get().junkCount}個)`, 0x1a2a0a, 0x448800, () => {
+      const junk = PersistentState.get().junkCount;
+      if (junk < 10) { this.showToast('ガラクタが足りません'); return; }
+      PersistentState.addJunk(-10);
+      this.coinText.setText(`🪙 ${PersistentState.get().totalCurrency.toLocaleString()}`);
+      const pulled = pullGacha(1);
+      const existingIds = new Set(PersistentState.get().partInventory.map(p => p.id));
+      const newOwned: OwnedPart[] = pulled.map(def => ({ uid: makeUid(), id: def.id, level: 1 }));
+      PersistentState.addParts(newOwned);
+      try { this.sound.play('sfx_levelup'); } catch (_) {}
+      this.showResultOverlay(pulled, existingIds);
+    });
+
     // Owned parts count
-    this.add.text(cx, 380, '所持パーツ数', {
+    this.add.text(cx, 460, '所持パーツ数', {
       fontSize: '13px', color: '#aaaaaa', fontFamily: 'monospace',
     }).setOrigin(0.5);
 
     const inv = PersistentState.get().partInventory;
-    this.add.text(cx, 400, `${inv.length} 個`, {
+    this.add.text(cx, 480, `${inv.length} 個`, {
       fontSize: '18px', color: '#ffffff', fontFamily: 'monospace',
     }).setOrigin(0.5);
 
@@ -84,7 +98,7 @@ export class GachaScene extends Phaser.Scene {
       { label: 'エピック', color: RARITY_COLORS.epic },
       { label: 'レジェンダリー', color: RARITY_COLORS.legendary },
     ];
-    let ry = 450;
+    let ry = 520;
     this.add.text(cx, ry, 'レアリティ', { fontSize: '13px', color: '#aaaaaa', fontFamily: 'monospace' }).setOrigin(0.5);
     ry += 22;
     rarities.forEach(({ label, color }) => {

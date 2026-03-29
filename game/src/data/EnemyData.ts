@@ -19,5 +19,11 @@ export const ENEMY_DEFS: Record<EnemyType, EnemyDef> = {
 };
 
 export function scaledHp(baseHp: number, wave: number): number {
-  return Math.floor(baseHp * Math.pow(1.18, wave - 1));
+  let factor: number;
+  if (wave <= 40) {
+    factor = Math.pow(1.18, wave - 1);
+  } else {
+    factor = Math.pow(1.18, 39) * Math.pow(1.06, wave - 40);
+  }
+  return Math.max(1, Math.floor(baseHp * factor));
 }

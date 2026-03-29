@@ -36,5 +36,5 @@ function generateWaveConfig(wave: number): WaveConfig {
       grid.push(Array.from({length:7}, () => types[Math.floor(Math.random()*types.length)]));
     }
   }
-  return { wave, grid, descendSpeedMult: 1+(wave-1)*0.08, lateralSpeedMult: 1+(wave-1)*0.06, hasBoss: isBossWave };
+  return { wave, grid, descendSpeedMult: Math.min(1 + (wave - 1) * 0.08, 4.0), lateralSpeedMult: Math.min(1 + (wave - 1) * 0.06, 3.0), hasBoss: isBossWave };
 }

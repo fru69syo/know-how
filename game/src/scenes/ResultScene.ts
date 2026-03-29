@@ -16,18 +16,20 @@ export class ResultScene extends Phaser.Scene {
     const g = this.add.graphics();
     for (let i = 0; i < 80; i++) { g.fillStyle(0xffffff, Phaser.Math.FloatBetween(0.2,0.8)); g.fillRect(Phaser.Math.Between(0,GAME_WIDTH), Phaser.Math.Between(0,GAME_HEIGHT), 1, 1); }
 
+    PersistentState.updateWaveRecord(state.wave);
+    const updatedPersistent = PersistentState.get();
     const isNew = state.score > persistent.highScore;
     this.add.text(GAME_WIDTH/2, 140, isNew ? '\ud83c\udfc6 NEW HIGH SCORE!' : 'RESULT', { fontSize: isNew?'28px':'32px', color: isNew?'#ffdd00':'#ffffff', fontFamily:'monospace', stroke:'#000066', strokeThickness:3 }).setOrigin(0.5);
     this.add.text(GAME_WIDTH/2, 210, state.score.toLocaleString(), { fontSize:'48px', color:'#ffffff', fontFamily:'monospace' }).setOrigin(0.5);
-    [['Wave', `${state.wave}`], ['Level', `${state.level}`], ['Coins', `+${state.sessionCurrency} \ud83e\ude99`]].forEach(([l,v], i) => {
+    [['Wave', `${state.wave}`], ['Level', `${state.level}`], ['Coins', `+${state.sessionCurrency} \ud83e\ude99`], ['最高Wave', `${updatedPersistent.waveRecord}`]].forEach(([l,v], i) => {
       const y = 310 + i * 44;
       this.add.text(GAME_WIDTH/2-80, y, l, { fontSize:'16px', color:'#aaaaaa', fontFamily:'monospace' }).setOrigin(0, 0.5);
       this.add.text(GAME_WIDTH/2+80, y, v, { fontSize:'18px', color:'#ffffff', fontFamily:'monospace' }).setOrigin(1, 0.5);
       this.add.line(GAME_WIDTH/2, y+20, -130, 0, 130, 0, 0x333355).setOrigin(0.5);
     });
-    this.add.text(GAME_WIDTH/2, 460, `BEST: ${Math.max(state.score, persistent.highScore).toLocaleString()}`, { fontSize:'14px', color:'#6666aa', fontFamily:'monospace' }).setOrigin(0.5);
-    this.createBtn(GAME_WIDTH/2, 540, 'PLAY AGAIN', () => this.scene.start('GameScene'));
-    this.createBtn(GAME_WIDTH/2, 610, 'MAIN MENU',  () => this.scene.start('MainMenuScene'));
+    this.add.text(GAME_WIDTH/2, 480, `BEST: ${Math.max(state.score, persistent.highScore).toLocaleString()}`, { fontSize:'14px', color:'#6666aa', fontFamily:'monospace' }).setOrigin(0.5);
+    this.createBtn(GAME_WIDTH/2, 550, 'PLAY AGAIN', () => this.scene.start('GameScene'));
+    this.createBtn(GAME_WIDTH/2, 615, 'MAIN MENU',  () => this.scene.start('MainMenuScene'));
     this.cameras.main.fadeIn(300, 0, 0, 0);
   }
 

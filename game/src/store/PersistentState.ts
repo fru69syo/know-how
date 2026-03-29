@@ -12,6 +12,7 @@ export interface UpgradeTree {
   xpLevel: number;
   shieldLevel: number;
   critLevel: number;
+  baseDamageLevel: number;
 }
 
 export interface PersistentStateData {
@@ -26,6 +27,7 @@ export interface PersistentStateData {
   partInventory: OwnedPart[];
   equippedParts: Partial<Record<PartSlot, string>>; // slot → uid
   junkCount: number;
+  waveRecord: number;
 }
 
 const STORAGE_KEY = 'space_shooter_save';
@@ -33,11 +35,12 @@ const STORAGE_KEY = 'space_shooter_save';
 const DEFAULT_STATE: PersistentStateData = {
   totalCurrency: 0, highScore: 0,
   equippedSkinId: 'ship_default', ownedSkinIds: ['ship_default'],
-  upgrades: { attackLevel: 1, hpLevel: 1, bulletLevel: 1, fireRateLevel: 1, currencyLevel: 1, xpLevel: 1, shieldLevel: 1, critLevel: 1 },
+  upgrades: { attackLevel: 1, hpLevel: 1, bulletLevel: 1, fireRateLevel: 1, currencyLevel: 1, xpLevel: 1, shieldLevel: 1, critLevel: 1, baseDamageLevel: 1 },
   adFree: false, totalRuns: 0, totalKills: 0,
   partInventory: [],
   equippedParts: {},
   junkCount: 0,
+  waveRecord: 0,
 };
 
 export const PersistentState = {
@@ -110,5 +113,13 @@ export const PersistentState = {
 
   addJunk(n = 1) {
     this.save({ junkCount: this.get().junkCount + n });
+  },
+
+  updateWaveRecord(wave: number): boolean {
+    if (wave > (this.get().waveRecord ?? 0)) {
+      this.save({ waveRecord: wave });
+      return true;
+    }
+    return false;
   },
 };

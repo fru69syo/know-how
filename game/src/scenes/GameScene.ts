@@ -32,12 +32,15 @@ export class GameScene extends Phaser.Scene {
   private droppedItems: DroppedItem[] = [];
   private lastAutoHealTime = 0;
   private continueUsed = false;
+  private preGrantRemaining = 0;
+  private waveStarted = false;
 
   constructor() { super({ key: 'GameScene' }); }
 
   create() {
+    const { skipWave = 1, adCoinBoost = false } = (this.scene.settings.data ?? {}) as { skipWave?: number; adCoinBoost?: boolean };
     const persistent = PersistentState.get();
-    GameState.init(persistent.upgrades, persistent.equippedParts ?? {}, persistent.partInventory ?? []);
+    GameState.init(persistent.upgrades, persistent.equippedParts ?? {}, persistent.partInventory ?? [], adCoinBoost);
     this.starData = [];
     this.stars = this.add.graphics();
     for (let i = 0; i < 100; i++) this.starData.push({ x: Phaser.Math.Between(0,GAME_WIDTH), y: Phaser.Math.Between(0,GAME_HEIGHT), speed: Phaser.Math.FloatBetween(20,100), size: Math.random()<0.2?2:1 });
@@ -47,7 +50,10 @@ export class GameScene extends Phaser.Scene {
     this.skillSystem   = new SkillSystem(this);
     this.hudController = new HUDController(this);
     this.player = new Player(this, GAME_WIDTH/2, GAME_HEIGHT*0.82);
-    this.enemyManager.onWaveCleared        = () => this.time.delayedCall(1200, () => this.startWave(GameState.get().wave + 1));
+    this.enemyManager.onWaveCleared        = () => {
+      PersistentState.updateWaveRecord(GameState.get().wave);
+      this.time.delayedCall(1200, () => this.startWave(GameState.get().wave + 1));
+    };
     this.enemyManager.onEnemyReachedBottom = () => {
       const dmg = Math.floor(GameState.get().stats.maxHp * 0.25);
       if (this.player.takeDamage(dmg, this.time.now)) this.gameOver();
@@ -57,7 +63,18 @@ export class GameScene extends Phaser.Scene {
       GameState.get().isPaused = true;
       this.scene.pause();
       this.scene.launch('LevelUpScene');
-      this.scene.get('LevelUpScene').events.once('shutdown', () => { GameState.get().isPaused = false; });
+      this.scene.get('LevelUpScene').events.once('shutdown', () => {
+        GameState.get().isPaused = false;
+        if (!this.waveStarted) {
+          if (this.preGrantRemaining > 0) {
+            this.preGrantRemaining--;
+            this.grantNextPreLevel();
+          } else {
+            this.waveStarted = true;
+            this.startWave(skipWave);
+          }
+        }
+      });
     };
     // ── debug: game-over threshold line ──────────────────────────────────────
     const lineY = GAME_HEIGHT * 0.85;
@@ -67,7 +84,15 @@ export class GameScene extends Phaser.Scene {
     this.add.text(GAME_WIDTH - 4, lineY - 3, 'DANGER', { fontSize: '9px', color: '#ff4444', fontFamily: 'monospace' }).setOrigin(1, 1).setDepth(DEPTHS.HUD - 1).setAlpha(0.7);
     // ─────────────────────────────────────────────────────────────────────────
 
-    this.startWave(1);
+    const preGrantLevels = skipWave > 1 ? Math.min(12, Math.floor((skipWave - 1) / 4)) : 0;
+    this.preGrantRemaining = preGrantLevels;
+    if (this.preGrantRemaining > 0) {
+      this.preGrantRemaining--;
+      this.grantNextPreLevel();
+    } else {
+      this.waveStarted = true;
+      this.startWave(skipWave);
+    }
     try { this.bgMusic = this.sound.add('bgm_game', { loop:true, volume:0.4 }); this.bgMusic.play(); } catch (_) {}
     this.cameras.main.fadeIn(400, 0, 0, 0);
   }
@@ -253,6 +278,12 @@ export class GameScene extends Phaser.Scene {
     GameState.get().wave = wave;
     const t = this.add.text(GAME_WIDTH/2, GAME_HEIGHT/2, `WAVE ${wave}`, { fontSize:'40px', color:'#ffffff', fontFamily:'monospace', stroke:'#000066', strokeThickness:4 }).setOrigin(0.5).setDepth(150).setAlpha(0);
     this.tweens.add({ targets:t, alpha:{from:0,to:1}, y:{from:GAME_HEIGHT/2+20,to:GAME_HEIGHT/2}, duration:400, hold:800, yoyo:true, onComplete:()=>t.destroy() });
+  }
+
+  private grantNextPreLevel() {
+    const gs = GameState.get();
+    const needed = Math.floor(50 * Math.pow(1.35, gs.level - 1));
+    this.xpSystem.addXP(needed + 1);
   }
 
   private gameOver() {
