@@ -270,16 +270,16 @@ export class GameScene extends Phaser.Scene {
     const bg = this.add.rectangle(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.88)
       .setDepth(d).setInteractive();
 
-    this.add.text(cx, GAME_HEIGHT / 2 - 140, 'GAME OVER', {
+    const titleTxt = this.add.text(cx, GAME_HEIGHT / 2 - 140, 'GAME OVER', {
       fontSize: '34px', color: '#ff4444', fontFamily: 'monospace',
       stroke: '#000000', strokeThickness: 4,
     }).setOrigin(0.5).setDepth(d + 1);
 
-    this.add.text(cx, GAME_HEIGHT / 2 - 90, 'コンテニューしますか？', {
+    const subTxt1 = this.add.text(cx, GAME_HEIGHT / 2 - 90, 'コンテニューしますか？', {
       fontSize: '15px', color: '#aaaaaa', fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(d + 1);
 
-    this.add.text(cx, GAME_HEIGHT / 2 - 60, '（1回のみ・敵全滅でウェーブ突破）', {
+    const subTxt2 = this.add.text(cx, GAME_HEIGHT / 2 - 60, '（1回のみ・敵全滅でウェーブ突破）', {
       fontSize: '12px', color: '#666688', fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(d + 1);
 
@@ -297,7 +297,7 @@ export class GameScene extends Phaser.Scene {
       fontSize: '16px', color: '#aaaaaa', fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(d + 2);
 
-    const elements = [bg, contBtn, contTxt, quitBtn, quitTxt];
+    const elements = [bg, titleTxt, subTxt1, subTxt2, contBtn, contTxt, quitBtn, quitTxt];
 
     const doContinue = () => {
       elements.forEach(o => { if (o && o.active) o.destroy(); });
