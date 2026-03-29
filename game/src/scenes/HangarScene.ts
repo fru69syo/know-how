@@ -3,15 +3,16 @@ import { GAME_WIDTH, GAME_HEIGHT, COLORS } from '../config';
 import { PersistentState } from '../store/PersistentState';
 import type { UpgradeTree } from '../store/PersistentState';
 
-const UPGRADE_ITEMS: { key: keyof UpgradeTree; label: string; description: string; maxLevel: number }[] = [
-  { key: 'attackLevel',   label: '\u653b\u6483\u529b',   description: '\u30c0\u30e1\u30fc\u30b8 +12%/Lv',  maxLevel: 5 },
-  { key: 'hpLevel',       label: 'HP',          description: '\u6700\u5927HP +15%/Lv', maxLevel: 5 },
-  { key: 'bulletLevel',   label: '開始弾数',   description: '初期弾数 +1/Lv',   maxLevel: 3 },
-  { key: 'fireRateLevel', label: '\u653b\u6483\u901f\u5ea6',   description: '\u767a\u5c04\u9593\u9694 -30ms/Lv', maxLevel: 5 },
-  { key: 'currencyLevel', label: '\u30b3\u30a4\u30f3\u904b',   description: '\u30c9\u30ed\u30c3\u30d7 +30%/Lv',  maxLevel: 3 },
-  { key: 'xpLevel',       label: '経験値効率', description: 'XP獲得 +15%/Lv',      maxLevel: 5 },
-  { key: 'shieldLevel',   label: 'シールド',   description: '開始時シールド +30/Lv', maxLevel: 3 },
-  { key: 'critLevel',     label: 'クリ確率',   description: '初期クリ確率 +8%/Lv',  maxLevel: 3 },
+const UPGRADE_ITEMS: { key: keyof UpgradeTree; label: string; description: string }[] = [
+  { key: 'attackLevel',     label: '攻撃力',     description: 'ダメージ +12%/Lv' },
+  { key: 'hpLevel',         label: 'HP',         description: '最大HP +15%/Lv' },
+  { key: 'bulletLevel',     label: '開始弾数',   description: '初期弾数 +1/Lv (最大5)' },
+  { key: 'fireRateLevel',   label: '攻撃速度',   description: '発射間隔 -30ms/Lv' },
+  { key: 'currencyLevel',   label: 'コイン運',   description: 'ドロップ +30%/Lv' },
+  { key: 'xpLevel',         label: '経験値効率', description: 'XP獲得 +15%/Lv' },
+  { key: 'shieldLevel',     label: 'シールド',   description: '開始時シールド +30/Lv' },
+  { key: 'critLevel',       label: 'クリ確率',   description: '初期クリ確率 +8%/Lv' },
+  { key: 'baseDamageLevel', label: '基礎攻撃力', description: '攻撃力 +3/Lv (固定値)' },
 ];
 
 export class HangarScene extends Phaser.Scene {
@@ -32,30 +33,30 @@ export class HangarScene extends Phaser.Scene {
   private createRow(item: typeof UPGRADE_ITEMS[0], y: number, coinText: Phaser.GameObjects.Text, rowH = 72) {
     const cx = GAME_WIDTH / 2;
     const state = PersistentState.get();
-    const lv = state.upgrades[item.key];
-    const isMax = lv >= item.maxLevel;
-    const cost = PersistentState.upgradeCost(lv);
+    const lv = state.upgrades[item.key] ?? 1;
+    const cost = item.key === 'baseDamageLevel'
+      ? Math.floor(200 * Math.pow(1.6, lv - 1))
+      : PersistentState.upgradeCost(lv);
     const half = rowH / 2;
     this.add.rectangle(cx, y, GAME_WIDTH-24, rowH, COLORS.UI_BG).setStrokeStyle(1, 0x333355);
     this.add.text(24, y - half + 8, item.label,       { fontSize:'15px', color:'#ffffff', fontFamily:'monospace' });
     this.add.text(24, y - half + 26, item.description, { fontSize:'11px', color:'#888888', fontFamily:'monospace' });
-    for (let s = 0; s < item.maxLevel; s++) this.add.text(24+s*20, y + half - 16, '\u2605', { fontSize:'14px', color: s < lv ? '#ffdd00' : '#333355' });
-    if (!isMax) {
-      const btn = this.add.rectangle(GAME_WIDTH-80, y, 110, 44, 0x0a3a0a).setStrokeStyle(2, 0x00aa44).setInteractive({ useHandCursor:true });
-      this.add.text(GAME_WIDTH-80, y, `UP\n\ud83e\ude99 ${cost}`, { fontSize:'13px', color:'#00ff88', fontFamily:'monospace', align:'center' }).setOrigin(0.5);
-      btn.on('pointerover', () => btn.setFillStyle(0x0a5a0a));
-      btn.on('pointerout',  () => btn.setFillStyle(0x0a3a0a));
-      btn.on('pointerdown', () => {
-        if (!PersistentState.spendCurrency(cost)) { this.cameras.main.flash(200, 255, 0, 0); return; }
-        const upgrades = PersistentState.get().upgrades;
-        (upgrades[item.key] as number)++;
-        PersistentState.save({ upgrades });
-        this.sound.play('sfx_levelup', { volume:0.6 });
-        this.scene.restart();
-      });
-    } else {
-      this.add.text(GAME_WIDTH-80, y, 'MAX', { fontSize:'14px', color:'#ffdd00', fontFamily:'monospace' }).setOrigin(0.5);
-    }
+    const starCount = Math.min(lv, 5);
+    for (let s = 0; s < 5; s++) this.add.text(24+s*20, y + half - 16, '\u2605', { fontSize:'14px', color: s < starCount ? '#ffdd00' : '#333355' });
+    this.add.text(24 + 5*20 + 4, y + half - 16, `Lv${lv}`, { fontSize:'11px', color:'#888888', fontFamily:'monospace' });
+    const btn = this.add.rectangle(GAME_WIDTH-80, y, 110, 44, 0x0a3a0a).setStrokeStyle(2, 0x00aa44).setInteractive({ useHandCursor:true });
+    this.add.text(GAME_WIDTH-80, y, `UP\n\ud83e\ude99 ${cost}`, { fontSize:'13px', color:'#00ff88', fontFamily:'monospace', align:'center' }).setOrigin(0.5);
+    btn.on('pointerover', () => btn.setFillStyle(0x0a5a0a));
+    btn.on('pointerout',  () => btn.setFillStyle(0x0a3a0a));
+    btn.on('pointerdown', () => {
+      if (!PersistentState.spendCurrency(cost)) { this.cameras.main.flash(200, 255, 0, 0); return; }
+      const upgrades = PersistentState.get().upgrades;
+      (upgrades[item.key] as number)++;
+      PersistentState.save({ upgrades });
+      this.sound.play('sfx_levelup', { volume:0.6 });
+      this.scene.restart();
+    });
+    void coinText; // referenced to avoid unused-variable warning
   }
 
   private createBtn(x: number, y: number, label: string, onClick: () => void) {

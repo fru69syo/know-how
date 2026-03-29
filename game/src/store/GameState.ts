@@ -44,6 +44,7 @@ export interface GameStateData {
   activeSkills: ActiveSkill[];
   isGameOver: boolean;
   isPaused: boolean;
+  adCoinBoost: boolean;
 }
 
 const BASE_STATS: PlayerStats = {
@@ -85,11 +86,13 @@ export const GameState = {
     xpLevel?: number;
     shieldLevel?: number;
     critLevel?: number;
-  }, equippedParts: Partial<Record<PartSlot, string>> = {}, partInventory: OwnedPart[] = []) {
+    baseDamageLevel?: number;
+  }, equippedParts: Partial<Record<PartSlot, string>> = {}, partInventory: OwnedPart[] = [], adCoinBoost = false) {
     const maxHp = Math.floor(100 * (1 + (upgrades.hpLevel - 1) * 0.15));
-    const damage = Math.floor(10  * (1 + (upgrades.attackLevel - 1) * 0.12));
-    const bulletCount = Math.min(3, upgrades.bulletLevel ?? 1);
-    const fireRateMs = Math.max(150, 400 - (upgrades.fireRateLevel - 1) * 30);
+    const damage = Math.floor(10 * (1 + (upgrades.attackLevel - 1) * 0.12))
+                 + ((upgrades.baseDamageLevel ?? 1) - 1) * 3;
+    const bulletCount = Math.min(5, upgrades.bulletLevel ?? 1);
+    const fireRateMs = Math.max(80, 400 - (upgrades.fireRateLevel - 1) * 30);
     const coinMultiplier = 1 + ((upgrades.currencyLevel ?? 1) - 1) * 0.30;
     const xpMultiplier  = 1 + ((upgrades.xpLevel ?? 1) - 1) * 0.15;
     const shieldHp      = ((upgrades.shieldLevel ?? 1) - 1) * 30;
@@ -107,7 +110,7 @@ export const GameState = {
         shieldHp,
         critChance,
       },
-      activeSkills: [], isGameOver: false, isPaused: false,
+      activeSkills: [], isGameOver: false, isPaused: false, adCoinBoost,
     };
 
     // Apply equipped parts
@@ -145,7 +148,8 @@ export const GameState = {
     const s = this.get();
     const boostSkill = s.activeSkills.find(sk => sk.def.id === 'coin_boost');
     const boostMult = boostSkill ? 1 + boostSkill.level * 0.50 : 1;
-    s.sessionCurrency += Math.floor(amount * s.coinMultiplier * boostMult);
+    const adBoost = s.adCoinBoost ? 2 : 1;
+    s.sessionCurrency += Math.floor(amount * s.coinMultiplier * boostMult * adBoost);
   },
 
   takeDamage(amount: number): boolean {

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { GAME_WIDTH, GAME_HEIGHT, COLORS } from '../config';
 import { PersistentState } from '../store/PersistentState';
+import { AdService } from '../services/AdService';
 
 export class MainMenuScene extends Phaser.Scene {
   constructor() { super({ key: 'MainMenuScene' }); }
@@ -12,11 +13,25 @@ export class MainMenuScene extends Phaser.Scene {
     const state = PersistentState.get();
     this.add.text(cx, 310, `BEST: ${state.highScore.toLocaleString()}`, { fontSize:'16px', color:'#aaaaff', fontFamily:'monospace' }).setOrigin(0.5);
     this.add.text(cx, 340, `\ud83e\ude99 ${state.totalCurrency.toLocaleString()}`, { fontSize:'18px', color:'#ffdd00', fontFamily:'monospace' }).setOrigin(0.5);
-    this.createButton(cx, 400, 'PLAY',   () => this.scene.start('GameScene'));
-    this.createButton(cx, 465, 'HANGAR', () => this.scene.start('HangarScene'));
-    this.createButton(cx, 530, 'SHOP',   () => this.scene.start('ShopScene'));
-    this.createButton(cx, 595, 'GACHA',  () => this.scene.start('GachaScene'));
-    this.createButton(cx, 660, 'PARTS',  () => this.scene.start('PartsScene'));
+    const waveRecord = state.waveRecord ?? 0;
+    const skipWave = Math.max(10, Math.floor(waveRecord / 10) * 10);
+    this.createButton(cx, 400, 'PLAY', () => this.scene.start('GameScene'));
+    if (waveRecord >= 10) {
+      this.createButton(cx, 465, `Wave ${skipWave} から & 📺`, () => {
+        AdService.showRewardedAd(this, () => {
+          this.scene.start('GameScene', { skipWave, adCoinBoost: true });
+        });
+      }, true);
+      this.createButton(cx, 530, 'HANGAR', () => this.scene.start('HangarScene'));
+      this.createButton(cx, 595, 'SHOP',   () => this.scene.start('ShopScene'));
+      this.createButton(cx, 660, 'GACHA',  () => this.scene.start('GachaScene'));
+      this.createButton(cx, 725, 'PARTS',  () => this.scene.start('PartsScene'));
+    } else {
+      this.createButton(cx, 465, 'HANGAR', () => this.scene.start('HangarScene'));
+      this.createButton(cx, 530, 'SHOP',   () => this.scene.start('ShopScene'));
+      this.createButton(cx, 595, 'GACHA',  () => this.scene.start('GachaScene'));
+      this.createButton(cx, 660, 'PARTS',  () => this.scene.start('PartsScene'));
+    }
     try {
       if (!this.sound.get('bgm_menu') && this.cache.audio.has('bgm_menu')) {
         this.sound.add('bgm_menu', { loop: true, volume: 0.5 }).play();
@@ -25,11 +40,14 @@ export class MainMenuScene extends Phaser.Scene {
     this.add.text(GAME_WIDTH-8, GAME_HEIGHT-8, 'v0.1.0', { fontSize:'11px', color:'#444466', fontFamily:'monospace' }).setOrigin(1,1);
   }
 
-  private createButton(x: number, y: number, label: string, onClick: () => void) {
-    const btn = this.add.rectangle(x, y, 220, 50, COLORS.UI_BG).setStrokeStyle(2, COLORS.SKILL_CARD_BORDER).setInteractive({ useHandCursor:true });
-    const text = this.add.text(x, y, label, { fontSize:'20px', color:'#ffffff', fontFamily:'monospace' }).setOrigin(0.5);
+  private createButton(x: number, y: number, label: string, onClick: () => void, isAd = false) {
+    const border = isAd ? 0x4466cc : COLORS.SKILL_CARD_BORDER;
+    const btn = this.add.rectangle(x, y, 240, 50, COLORS.UI_BG).setStrokeStyle(2, border).setInteractive({ useHandCursor:true });
+    const fontSize = label.length > 12 ? '14px' : '20px';
+    const color = isAd ? '#88aaff' : '#ffffff';
+    const text = this.add.text(x, y, label, { fontSize, color, fontFamily:'monospace' }).setOrigin(0.5);
     btn.on('pointerover', () => { btn.setFillStyle(0x2a2a4e); text.setColor('#00cfff'); });
-    btn.on('pointerout',  () => { btn.setFillStyle(COLORS.UI_BG); text.setColor('#ffffff'); });
+    btn.on('pointerout',  () => { btn.setFillStyle(COLORS.UI_BG); text.setColor(color); });
     btn.on('pointerdown', () => { this.sound.play('sfx_select'); onClick(); });
   }
 
