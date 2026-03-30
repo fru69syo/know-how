@@ -76,15 +76,13 @@ export class GameScene extends Phaser.Scene {
         }
       });
     };
-    // ── debug: game-over threshold line ──────────────────────────────────────
     const lineY = GAME_HEIGHT * 0.85;
     const dbg = this.add.graphics().setDepth(DEPTHS.HUD - 1);
     dbg.lineStyle(1, 0xff0000, 0.5);
     for (let x = 0; x < GAME_WIDTH; x += 12) dbg.lineBetween(x, lineY, x + 6, lineY);
     this.add.text(GAME_WIDTH - 4, lineY - 3, 'DANGER', { fontSize: '9px', color: '#ff4444', fontFamily: 'monospace' }).setOrigin(1, 1).setDepth(DEPTHS.HUD - 1).setAlpha(0.7);
-    // ─────────────────────────────────────────────────────────────────────────
 
-    const preGrantLevels = skipWave > 1 ? Math.min(12, Math.floor((skipWave - 1) / 4)) : 0;
+    const preGrantLevels = skipWave > 1 ? Math.min(25, Math.floor(skipWave / 3)) : 0;
     this.preGrantRemaining = preGrantLevels;
     if (this.preGrantRemaining > 0) {
       this.preGrantRemaining--;
@@ -144,13 +142,11 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  // ── Manual AABB collision detection ──────────────────────────────────────
   private checkCollisions(time: number) {
     const enemies = this.enemyManager.enemies.getChildren() as Enemy[];
     const pBullets = this.bulletManager.playerBullets.getChildren() as Bullet[];
     const eBullets = this.bulletManager.enemyBullets.getChildren() as Bullet[];
 
-    // Player bullets vs enemies
     for (const bullet of pBullets) {
       if (!bullet.active) continue;
       const bx = bullet.x, by = bullet.y, bhw = 3, bhh = 9;
@@ -171,7 +167,6 @@ export class GameScene extends Phaser.Scene {
               const boost = stats.dropBoost;
               if (Math.random() < 0.40 + boost) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'coin'));
               if (Math.random() < 0.10 + boost * 0.5) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'heart'));
-              // Vampire: heal on kill
               if (stats.vampireHealPct > 0) stats.hp = Math.min(stats.maxHp, stats.hp + Math.floor(stats.maxHp * stats.vampireHealPct));
             }
             if (bullet.explosive) this.splashDamage(enemy.x, enemy.y, 60, bullet.damage * 0.5);
@@ -181,7 +176,6 @@ export class GameScene extends Phaser.Scene {
       }
     }
 
-    // Enemy bullets vs player
     const phw = 16, phh = 16;
     for (const bullet of eBullets) {
       if (!bullet.active) continue;
@@ -191,7 +185,12 @@ export class GameScene extends Phaser.Scene {
       }
     }
 
-    // Enemies vs player (ram)
+    if (this.enemyManager.laserDamageActive) {
+      if (Math.abs(this.player.y - this.enemyManager.laserY) < 25) {
+        if (this.player.takeDamage(30, time)) this.gameOver();
+      }
+    }
+
     for (const enemy of enemies) {
       if (!enemy.active) continue;
       const ehw = enemy.def.width / 2, ehh = enemy.def.height / 2;
@@ -282,7 +281,10 @@ export class GameScene extends Phaser.Scene {
 
   private grantNextPreLevel() {
     const gs = GameState.get();
-    const needed = Math.floor(50 * Math.pow(1.35, gs.level - 1));
+    const lv = gs.level;
+    const needed = lv <= 15
+      ? Math.floor(60 * Math.pow(1.20, lv - 1))
+      : Math.floor(60 * Math.pow(1.20, 14) * Math.pow(1.06, lv - 15));
     this.xpSystem.addXP(needed + 1);
   }
 
@@ -306,25 +308,23 @@ export class GameScene extends Phaser.Scene {
       stroke: '#000000', strokeThickness: 4,
     }).setOrigin(0.5).setDepth(d + 1);
 
-    const subTxt1 = this.add.text(cx, GAME_HEIGHT / 2 - 90, 'コンテニューしますか？', {
+    const subTxt1 = this.add.text(cx, GAME_HEIGHT / 2 - 90, '\u30b3\u30f3\u30c6\u30cb\u30e5\u30fc\u3057\u307e\u3059\u304b\uff1f', {
       fontSize: '15px', color: '#aaaaaa', fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(d + 1);
 
-    const subTxt2 = this.add.text(cx, GAME_HEIGHT / 2 - 60, '（1回のみ・敵全滅でウェーブ突破）', {
+    const subTxt2 = this.add.text(cx, GAME_HEIGHT / 2 - 60, '\uff081\u56de\u306e\u307f\u30fb\u6575\u5168\u6ec5\u3067\u30a6\u30a7\u30fc\u30d6\u7a81\u7834\uff09', {
       fontSize: '12px', color: '#666688', fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(d + 1);
 
-    // Continue button
     const contBtn = this.add.rectangle(cx, GAME_HEIGHT / 2 + 10, 310, 54, 0x0a1a3a)
       .setStrokeStyle(2, 0x4466cc).setInteractive({ useHandCursor: true }).setDepth(d + 1);
-    const contTxt = this.add.text(cx, GAME_HEIGHT / 2 + 10, '📺 広告を見てコンテニュー', {
+    const contTxt = this.add.text(cx, GAME_HEIGHT / 2 + 10, '\ud83d\udcfa \u5e83\u544a\u3092\u898b\u3066\u30b3\u30f3\u30c6\u30cb\u30e5\u30fc', {
       fontSize: '15px', color: '#88aaff', fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(d + 2);
 
-    // Quit button
     const quitBtn = this.add.rectangle(cx, GAME_HEIGHT / 2 + 88, 200, 46, COLORS.UI_BG)
       .setStrokeStyle(2, COLORS.SKILL_CARD_BORDER).setInteractive({ useHandCursor: true }).setDepth(d + 1);
-    const quitTxt = this.add.text(cx, GAME_HEIGHT / 2 + 88, 'ギブアップ', {
+    const quitTxt = this.add.text(cx, GAME_HEIGHT / 2 + 88, '\u30ae\u30d6\u30a2\u30c3\u30d7', {
       fontSize: '16px', color: '#aaaaaa', fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(d + 2);
 
@@ -332,10 +332,8 @@ export class GameScene extends Phaser.Scene {
 
     const doContinue = () => {
       elements.forEach(o => { if (o && o.active) o.destroy(); });
-      // Kill all enemies in the current wave
       const alive = [...(this.enemyManager.enemies.getChildren() as Enemy[])];
       alive.forEach(e => { if (e.active) this.enemyManager.killEnemy(e); });
-      // Restore HP to 50%
       const gs = GameState.get();
       gs.stats.hp = Math.floor(gs.stats.maxHp * 0.5);
       gs.isGameOver = false;

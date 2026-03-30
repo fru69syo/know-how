@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import { GAME_WIDTH, GAME_HEIGHT, COLORS } from '../config';
 import { PersistentState } from '../store/PersistentState';
-import { AdService } from '../services/AdService';
 
 export class MainMenuScene extends Phaser.Scene {
   constructor() { super({ key: 'MainMenuScene' }); }
@@ -14,14 +13,12 @@ export class MainMenuScene extends Phaser.Scene {
     this.add.text(cx, 310, `BEST: ${state.highScore.toLocaleString()}`, { fontSize:'16px', color:'#aaaaff', fontFamily:'monospace' }).setOrigin(0.5);
     this.add.text(cx, 340, `\ud83e\ude99 ${state.totalCurrency.toLocaleString()}`, { fontSize:'18px', color:'#ffdd00', fontFamily:'monospace' }).setOrigin(0.5);
     const waveRecord = state.waveRecord ?? 0;
-    const skipWave = Math.max(10, Math.floor(waveRecord / 10) * 10);
+    const skipWave = Math.floor(waveRecord / 50) * 50;
     this.createButton(cx, 400, 'PLAY', () => this.scene.start('GameScene'));
-    if (waveRecord >= 10) {
-      this.createButton(cx, 465, `Wave ${skipWave} から & 📺`, () => {
-        AdService.showRewardedAd(this, () => {
-          this.scene.start('GameScene', { skipWave, adCoinBoost: true });
-        });
-      }, true);
+    if (waveRecord >= 50) {
+      this.createButton(cx, 465, `Wave ${skipWave} \u304b\u3089\u518d\u958b`, () => {
+        this.scene.start('GameScene', { skipWave });
+      }, false);
       this.createButton(cx, 530, 'HANGAR', () => this.scene.start('HangarScene'));
       this.createButton(cx, 595, 'SHOP',   () => this.scene.start('ShopScene'));
       this.createButton(cx, 660, 'GACHA',  () => this.scene.start('GachaScene'));
