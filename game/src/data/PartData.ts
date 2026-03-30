@@ -7,22 +7,20 @@ export interface PartDef {
   id: string;
   slot: PartSlot;
   name: string;
-  description: string; // shows base (lv1) bonus
+  description: string;
   rarity: PartRarity;
-  // apply stats for given enhancement level (linear scale: lv1 bonus × level)
   apply: (stats: PlayerStats, level: number) => void;
 }
 
 export interface OwnedPart {
-  uid: string;   // unique instance id (nanoid-style: Date.now() + random)
-  id: string;    // PartDef.id
-  level: number; // enhancement level, starts at 1
+  uid: string;
+  id: string;
+  level: number;
 }
 
 export const GACHA_COST_SINGLE = 500;
-export const GACHA_COST_MULTI  = 5000; // 11 pulls
+export const GACHA_COST_MULTI  = 5000;
 
-// Enhancement success rate: 100% for lv1–4, then -10% per level, min 10%
 export function enhanceSuccessRate(currentLevel: number): number {
   return Math.max(0.10, 1.0 - Math.max(0, currentLevel - 4) * 0.10);
 }
@@ -35,63 +33,53 @@ export const RARITY_COLORS: Record<PartRarity, number> = {
 };
 
 export const SLOT_LABELS: Record<PartSlot, string> = {
-  mainWeapon: 'メインウェポン',
-  subWeapon:  'サブウェポン',
-  core:       'コア',
-  wing:       'ウイング',
-  engine:     'エンジン',
+  mainWeapon: '\u30e1\u30a4\u30f3\u30a6\u30a7\u30dd\u30f3',
+  subWeapon:  '\u30b5\u30d6\u30a6\u30a7\u30dd\u30f3',
+  core:       '\u30b3\u30a2',
+  wing:       '\u30a6\u30a4\u30f3\u30b0',
+  engine:     '\u30a8\u30f3\u30b8\u30f3',
 };
 
-// 20 parts, 4 per slot
 export const PART_DEFS: PartDef[] = [
-  // ── Main Weapon ────────────────────────────────────────────────────────────
-  { id:'mw_iron',    slot:'mainWeapon', rarity:'common',    name:'アイアンキャノン',  description:'攻撃力 +10%/Lv',
-    apply:(s,lv)=>{ const m=1+0.10*lv; s.damage=Math.floor(s.baseDamage*m); } },
-  { id:'mw_steel',   slot:'mainWeapon', rarity:'rare',      name:'スチールキャノン',  description:'攻撃力 +20%/Lv',
-    apply:(s,lv)=>{ const m=1+0.20*lv; s.damage=Math.floor(s.baseDamage*m); } },
-  { id:'mw_plasma',  slot:'mainWeapon', rarity:'epic',      name:'プラズマライフル',   description:'攻撃力 +35%/Lv',
-    apply:(s,lv)=>{ const m=1+0.35*lv; s.damage=Math.floor(s.baseDamage*m); } },
-  { id:'mw_quantum', slot:'mainWeapon', rarity:'legendary', name:'量子キャノン',      description:'攻撃力 +60%/Lv',
-    apply:(s,lv)=>{ const m=1+0.60*lv; s.damage=Math.floor(s.baseDamage*m); } },
-
-  // ── Sub Weapon ─────────────────────────────────────────────────────────────
-  { id:'sw_burst',   slot:'subWeapon', rarity:'common',    name:'バーストシェル',    description:'弾数 +1/Lv',
-    apply:(s,lv)=>{ s.bulletCount=Math.min(5, s.baseBulletCount+lv); } },
-  { id:'sw_homing',  slot:'subWeapon', rarity:'rare',      name:'ホーミングミサイル', description:'弾が追尾（Lv2で強化）',
-    apply:(s,lv)=>{ s.homing=true; if(lv>=2) s.critChance=Math.min(0.9,s.critChance+0.05*(lv-1)); } },
-  { id:'sw_explode', slot:'subWeapon', rarity:'epic',      name:'爆発弾',            description:'着弾時爆発（Lv2で弾数+1）',
+  { id:'mw_iron',    slot:'mainWeapon', rarity:'common',    name:'\u30a2\u30a4\u30a2\u30f3\u30ad\u30e3\u30ce\u30f3',  description:'\u653b\u6483\u529b +10%/Lv',
+    apply:(s,lv)=>{ const m=1+0.10*lv; s.baseDamage=Math.floor(s.baseDamage*m); s.damage=s.baseDamage; } },
+  { id:'mw_steel',   slot:'mainWeapon', rarity:'rare',      name:'\u30b9\u30c1\u30fc\u30eb\u30ad\u30e3\u30ce\u30f3',  description:'\u653b\u6483\u529b +20%/Lv',
+    apply:(s,lv)=>{ const m=1+0.20*lv; s.baseDamage=Math.floor(s.baseDamage*m); s.damage=s.baseDamage; } },
+  { id:'mw_plasma',  slot:'mainWeapon', rarity:'epic',      name:'\u30d7\u30e9\u30ba\u30de\u30e9\u30a4\u30d5\u30eb',   description:'\u653b\u6483\u529b +35%/Lv',
+    apply:(s,lv)=>{ const m=1+0.35*lv; s.baseDamage=Math.floor(s.baseDamage*m); s.damage=s.baseDamage; } },
+  { id:'mw_quantum', slot:'mainWeapon', rarity:'legendary', name:'\u91cf\u5b50\u30ad\u30e3\u30ce\u30f3',      description:'\u653b\u6483\u529b +60%/Lv',
+    apply:(s,lv)=>{ const m=1+0.60*lv; s.baseDamage=Math.floor(s.baseDamage*m); s.damage=s.baseDamage; } },
+  { id:'sw_burst',   slot:'subWeapon', rarity:'common',    name:'\u30d0\u30fc\u30b9\u30c8\u30b7\u30a7\u30eb',    description:'\u5f3e\u6570 +1/Lv',
+    apply:(s,lv)=>{ s.baseBulletCount=Math.min(5, s.baseBulletCount+lv); s.bulletCount=s.baseBulletCount; } },
+  { id:'sw_homing',  slot:'subWeapon', rarity:'rare',      name:'\u30db\u30fc\u30df\u30f3\u30b0\u30df\u30b5\u30a4\u30eb', description:'\u5f3e\u304c\u8ffd\u5c3e\uff08Lv2\u3067\u5f37\u5316\uff09',
+    apply:(s,lv)=>{ s.homing=true; if(lv>=2){ const b=0.05*(lv-1); s.baseCritChance=Math.min(0.9,s.baseCritChance+b); s.critChance=s.baseCritChance; } } },
+  { id:'sw_explode', slot:'subWeapon', rarity:'epic',      name:'\u7206\u767a\u5f3e',            description:'\u7740\u5f3e\u6642\u7206\u767a\uff08Lv2\u3067\u5f3e\u6570+1\uff09',
     apply:(s,lv)=>{ s.explosive=true; if(lv>=2) s.bulletCount=Math.min(5,s.bulletCount+Math.floor((lv-1)/2)); } },
-  { id:'sw_void',    slot:'subWeapon', rarity:'legendary', name:'ヴォイドランス',    description:'貫通+追尾、弾数+1/2Lv',
+  { id:'sw_void',    slot:'subWeapon', rarity:'legendary', name:'\u30f4\u30a9\u30a4\u30c9\u30e9\u30f3\u30b9',    description:'\u8cab\u901a+\u8ffd\u5c3e\u3001\u5f3e\u6570+1/2Lv',
     apply:(s,lv)=>{ s.penetrate=true; s.homing=true; s.bulletCount=Math.min(5,s.bulletCount+Math.floor(lv/2)); } },
-
-  // ── Core ───────────────────────────────────────────────────────────────────
-  { id:'co_iron',    slot:'core', rarity:'common',    name:'アイアンコア',    description:'最大HP +15%/Lv',
+  { id:'co_iron',    slot:'core', rarity:'common',    name:'\u30a2\u30a4\u30a2\u30f3\u30b3\u30a2',    description:'\u6700\u5927HP +15%/Lv',
     apply:(s,lv)=>{ const b=Math.floor(s.maxHp*0.15*lv); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); } },
-  { id:'co_steel',   slot:'core', rarity:'rare',      name:'スチールコア',    description:'最大HP +20%/Lv シールド+15/Lv',
+  { id:'co_steel',   slot:'core', rarity:'rare',      name:'\u30b9\u30c1\u30fc\u30eb\u30b3\u30a2',    description:'\u6700\u5927HP +20%/Lv \u30b7\u30fc\u30eb\u30c9+15/Lv',
     apply:(s,lv)=>{ const b=Math.floor(s.maxHp*0.20*lv); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); s.shieldHp+=15*lv; } },
-  { id:'co_crystal', slot:'core', rarity:'epic',      name:'クリスタルコア',  description:'最大HP +30%/Lv シールド+30/Lv',
+  { id:'co_crystal', slot:'core', rarity:'epic',      name:'\u30af\u30ea\u30b9\u30bf\u30eb\u30b3\u30a2',  description:'\u6700\u5927HP +30%/Lv \u30b7\u30fc\u30eb\u30c9+30/Lv',
     apply:(s,lv)=>{ const b=Math.floor(s.maxHp*0.30*lv); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); s.shieldHp+=30*lv; } },
-  { id:'co_omega',   slot:'core', rarity:'legendary', name:'オメガコア',      description:'最大HP +50%/Lv シールド+60/Lv',
+  { id:'co_omega',   slot:'core', rarity:'legendary', name:'\u30aa\u30e1\u30ac\u30b3\u30a2',      description:'\u6700\u5927HP +50%/Lv \u30b7\u30fc\u30eb\u30c9+60/Lv',
     apply:(s,lv)=>{ const b=Math.floor(s.maxHp*0.50*lv); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); s.shieldHp+=60*lv; } },
-
-  // ── Wing ───────────────────────────────────────────────────────────────────
-  { id:'wi_feather', slot:'wing', rarity:'common',    name:'フェザーウイング', description:'発射間隔 -8%/Lv',
-    apply:(s,lv)=>{ const m=Math.pow(0.92,lv); s.fireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); } },
-  { id:'wi_sharp',   slot:'wing', rarity:'rare',      name:'シャープウイング', description:'クリ確率 +8%/Lv',
-    apply:(s,lv)=>{ s.critChance=Math.min(0.9,s.critChance+0.08*lv); } },
-  { id:'wi_swift',   slot:'wing', rarity:'epic',      name:'スウィフトウイング',description:'発射間隔 -12%/Lv クリ確率 +6%/Lv',
-    apply:(s,lv)=>{ const m=Math.pow(0.88,lv); s.fireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); s.critChance=Math.min(0.9,s.critChance+0.06*lv); } },
-  { id:'wi_angel',   slot:'wing', rarity:'legendary', name:'エンジェルウイング',description:'発射間隔 -15%/Lv クリ確率 +10%/Lv クリ倍率 +0.3/Lv',
-    apply:(s,lv)=>{ const m=Math.pow(0.85,lv); s.fireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); s.critChance=Math.min(0.9,s.critChance+0.10*lv); s.critMultiplier+=0.3*lv; } },
-
-  // ── Engine ─────────────────────────────────────────────────────────────────
-  { id:'en_boost',   slot:'engine', rarity:'common',    name:'ブーストエンジン',  description:'磁力範囲 +40/Lv',
+  { id:'wi_feather', slot:'wing', rarity:'common',    name:'\u30d5\u30a7\u30b6\u30fc\u30a6\u30a4\u30f3\u30b0', description:'\u767a\u5c04\u9593\u9694 -8%/Lv',
+    apply:(s,lv)=>{ const m=Math.pow(0.92,lv); s.baseFireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); s.fireRateMs=s.baseFireRateMs; } },
+  { id:'wi_sharp',   slot:'wing', rarity:'rare',      name:'\u30b7\u30e3\u30fc\u30d7\u30a6\u30a4\u30f3\u30b0', description:'\u30af\u30ea\u78ba\u7387 +8%/Lv',
+    apply:(s,lv)=>{ s.baseCritChance=Math.min(0.9,s.baseCritChance+0.08*lv); s.critChance=s.baseCritChance; } },
+  { id:'wi_swift',   slot:'wing', rarity:'epic',      name:'\u30b9\u30a6\u30a3\u30d5\u30c8\u30a6\u30a4\u30f3\u30b0',description:'\u767a\u5c04\u9593\u9694 -12%/Lv \u30af\u30ea\u78ba\u7387 +6%/Lv',
+    apply:(s,lv)=>{ const m=Math.pow(0.88,lv); s.baseFireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); s.fireRateMs=s.baseFireRateMs; s.baseCritChance=Math.min(0.9,s.baseCritChance+0.06*lv); s.critChance=s.baseCritChance; } },
+  { id:'wi_angel',   slot:'wing', rarity:'legendary', name:'\u30a8\u30f3\u30b8\u30a7\u30eb\u30a6\u30a4\u30f3\u30b0',description:'\u767a\u5c04\u9593\u9694 -15%/Lv \u30af\u30ea\u78ba\u7387 +10%/Lv \u30af\u30ea\u500d\u7387 +0.3/Lv',
+    apply:(s,lv)=>{ const m=Math.pow(0.85,lv); s.baseFireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); s.fireRateMs=s.baseFireRateMs; s.baseCritChance=Math.min(0.9,s.baseCritChance+0.10*lv); s.critChance=s.baseCritChance; s.critMultiplier+=0.3*lv; } },
+  { id:'en_boost',   slot:'engine', rarity:'common',    name:'\u30d6\u30fc\u30b9\u30c8\u30a8\u30f3\u30b8\u30f3',  description:'\u78c1\u529b\u7bc4\u56f2 +40/Lv',
     apply:(s,lv)=>{ s.magnetRadius+=40*lv; } },
-  { id:'en_warp',    slot:'engine', rarity:'rare',      name:'ワープエンジン',    description:'無敵時間 +0.4秒/Lv',
+  { id:'en_warp',    slot:'engine', rarity:'rare',      name:'\u30ef\u30fc\u30d7\u30a8\u30f3\u30b8\u30f3',    description:'\u7121\u6575\u6642\u9593 +0.4\u79d2/Lv',
     apply:(s,lv)=>{ s.invincibleExtendMs+=400*lv; } },
-  { id:'en_fury',    slot:'engine', rarity:'epic',      name:'フューリーエンジン', description:'HP30%以下で攻撃力 ×(1+0.5/Lv)',
+  { id:'en_fury',    slot:'engine', rarity:'epic',      name:'\u30d5\u30e5\u30fc\u30ea\u30fc\u30a8\u30f3\u30b8\u30f3', description:'HP30%\u4ee5\u4e0b\u3067\u653b\u6483\u529b \xd7(1+0.5/Lv)',
     apply:(s,lv)=>{ s.rageMultiplier=Math.max(s.rageMultiplier, 1+0.5*lv); } },
-  { id:'en_void',    slot:'engine', rarity:'legendary', name:'ヴォイドエンジン',  description:'吸血 +2%/Lv 自動回復 +1%/Lv',
+  { id:'en_void',    slot:'engine', rarity:'legendary', name:'\u30f4\u30a9\u30a4\u30c9\u30a8\u30f3\u30b8\u30f3',  description:'\u5438\u8840 +2%/Lv \u81ea\u52d5\u56de\u5fa9 +1%/Lv',
     apply:(s,lv)=>{ s.vampireHealPct+=0.02*lv; s.autoHealPct+=0.01*lv; } },
 ];
 
@@ -99,7 +87,6 @@ export function getPartDef(id: string): PartDef | undefined {
   return PART_DEFS.find(p => p.id === id);
 }
 
-// Weighted gacha pull
 export function pullGacha(n: number): PartDef[] {
   const result: PartDef[] = [];
   for (let i = 0; i < n; i++) {

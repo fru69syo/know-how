@@ -23,18 +23,30 @@ export function getWaveConfig(wave: number): WaveConfig {
 }
 
 function generateWaveConfig(wave: number): WaveConfig {
-  const isBossWave = wave % 5 === 0;
+  const isMegaBossWave = wave % 25 === 0;
   const difficulty = Math.floor((wave - 1) / 5);
   const grid: GridRow[] = [];
-  if (isBossWave) {
-    grid.push([_,_,_,'boss',_,_,_]);
-    grid.push(['miniboss',_,'turret',_,'turret',_,'miniboss']);
-    grid.push(['alien','alien','alien','drone','alien','alien','alien']);
+  if (isMegaBossWave) {
+    grid.push([_,_,_,'mega_boss',_,_,_]);
+    grid.push([_,_,_,_,_,_,_]);
+    grid.push([_,_,_,_,_,_,_]);
+    return { wave, grid, descendSpeedMult: 0, lateralSpeedMult: 0, hasBoss: true };
   } else {
-    const types: EnemyType[] = difficulty >= 2 ? ['alien','turret','drone','meteor_l'] : ['drone','meteor_l','meteor_s'];
+    let types: EnemyType[];
+    if (wave >= 150) {
+      types = ['phantom','elite_heavy','elite','turret'];
+    } else if (wave >= 100) {
+      types = ['elite_heavy','elite','turret','alien'];
+    } else if (wave >= 50) {
+      types = ['elite','alien','turret','drone'];
+    } else if (difficulty >= 2) {
+      types = ['alien','turret','drone','meteor_l'];
+    } else {
+      types = ['drone','meteor_l','meteor_s'];
+    }
     for (let r = 0; r < 3; r++) {
       grid.push(Array.from({length:7}, () => types[Math.floor(Math.random()*types.length)]));
     }
   }
-  return { wave, grid, descendSpeedMult: Math.min(1 + (wave - 1) * 0.08, 4.0), lateralSpeedMult: Math.min(1 + (wave - 1) * 0.06, 3.0), hasBoss: isBossWave };
+  return { wave, grid, descendSpeedMult: Math.min(1 + (wave - 1) * 0.08, 4.0), lateralSpeedMult: Math.min(1 + (wave - 1) * 0.06, 3.0), hasBoss: false };
 }

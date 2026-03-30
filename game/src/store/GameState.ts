@@ -1,4 +1,4 @@
-// 1ランのみ有効なランタイムステート
+// 1\u30e9\u30f3\u306e\u307f\u6709\u52b9\u306a\u30e9\u30f3\u30bf\u30a4\u30e0\u30b9\u30c6\u30fc\u30c8
 
 import type { ActiveSkill } from '../skills/SkillDefinitions';
 import { getPartDef } from '../data/PartData';
@@ -15,6 +15,7 @@ export interface PlayerStats {
   bulletCount: number;
   baseBulletCount: number;
   critChance: number;
+  baseCritChance: number;
   critMultiplier: number;
   penetrate: boolean;
   explosive: boolean;
@@ -23,13 +24,12 @@ export interface PlayerStats {
   magnetRadius: number;
   shieldHp: number;
   invincibleExtendMs: number;
-  // skill-driven stats
-  damageMitigation: number;   // 0-1: fraction of incoming damage absorbed
-  dodgeChance: number;        // 0-1: probability to fully dodge a hit
-  vampireHealPct: number;     // heal this fraction of maxHp on each kill
-  autoHealPct: number;        // heal this fraction of maxHp every 10 seconds
-  dropBoost: number;          // additive bonus to item drop probabilities
-  rageMultiplier: number;     // damage multiplier when HP < 30%
+  damageMitigation: number;
+  dodgeChance: number;
+  vampireHealPct: number;
+  autoHealPct: number;
+  dropBoost: number;
+  rageMultiplier: number;
 }
 
 export interface GameStateData {
@@ -58,6 +58,7 @@ const BASE_STATS: PlayerStats = {
   bulletCount: 1,
   baseBulletCount: 1,
   critChance: 0,
+  baseCritChance: 0,
   critMultiplier: 2.0,
   penetrate: false,
   explosive: false,
@@ -108,12 +109,11 @@ export const GameState = {
         bulletCount, baseBulletCount: bulletCount,
         fireRateMs, baseFireRateMs: fireRateMs,
         shieldHp,
-        critChance,
+        critChance, baseCritChance: critChance,
       },
       activeSkills: [], isGameOver: false, isPaused: false, adCoinBoost,
     };
 
-    // Apply equipped parts
     const slots = Object.keys(equippedParts) as PartSlot[];
     for (const slot of slots) {
       const uid = equippedParts[slot];
@@ -137,7 +137,10 @@ export const GameState = {
     const s = this.get();
     const xpBoostSkill = s.activeSkills.find(sk => sk.def.id === 'xp_boost');
     const skillMult = xpBoostSkill ? 1 + xpBoostSkill.level * 0.20 : 1;
-    const needed = Math.floor(50 * Math.pow(1.35, s.level - 1));
+    const lv = s.level;
+    const needed = lv <= 15
+      ? Math.floor(60 * Math.pow(1.20, lv - 1))
+      : Math.floor(60 * Math.pow(1.20, 14) * Math.pow(1.06, lv - 15));
     s.xp += Math.floor(amount * s.xpMultiplier * skillMult);
     if (s.xp >= needed) { s.xp -= needed; s.level += 1; return true; }
     return false;
@@ -154,9 +157,7 @@ export const GameState = {
 
   takeDamage(amount: number): boolean {
     const s = this.get();
-    // Dodge check
     if (s.stats.dodgeChance > 0 && Math.random() < s.stats.dodgeChance) return false;
-    // Damage mitigation
     const mitigated = Math.max(1, Math.ceil(amount * (1 - s.stats.damageMitigation)));
     if (s.stats.shieldHp > 0) { s.stats.shieldHp = Math.max(0, s.stats.shieldHp - mitigated); return false; }
     s.stats.hp = Math.max(0, s.stats.hp - mitigated);

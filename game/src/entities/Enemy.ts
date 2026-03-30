@@ -16,7 +16,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.def = def; this.hp = scaledHp; this.maxHp = scaledHp;
     scene.add.existing(this); scene.physics.add.existing(this, true);
     this.setDepth(DEPTHS.ENEMIES); this.setDisplaySize(def.width, def.height);
-    if (def.type === 'boss' || def.type === 'miniboss') {
+    if (def.type === 'boss' || def.type === 'miniboss' || def.type === 'mega_boss') {
       this.hpBarBg = scene.add.rectangle(x, y + def.height/2+6, def.width, 5, COLORS.HP_BAR_BG).setDepth(DEPTHS.HUD);
       this.hpBar   = scene.add.rectangle(x, y + def.height/2+6, def.width, 5, COLORS.HP_BAR_FILL).setDepth(DEPTHS.HUD).setOrigin(0.5);
     }
