@@ -42,7 +42,7 @@ export const PLAYER = {
   BASE_BULLET_COUNT: 1,
   BULLET_SPEED: 700,
   HIT_RADIUS: 18,
-  INVINCIBLE_MS: 800,
+  INVINCIBLE_MS: 100,
 };
 
 export const XP_PER_LEVEL = (level: number) => Math.floor(50 * Math.pow(1.35, level - 1));

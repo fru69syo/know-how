@@ -18,16 +18,16 @@ export interface SkillDef {
 export interface ActiveSkill { def: SkillDef; level: number; }
 
 export const SKILL_DEFS: Record<SkillId, SkillDef> = {
-  multi_shot:       { id:'multi_shot',       name:'マルチショット',         description:'弾数+1（最大5発）',        icon:'icon_star', maxLevel:4, rarity:'common',    applyLevel:(s,lv)=>{ s.bulletCount=Math.min(5, s.baseBulletCount + lv); } },
+  multi_shot:       { id:'multi_shot',       name:'マルチショット',         description:'弾数+1（最大4発）',        icon:'icon_star', maxLevel:4, rarity:'common',    applyLevel:(s,lv)=>{ s.bulletCount=Math.min(4, s.baseBulletCount + lv); } },
   spread_shot:      { id:'spread_shot',      name:'スプレッド弾',           description:'弾が扇状に広がる',        icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,_)=>{ s.spreadShot=true; } },
   penetrate:        { id:'penetrate',        name:'貫通弾',               description:'弾が敵を貫通する',          icon:'icon_star', maxLevel:1, rarity:'rare',     applyLevel:(s,_)=>{ s.penetrate=true; } },
   explosive:        { id:'explosive',        name:'爆発弾',               description:'着弾時に範囲ダメージ',       icon:'icon_star', maxLevel:3, rarity:'epic',     applyLevel:(s,_)=>{ s.explosive=true; } },
   homing:           { id:'homing',           name:'ホーミング弾',           description:'最寄り敵に自動追尾',         icon:'icon_star', maxLevel:1, rarity:'epic',     applyLevel:(s,_)=>{ s.homing=true; } },
   crit_chance:      { id:'crit_chance',      name:'クリティカル確率',         description:'クリ確率+15%',              icon:'icon_star', maxLevel:5, rarity:'common',    applyLevel:(s,lv)=>{ s.critChance=Math.min(0.9, s.baseCritChance + lv*0.15); } },
-  crit_damage:      { id:'crit_damage',      name:'クリティカルダメージ',       description:'クリダメージ+0.5倍',           icon:'icon_star', maxLevel:4, rarity:'rare',     applyLevel:(s,lv)=>{ s.critMultiplier=s.baseCritMultiplier+lv*0.5; } },
-  damage_up:        { id:'damage_up',        name:'ダメージUP',             description:'攻撃力+20%',                icon:'icon_star', maxLevel:5, rarity:'common',    applyLevel:(s,lv)=>{ s.damage=Math.floor(s.baseDamage*(1+lv*0.2)); } },
-  fire_rate_up:     { id:'fire_rate_up',     name:'攻撃速度UP',            description:'発射間隔-15%',              icon:'icon_star', maxLevel:5, rarity:'common',    applyLevel:(s,lv)=>{ s.fireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*(1-lv*0.15))); } },
-  hp_up:            { id:'hp_up',            name:'HP増加',               description:'最大HP+25%',               icon:'icon_heart',maxLevel:5, rarity:'common',    applyLevel:(s,_)=>{ const b=Math.floor(s.maxHp*0.25); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); } },
+  crit_damage:      { id:'crit_damage',      name:'クリティカルダメージ',       description:'クリダメージ+0.4倍',           icon:'icon_star', maxLevel:4, rarity:'rare',     applyLevel:(s,lv)=>{ s.critMultiplier=s.baseCritMultiplier+lv*0.4; } },
+  damage_up:        { id:'damage_up',        name:'ダメージUP',             description:'攻撃力+15%',                icon:'icon_star', maxLevel:5, rarity:'common',    applyLevel:(s,lv)=>{ s.damage=Math.floor(s.baseDamage*(1+lv*0.15)); } },
+  fire_rate_up:     { id:'fire_rate_up',     name:'攻撃速度UP',            description:'発射間隔-10%',              icon:'icon_star', maxLevel:5, rarity:'common',    applyLevel:(s,lv)=>{ s.fireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*(1-lv*0.10))); } },
+  hp_up:            { id:'hp_up',            name:'HP増加',               description:'最大HP+20%',               icon:'icon_heart',maxLevel:5, rarity:'common',    applyLevel:(s,_)=>{ const b=Math.floor(s.maxHp*0.20); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); } },
   heal:             { id:'heal',             name:'回復',                 description:'HPを 20%回復',             icon:'icon_heart',maxLevel:3, rarity:'common',    applyLevel:(s,_)=>{ s.hp=Math.min(s.maxHp,s.hp+Math.floor(s.maxHp*0.2)); } },
   shield:           { id:'shield',           name:'シールド',               description:'ダメージを 1回無効化',        icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,lv)=>{ s.shieldHp+=lv*30; } },
   invincible_extend:{ id:'invincible_extend',name:'無敵時間延長',         description:'被弾後の無敵+0.5秒',        icon:'icon_star', maxLevel:3, rarity:'rare',     applyLevel:(s,lv)=>{ (s as any).invincibleExtendMs = lv * 500; } },
