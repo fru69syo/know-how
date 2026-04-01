@@ -1,1 +1,366 @@
-aW1wb3J0IFBoYXNlciBmcm9tICdwaGFzZXInOwppbXBvcnQgeyBHQU1FX1dJRFRILCBHQU1FX0hFSUdIVCwgV0FWRSwgREVQVEhTIH0gZnJvbSAnLi4vY29uZmlnJzsKaW1wb3J0IHsgUGxheWVyIH0gZnJvbSAnLi4vZW50aXRpZXMvUGxheWVyJzsKaW1wb3J0IHsgRW5lbXkgfSBmcm9tICcuLi9lbnRpdGllcy9FbmVteSc7CmltcG9ydCB7IEJ1bGxldCB9IGZyb20gJy4uL2VudGl0aWVzL0J1bGxldCc7CmltcG9ydCB7IERyb3BwZWRJdGVtIH0gZnJvbSAnLi4vZW50aXRpZXMvRHJvcHBlZEl0ZW0nOwppbXBvcnQgeyBFbmVteU1hbmFnZXIgfSBmcm9tICcuLi9zeXN0ZW1zL0VuZW15TWFuYWdlcic7CmltcG9ydCB7IEJ1bGxldE1hbmFnZXIgfSBmcm9tICcuLi9zeXN0ZW1zL0J1bGxldE1hbmFnZXInOwppbXBvcnQgeyBYUFN5c3RlbSB9IGZyb20gJy4uL3N5c3RlbXMvWFBTeXN0ZW0nOwppbXBvcnQgeyBTa2lsbFN5c3RlbSB9IGZyb20gJy4uL3N5c3RlbXMvU2tpbGxTeXN0ZW0nOwppbXBvcnQgeyBIVURDb250cm9sbGVyIH0gZnJvbSAnLi4vc3lzdGVtcy9IVURDb250cm9sbGVyJzsKaW1wb3J0IHsgR2FtZVN0YXRlIH0gZnJvbSAnLi4vc3RvcmUvR2FtZVN0YXRlJzsKaW1wb3J0IHsgUGVyc2lzdGVudFN0YXRlIH0gZnJvbSAnLi4vc3RvcmUvUGVyc2lzdGVudFN0YXRlJzsKaW1wb3J0IHsgQ09MT1JTIH0gZnJvbSAnLi4vY29uZmlnJzsKaW1wb3J0IHsgQWRTZXJ2aWNlIH0gZnJvbSAnLi4vc2VydmljZXMvQWRTZXJ2aWNlJzsKCmNvbnN0IERST05FX09GRlNFVFMgPSBbeyB4OiAtMzIsIHk6IDggfSwgeyB4OiAzMiwgeTogOCB9LCB7IHg6IDAsIHk6IC0yMCB9XTsKY29uc3QgRFJPTkVfRklSRV9NUyA9IDYwMDsKCmV4cG9ydCBjbGFzcyBHYW1lU2NlbmUgZXh0ZW5kcyBQaGFzZXIuU2NlbmUgewogIHBsYXllciE6IFBsYXllcjsKICBlbmVteU1hbmFnZXIhOiBFbmVteU1hbmFnZXI7CiAgYnVsbGV0TWFuYWdlciE6IEJ1bGxldE1hbmFnZXI7CiAgeHBTeXN0ZW0hOiBYUFN5c3RlbTsKICBza2lsbFN5c3RlbSE6IFNraWxsU3lzdGVtOwogIGh1ZENvbnRyb2xsZXIhOiBIVURDb250cm9sbGVyOwogIHByaXZhdGUgYmdNdXNpYyE6IFBoYXNlci5Tb3VuZC5CYXNlU291bmQ7CiAgcHJpdmF0ZSBzdGFycyE6IFBoYXNlci5HYW1lT2JqZWN0cy5HcmFwaGljczsKICBwcml2YXRlIHN0YXJEYXRhOiB7IHg6IG51bWJlcjsgeTogbnVtYmVyOyBzcGVlZDogbnVtYmVyOyBzaXplOiBudW1iZXIgfVtdID0gW107CiAgcHJpdmF0ZSBkcm9uZVNwcml0ZXM6IFBoYXNlci5HYW1lT2JqZWN0cy5BcmNbXSA9IFtdOwogIHByaXZhdGUgZHJvbmVGaXJlVGltZXM6IG51bWJlcltdID0gW107CiAgcHJpdmF0ZSBkcm9wcGVkSXRlbXM6IERyb3BwZWRJdGVtW10gPSBbXTsKICBwcml2YXRlIGxhc3RBdXRvSGVhbFRpbWUgPSAwOwogIHByaXZhdGUgY29udGludWVVc2VkID0gZmFsc2U7CiAgcHJpdmF0ZSBwcmVHcmFudFJlbWFpbmluZyA9IDA7CiAgcHJpdmF0ZSB3YXZlU3RhcnRlZCA9IGZhbHNlOwoKICBjb25zdHJ1Y3RvcigpIHsgc3VwZXIoeyBrZXk6ICdHYW1lU2NlbmUnIH0pOyB9CgogIGNyZWF0ZSgpIHsKICAgIGNvbnN0IHsgc2tpcFdhdmUgPSAxLCBhZENvaW5Cb29zdCA9IGZhbHNlIH0gPSAodGhpcy5zY2VuZS5zZXR0aW5ncy5kYXRhID8/IHt9KSBhcyB7IHNraXBXYXZlPzogbnVtYmVyOyBhZENvaW5Cb29zdD86IGJvb2xlYW4gfTsKICAgIGNvbnN0IHBlcnNpc3RlbnQgPSBQZXJzaXN0ZW50U3RhdGUuZ2V0KCk7CiAgICBHYW1lU3RhdGUuaW5pdChwZXJzaXN0ZW50LnVwZ3JhZGVzLCBwZXJzaXN0ZW50LmVxdWlwcGVkUGFydHMgPz8ge30sIHBlcnNpc3RlbnQucGFydEludmVudG9yeSA/PyBbXSwgYWRDb2luQm9vc3QpOwogICAgdGhpcy5zdGFyRGF0YSA9IFtdOwogICAgdGhpcy5zdGFycyA9IHRoaXMuYWRkLmdyYXBoaWNzKCk7CiAgICBmb3IgKGxldCBpID0gMDsgaSA8IDEwMDsgaSsrKSB0aGlzLnN0YXJEYXRhLnB1c2goeyB4OiBQaGFzZXIuTWF0aC5CZXR3ZWVuKDAsR0FNRV9XSURUSCksIHk6IFBoYXNlci5NYXRoLkJldHdlZW4oMCxHQU1FX0hFSUdIVCksIHNwZWVkOiBQaGFzZXIuTWF0aC5GbG9hdEJldHdlZW4oMjAsMTAwKSwgc2l6ZTogTWF0aC5yYW5kb20oKTwwLjI/MjoxIH0pOwogICAgdGhpcy5idWxsZXRNYW5hZ2VyID0gbmV3IEJ1bGxldE1hbmFnZXIodGhpcyk7CiAgICB0aGlzLmVuZW15TWFuYWdlciAgPSBuZXcgRW5lbXlNYW5hZ2VyKHRoaXMpOwogICAgdGhpcy54cFN5c3RlbSAgICAgID0gbmV3IFhQU3lzdGVtKHRoaXMpOwogICAgdGhpcy5za2lsbFN5c3RlbSAgID0gbmV3IFNraWxsU3lzdGVtKHRoaXMpOwogICAgdGhpcy5odWRDb250cm9sbGVyID0gbmV3IEhVRENvbnRyb2xsZXIodGhpcyk7CiAgICB0aGlzLnBsYXllciA9IG5ldyBQbGF5ZXIodGhpcywgR0FNRV9XSURUSC8yLCBHQU1FX0hFSUdIVCowLjgyKTsKICAgIHRoaXMuZW5lbXlNYW5hZ2VyLm9uV2F2ZUNsZWFyZWQgICAgICAgID0gKCkgPT4gewogICAgICBQZXJzaXN0ZW50U3RhdGUudXBkYXRlV2F2ZVJlY29yZChHYW1lU3RhdGUuZ2V0KCkud2F2ZSk7CiAgICAgIHRoaXMudGltZS5kZWxheWVkQ2FsbCgxMjAwLCAoKSA9PiB0aGlzLnN0YXJ0V2F2ZShHYW1lU3RhdGUuZ2V0KCkud2F2ZSArIDEpKTsKICAgIH07CiAgICB0aGlzLmVuZW15TWFuYWdlci5vbkVuZW15UmVhY2hlZEJvdHRvbSA9ICgpID0+IHsKICAgICAgY29uc3QgZG1nID0gTWF0aC5mbG9vcihHYW1lU3RhdGUuZ2V0KCkuc3RhdHMubWF4SHAgKiAwLjI1KTsKICAgICAgaWYgKHRoaXMucGxheWVyLnRha2VEYW1hZ2UoZG1nLCB0aGlzLnRpbWUubm93KSkgdGhpcy5nYW1lT3ZlcigpOwogICAgICBlbHNlIHRoaXMuY2FtZXJhcy5tYWluLnNoYWtlKDMwMCwgMC4wMTUpOwogICAgfTsKICAgIHRoaXMueHBTeXN0ZW0ub25MZXZlbFVwID0gKF9sZXZlbCkgPT4gewogICAgICBpZiAoR2FtZVN0YXRlLmdldCgpLmlzUGF1c2VkKSByZXR1cm47CiAgICAgIEdhbWVTdGF0ZS5nZXQoKS5pc1BhdXNlZCA9IHRydWU7CiAgICAgIHRoaXMuc2NlbmUucGF1c2UoKTsKICAgICAgdGhpcy5zY2VuZS5sYXVuY2goJ0xldmVsVXBTY2VuZScpOwogICAgICB0aGlzLnNjZW5lLmdldCgnTGV2ZWxVcFNjZW5lJykuZXZlbnRzLm9uY2UoJ3NodXRkb3duJywgKCkgPT4gewogICAgICAgIEdhbWVTdGF0ZS5nZXQoKS5pc1BhdXNlZCA9IGZhbHNlOwogICAgICAgIGlmICghdGhpcy53YXZlU3RhcnRlZCkgewogICAgICAgICAgaWYgKHRoaXMucHJlR3JhbnRSZW1haW5pbmcgPiAwKSB7CiAgICAgICAgICAgIHRoaXMucHJlR3JhbnRSZW1haW5pbmctLTsKICAgICAgICAgICAgdGhpcy5ncmFudE5leHRQcmVMZXZlbCgpOwogICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgdGhpcy53YXZlU3RhcnRlZCA9IHRydWU7CiAgICAgICAgICAgIHRoaXMuc3RhcnRXYXZlKHNraXBXYXZlKTsKICAgICAgICAgIH0KICAgICAgICB9CiAgICAgIH0pOwogICAgfTsKICAgIGNvbnN0IGxpbmVZID0gR0FNRV9IRUlHSFQgKiAwLjg1OwogICAgY29uc3QgZGJnID0gdGhpcy5hZGQuZ3JhcGhpY3MoKS5zZXREZXB0aChERVBUSFMuSFVEIC0gMSk7CiAgICBkYmcubGluZVN0eWxlKDEsIDB4ZmYwMDAwLCAwLjUpOwogICAgZm9yIChsZXQgeCA9IDA7IHggPCBHQU1FX1dJRFRIOyB4ICs9IDEyKSBkYmcubGluZUJldHdlZW4oeCwgbGluZVksIHggKyA2LCBsaW5lWSk7CiAgICB0aGlzLmFkZC50ZXh0KEdBTUVfV0lEVEggLSA0LCBsaW5lWSAtIDMsICdEQU5HRVInLCB7IGZvbnRTaXplOiAnOXB4JywgY29sb3I6ICcjZmY0NDQ0JywgZm9udEZhbWlseTogJ21vbm9zcGFjZScgfSkuc2V0T3JpZ2luKDEsIDEpLnNldERlcHRoKERFUFRIUy5IVUQgLSAxKS5zZXRBbHBoYSgwLjcpOwoKICAgIGNvbnN0IHByZUdyYW50TGV2ZWxzID0gc2tpcFdhdmUgPiAxID8gTWF0aC5taW4oNiwgTWF0aC5mbG9vcigoc2tpcFdhdmUgLSAxKSAvIDgpKSA6IDA7CiAgICB0aGlzLnByZUdyYW50UmVtYWluaW5nID0gcHJlR3JhbnRMZXZlbHM7CiAgICBpZiAodGhpcy5wcmVHcmFudFJlbWFpbmluZyA+IDApIHsKICAgICAgdGhpcy5wcmVHcmFudFJlbWFpbmluZy0tOwogICAgICB0aGlzLmdyYW50TmV4dFByZUxldmVsKCk7CiAgICB9IGVsc2UgewogICAgICB0aGlzLndhdmVTdGFydGVkID0gdHJ1ZTsKICAgICAgdGhpcy5zdGFydFdhdmUoc2tpcFdhdmUpOwogICAgfQogICAgdHJ5IHsgdGhpcy5iZ011c2ljID0gdGhpcy5zb3VuZC5hZGQoJ2JnbV9nYW1lJywgeyBsb29wOnRydWUsIHZvbHVtZTowLjQgfSk7IHRoaXMuYmdNdXNpYy5wbGF5KCk7IH0gY2F0Y2ggKF8pIHt9CiAgICB0aGlzLmNhbWVyYXMubWFpbi5mYWRlSW4oNDAwLCAwLCAwLCAwKTsKICB9CgogIHVwZGF0ZSh0aW1lOiBudW1iZXIsIGRlbHRhOiBudW1iZXIpIHsKICAgIGNvbnN0IHN0YXRlID0gR2FtZVN0YXRlLmdldCgpOwogICAgaWYgKHN0YXRlLmlzR2FtZU92ZXIgfHwgc3RhdGUuaXNQYXVzZWQpIHJldHVybjsKICAgIGNvbnN0IGR0ID0gZGVsdGEgLyAxMDAwOwogICAgdGhpcy5zdGFycy5jbGVhcigpOwogICAgdGhpcy5zdGFyRGF0YS5mb3JFYWNoKHMgPT4gewogICAgICBzLnkgKz0gcy5zcGVlZCAqIGR0OyBpZiAocy55ID4gR0FNRV9IRUlHSFQpIHsgcy55ID0gMDsgcy54ID0gUGhhc2VyLk1hdGguQmV0d2VlbigwLCBHQU1FX1dJRFRIKTsgfQogICAgICB0aGlzLnN0YXJzLmZpbGxTdHlsZSgweGZmZmZmZiwgUGhhc2VyLk1hdGguQ2xhbXAocy5zcGVlZC8xMDAsIDAuMiwgMSkpOyB0aGlzLnN0YXJzLmZpbGxSZWN0KHMueCwgcy55LCBzLnNpemUsIHMuc2l6ZSk7CiAgICB9KTsKICAgIHRoaXMucGxheWVyLnVwZGF0ZSh0aW1lLCBkZWx0YSk7CiAgICB0aGlzLmVuZW15TWFuYWdlci51cGRhdGUodGltZSwgZGVsdGEpOwogICAgdGhpcy5idWxsZXRNYW5hZ2VyLnVwZGF0ZSh0aW1lLCBkZWx0YSk7CiAgICB0aGlzLnNraWxsU3lzdGVtLnVwZGF0ZSh0aW1lLCBkZWx0YSk7CiAgICB0aGlzLmh1ZENvbnRyb2xsZXIudXBkYXRlKCk7CiAgICB0aGlzLmNoZWNrQ29sbGlzaW9ucyh0aW1lKTsKICAgIHRoaXMudXBkYXRlRHJvbmVzKHRpbWUpOwogICAgdGhpcy51cGRhdGVJdGVtcyh0aW1lLCBkZWx0YSk7CiAgICB0aGlzLnVwZGF0ZUF1dG9IZWFsKHRpbWUpOwogIH0KCiAgcHJpdmF0ZSB1cGRhdGVEcm9uZXModGltZTogbnVtYmVyKSB7CiAgICBjb25zdCBkcm9uZVNraWxsID0gR2FtZVN0YXRlLmdldCgpLmFjdGl2ZVNraWxscy5maW5kKHMgPT4gcy5kZWYuaWQgPT09ICdkcm9uZScpOwogICAgY29uc3QgY291bnQgPSBkcm9uZVNraWxsID8gZHJvbmVTa2lsbC5sZXZlbCA6IDA7CiAgICB3aGlsZSAodGhpcy5kcm9uZVNwcml0ZXMubGVuZ3RoIDwgY291bnQpIHsKICAgICAgY29uc3QgZCA9IHRoaXMuYWRkLmNpcmNsZSgwLCAwLCA3LCAweDAwY2ZmZiwgMC45KS5zZXREZXB0aChERVBUSFMuUExBWUVSIC0gMSk7CiAgICAgIHRoaXMuZHJvbmVTcHJpdGVzLnB1c2goZCk7CiAgICAgIHRoaXMuZHJvbmVGaXJlVGltZXMucHVzaCgwKTsKICAgIH0KICAgIHdoaWxlICh0aGlzLmRyb25lU3ByaXRlcy5sZW5ndGggPiBjb3VudCkgewogICAgICB0aGlzLmRyb25lU3ByaXRlcy5wb3AoKT8uZGVzdHJveSgpOwogICAgICB0aGlzLmRyb25lRmlyZVRpbWVzLnBvcCgpOwogICAgfQogICAgY29uc3QgZW5lbWllcyA9ICh0aGlzLmVuZW15TWFuYWdlci5lbmVtaWVzLmdldENoaWxkcmVuKCkgYXMgRW5lbXlbXSkuZmlsdGVyKGUgPT4gZS5hY3RpdmUpOwogICAgdGhpcy5kcm9uZVNwcml0ZXMuZm9yRWFjaCgoZHJvbmUsIGkpID0+IHsKICAgICAgY29uc3Qgb2ZmID0gRFJPTkVfT0ZGU0VUU1tpXSA/PyBEUk9ORV9PRkZTRVRTWzBdOwogICAgICBkcm9uZS54ID0gdGhpcy5wbGF5ZXIueCArIG9mZi54OwogICAgICBkcm9uZS55ID0gdGhpcy5wbGF5ZXIueSArIG9mZi55OwogICAgICBpZiAoZW5lbWllcy5sZW5ndGggPiAwICYmIHRpbWUgLSB0aGlzLmRyb25lRmlyZVRpbWVzW2ldID49IERST05FX0ZJUkVfTVMpIHsKICAgICAgICB0aGlzLmRyb25lRmlyZVRpbWVzW2ldID0gdGltZTsKICAgICAgICBjb25zdCB0YXJnZXQgPSBlbmVtaWVzW2kgJSBlbmVtaWVzLmxlbmd0aF07CiAgICAgICAgY29uc3QgYW5nbGUgPSBQaGFzZXIuTWF0aC5BbmdsZS5CZXR3ZWVuKGRyb25lLngsIGRyb25lLnksIHRhcmdldC54LCB0YXJnZXQueSk7CiAgICAgICAgY29uc3QgcyA9IEdhbWVTdGF0ZS5nZXQoKS5zdGF0czsKICAgICAgICB0aGlzLmJ1bGxldE1hbmFnZXIuZmlyZVBsYXllckJ1bGxldChkcm9uZS54LCBkcm9uZS55LCBhbmdsZSwgeyAuLi5zLCBob21pbmc6IGZhbHNlLCBwZW5ldHJhdGU6IGZhbHNlLCBleHBsb3NpdmU6IGZhbHNlIH0sIGkgKyAxMCk7CiAgICAgIH0KICAgIH0pOwogIH0KCiAgcHJpdmF0ZSBjaGVja0NvbGxpc2lvbnModGltZTogbnVtYmVyKSB7CiAgICBjb25zdCBlbmVtaWVzID0gdGhpcy5lbmVteU1hbmFnZXIuZW5lbWllcy5nZXRDaGlsZHJlbigpIGFzIEVuZW15W107CiAgICBjb25zdCBwQnVsbGV0cyA9IHRoaXMuYnVsbGV0TWFuYWdlci5wbGF5ZXJCdWxsZXRzLmdldENoaWxkcmVuKCkgYXMgQnVsbGV0W107CiAgICBjb25zdCBlQnVsbGV0cyA9IHRoaXMuYnVsbGV0TWFuYWdlci5lbmVteUJ1bGxldHMuZ2V0Q2hpbGRyZW4oKSBhcyBCdWxsZXRbXTsKCiAgICBmb3IgKGNvbnN0IGJ1bGxldCBvZiBwQnVsbGV0cykgewogICAgICBpZiAoIWJ1bGxldC5hY3RpdmUpIGNvbnRpbnVlOwogICAgICBjb25zdCBieCA9IGJ1bGxldC54LCBieSA9IGJ1bGxldC55LCBiaHcgPSAzLCBiaGggPSA5OwogICAgICBmb3IgKGNvbnN0IGVuZW15IG9mIGVuZW1pZXMpIHsKICAgICAgICBpZiAoIWVuZW15LmFjdGl2ZSkgY29udGludWU7CiAgICAgICAgY29uc3QgZWh3ID0gZW5lbXkuZGVmLndpZHRoIC8gMiwgZWhoID0gZW5lbXkuZGVmLmhlaWdodCAvIDI7CiAgICAgICAgaWYgKE1hdGguYWJzKGJ4IC0gZW5lbXkueCkgPCBiaHcgKyBlaHcgJiYgTWF0aC5hYnMoYnkgLSBlbmVteS55KSA8IGJoaCArIGVoaCkgewogICAgICAgICAgY29uc3QgZGllZCA9IGVuZW15LnRha2VEYW1hZ2UoYnVsbGV0LmRhbWFnZSk7CiAgICAgICAgICBpZiAoYnVsbGV0LmlzQ3JpdCkgdGhpcy5zaG93Q3JpdEVmZmVjdChlbmVteS54LCBlbmVteS55LCBidWxsZXQuZGFtYWdlKTsKICAgICAgICAgIGlmICghYnVsbGV0LnBlbmV0cmF0ZSkgeyBidWxsZXQuZGVzdHJveSgpOyB9CiAgICAgICAgICBpZiAoZGllZCkgewogICAgICAgICAgICBjb25zdCB7IHhwLCBjb2luIH0gPSB0aGlzLmVuZW15TWFuYWdlci5raWxsRW5lbXkoZW5lbXkpOwogICAgICAgICAgICB0aGlzLnhwU3lzdGVtLmFkZFhQKHhwKTsKICAgICAgICAgICAgR2FtZVN0YXRlLmFkZFNjb3JlKGVuZW15LmRlZi5zY29yZVZhbHVlKTsKICAgICAgICAgICAgaWYgKGNvaW4gPiAwKSBHYW1lU3RhdGUuYWRkQ3VycmVuY3koY29pbik7CiAgICAgICAgICAgIGlmICh4cCA+IDApIHsKICAgICAgICAgICAgICBjb25zdCBzdGF0cyA9IEdhbWVTdGF0ZS5nZXQoKS5zdGF0czsKICAgICAgICAgICAgICBjb25zdCBib29zdCA9IHN0YXRzLmRyb3BCb29zdDsKICAgICAgICAgICAgICBpZiAoTWF0aC5yYW5kb20oKSA8IDAuNDAgKyBib29zdCkgdGhpcy5kcm9wcGVkSXRlbXMucHVzaChuZXcgRHJvcHBlZEl0ZW0odGhpcywgZW5lbXkueCwgZW5lbXkueSwgJ2NvaW4nKSk7CiAgICAgICAgICAgICAgaWYgKE1hdGgucmFuZG9tKCkgPCAwLjEwICsgYm9vc3QgKiAwLjUpIHRoaXMuZHJvcHBlZEl0ZW1zLnB1c2gobmV3IERyb3BwZWRJdGVtKHRoaXMsIGVuZW15LngsIGVuZW15LnksICdoZWFydCcpKTsKICAgICAgICAgICAgICBpZiAoc3RhdHMudmFtcGlyZUhlYWxQY3QgPiAwKSBzdGF0cy5ocCA9IE1hdGgubWluKHN0YXRzLm1heEhwLCBzdGF0cy5ocCArIE1hdGguZmxvb3Ioc3RhdHMubWF4SHAgKiBzdGF0cy52YW1waXJlSGVhbFBjdCkpOwogICAgICAgICAgICB9CiAgICAgICAgICAgIGlmIChidWxsZXQuZXhwbG9zaXZlKSB0aGlzLnNwbGFzaERhbWFnZShlbmVteS54LCBlbmVteS55LCA2MCwgYnVsbGV0LmRhbWFnZSAqIDAuNSk7CiAgICAgICAgICB9CiAgICAgICAgICBpZiAoIWJ1bGxldC5hY3RpdmUpIGJyZWFrOwogICAgICAgIH0KICAgICAgfQogICAgfQoKICAgIGNvbnN0IHBodyA9IDE2LCBwaGggPSAxNjsKICAgIGZvciAoY29uc3QgYnVsbGV0IG9mIGVCdWxsZXRzKSB7CiAgICAgIGlmICghYnVsbGV0LmFjdGl2ZSkgY29udGludWU7CiAgICAgIGlmIChNYXRoLmFicyhidWxsZXQueCAtIHRoaXMucGxheWVyLngpIDwgcGh3ICsgNCAmJiBNYXRoLmFicyhidWxsZXQueSAtIHRoaXMucGxheWVyLnkpIDwgcGhoICsgNikgewogICAgICAgIGJ1bGxldC5kZXN0cm95KCk7CiAgICAgICAgaWYgKHRoaXMucGxheWVyLnRha2VEYW1hZ2UoYnVsbGV0LmRhbWFnZSwgdGltZSkpIHRoaXMuZ2FtZU92ZXIoKTsKICAgICAgfQogICAgfQoKICAgIGlmICh0aGlzLmVuZW15TWFuYWdlci5sYXNlckRhbWFnZUFjdGl2ZSkgewogICAgICBpZiAoTWF0aC5hYnModGhpcy5wbGF5ZXIueSAtIHRoaXMuZW5lbXlNYW5hZ2VyLmxhc2VyWSkgPCAyNSkgewogICAgICAgIGlmICh0aGlzLnBsYXllci50YWtlRGFtYWdlKDMwLCB0aW1lKSkgdGhpcy5nYW1lT3ZlcigpOwogICAgICB9CiAgICB9CgogICAgZm9yIChjb25zdCBlbmVteSBvZiBlbmVtaWVzKSB7CiAgICAgIGlmICghZW5lbXkuYWN0aXZlKSBjb250aW51ZTsKICAgICAgY29uc3QgZWh3ID0gZW5lbXkuZGVmLndpZHRoIC8gMiwgZWhoID0gZW5lbXkuZGVmLmhlaWdodCAvIDI7CiAgICAgIGlmIChNYXRoLmFicyhlbmVteS54IC0gdGhpcy5wbGF5ZXIueCkgPCBwaHcgKyBlaHcgJiYgTWF0aC5hYnMoZW5lbXkueSAtIHRoaXMucGxheWVyLnkpIDwgcGhoICsgZWhoKSB7CiAgICAgICAgZW5lbXkudGFrZURhbWFnZSg5OTkpOwogICAgICAgIHRoaXMuZW5lbXlNYW5hZ2VyLmtpbGxFbmVteShlbmVteSk7CiAgICAgICAgaWYgKHRoaXMucGxheWVyLnRha2VEYW1hZ2UoMTUsIHRpbWUsIHRydWUpKSB0aGlzLmdhbWVPdmVyKCk7CiAgICAgIH0KICAgIH0KICB9CgogIHByaXZhdGUgdXBkYXRlSXRlbXMoX3RpbWU6IG51bWJlciwgZGVsdGE6IG51bWJlcikgewogICAgY29uc3Qgc3RhdHMgPSBHYW1lU3RhdGUuZ2V0KCkuc3RhdHM7CiAgICBjb25zdCBweCA9IHRoaXMucGxheWVyLngsIHB5ID0gdGhpcy5wbGF5ZXIueTsKICAgIGNvbnN0IHRvUmVtb3ZlOiBEcm9wcGVkSXRlbVtdID0gW107CiAgICBmb3IgKGNvbnN0IGl0ZW0gb2YgdGhpcy5kcm9wcGVkSXRlbXMpIHsKICAgICAgaXRlbS51cGRhdGUoZGVsdGEpOwogICAgICBpZiAoaXRlbS55ID4gR0FNRV9IRUlHSFQgKyAyMCkgeyB0b1JlbW92ZS5wdXNoKGl0ZW0pOyBjb250aW51ZTsgfQogICAgICBjb25zdCBkaXN0ID0gUGhhc2VyLk1hdGguRGlzdGFuY2UuQmV0d2VlbihweCwgcHksIGl0ZW0ueCwgaXRlbS55KTsKICAgICAgaWYgKGRpc3QgPCBzdGF0cy5tYWduZXRSYWRpdXMgJiYgZGlzdCA+IDEpIHsKICAgICAgICBjb25zdCBhbmdsZSA9IFBoYXNlci5NYXRoLkFuZ2xlLkJldHdlZW4oaXRlbS54LCBpdGVtLnksIHB4LCBweSk7CiAgICAgICAgY29uc3QgcHVsbCA9IDIwMDsKICAgICAgICBpdGVtLnZlbFggPSBNYXRoLmNvcyhhbmdsZSkgKiBwdWxsOwogICAgICAgIGl0ZW0udmVsWSA9IE1hdGguc2luKGFuZ2xlKSAqIHB1bGw7CiAgICAgIH0KICAgICAgaWYgKGRpc3QgPCAyMCkgewogICAgICAgIGlmIChpdGVtLml0ZW1UeXBlID09PSAnY29pbicpIHsKICAgICAgICAgIEdhbWVTdGF0ZS5hZGRDdXJyZW5jeSgxKTsKICAgICAgICAgIHRyeSB7IHRoaXMuc291bmQucGxheSgnc2Z4X2NvaW4nLCB7IHZvbHVtZTogMC41IH0pOyB9IGNhdGNoIChfKSB7fQogICAgICAgIH0gZWxzZSB7CiAgICAgICAgICBjb25zdCBzID0gR2FtZVN0YXRlLmdldCgpLnN0YXRzOwogICAgICAgICAgcy5ocCA9IE1hdGgubWluKHMubWF4SHAsIHMuaHAgKyBNYXRoLmZsb29yKHMubWF4SHAgKiAwLjA1KSk7CiAgICAgICAgICB0cnkgeyB0aGlzLnNvdW5kLnBsYXkoJ3NmeF9zZWxlY3QnLCB7IHZvbHVtZTogMC41IH0pOyB9IGNhdGNoIChfKSB7fQogICAgICAgIH0KICAgICAgICB0b1JlbW92ZS5wdXNoKGl0ZW0pOwogICAgICB9CiAgICB9CiAgICBmb3IgKGNvbnN0IGl0ZW0gb2YgdG9SZW1vdmUpIHsKICAgICAgaXRlbS5kZXN0cm95KCk7CiAgICAgIHRoaXMuZHJvcHBlZEl0ZW1zLnNwbGljZSh0aGlzLmRyb3BwZWRJdGVtcy5pbmRleE9mKGl0ZW0pLCAxKTsKICAgIH0KICB9CgogIHByaXZhdGUgc2hvd0NyaXRFZmZlY3QoeDogbnVtYmVyLCB5OiBudW1iZXIsIGRhbWFnZTogbnVtYmVyKSB7CiAgICBjb25zdCBkID0gREVQVEhTLkhVRCAtIDE7CiAgICBjb25zdCB0ID0gdGhpcy5hZGQudGV4dCh4LCB5IC0gOCwgYCR7ZGFtYWdlfVxuQ1JJVCFgLCB7CiAgICAgIGZvbnRTaXplOiAnMThweCcsIGNvbG9yOiAnI2ZmYWEwMCcsIGZvbnRGYW1pbHk6ICdtb25vc3BhY2UnLAogICAgICBzdHJva2U6ICcjMDAwMDAwJywgc3Ryb2tlVGhpY2tuZXNzOiAzLCBhbGlnbjogJ2NlbnRlcicsCiAgICB9KS5zZXRPcmlnaW4oMC41KS5zZXREZXB0aChkKS5zZXRTY2FsZSgwLjUpOwogICAgdGhpcy50d2VlbnMuYWRkKHsKICAgICAgdGFyZ2V0czogdCwKICAgICAgc2NhbGVYOiAxLjIsIHNjYWxlWTogMS4yLCBhbHBoYTogeyBmcm9tOiAxLCB0bzogMCB9LAogICAgICB5OiB5IC0gNTUsCiAgICAgIGR1cmF0aW9uOiA3MDAsCiAgICAgIGVhc2U6ICdDdWJpYy5lYXNlT3V0JywKICAgICAgb25Db21wbGV0ZTogKCkgPT4gdC5kZXN0cm95KCksCiAgICB9KTsKICB9CgogIHByaXZhdGUgdXBkYXRlQXV0b0hlYWwodGltZTogbnVtYmVyKSB7CiAgICBjb25zdCBzdGF0cyA9IEdhbWVTdGF0ZS5nZXQoKS5zdGF0czsKICAgIGlmIChzdGF0cy5hdXRvSGVhbFBjdCA8PSAwKSByZXR1cm47CiAgICBpZiAodGltZSAtIHRoaXMubGFzdEF1dG9IZWFsVGltZSA+PSAxMDAwMCkgewogICAgICB0aGlzLmxhc3RBdXRvSGVhbFRpbWUgPSB0aW1lOwogICAgICBzdGF0cy5ocCA9IE1hdGgubWluKHN0YXRzLm1heEhwLCBzdGF0cy5ocCArIE1hdGguZmxvb3Ioc3RhdHMubWF4SHAgKiBzdGF0cy5hdXRvSGVhbFBjdCkpOwogICAgfQogIH0KCiAgcHJpdmF0ZSBzcGxhc2hEYW1hZ2UoY3g6IG51bWJlciwgY3k6IG51bWJlciwgcjogbnVtYmVyLCBkbWc6IG51bWJlcikgewogICAgKHRoaXMuZW5lbXlNYW5hZ2VyLmVuZW1pZXMuZ2V0Q2hpbGRyZW4oKSBhcyBFbmVteVtdKS5mb3JFYWNoKGUgPT4gewogICAgICBpZiAoIWUuYWN0aXZlKSByZXR1cm47CiAgICAgIGlmIChQaGFzZXIuTWF0aC5EaXN0YW5jZS5CZXR3ZWVuKGN4LCBjeSwgZS54LCBlLnkpIDw9IHIpIHsKICAgICAgICBpZiAoZS50YWtlRGFtYWdlKE1hdGguZmxvb3IoZG1nKSkpIHsKICAgICAgICAgIGNvbnN0IHsgeHAsIGNvaW4gfSA9IHRoaXMuZW5lbXlNYW5hZ2VyLmtpbGxFbmVteShlKTsKICAgICAgICAgIHRoaXMueHBTeXN0ZW0uYWRkWFAoeHApOyBHYW1lU3RhdGUuYWRkU2NvcmUoZS5kZWYuc2NvcmVWYWx1ZSk7CiAgICAgICAgICBpZiAoY29pbiA+IDApIEdhbWVTdGF0ZS5hZGRDdXJyZW5jeShjb2luKTsKICAgICAgICB9CiAgICAgIH0KICAgIH0pOwogIH0KCiAgcHJpdmF0ZSBzdGFydFdhdmUod2F2ZTogbnVtYmVyKSB7CiAgICB0aGlzLmVuZW15TWFuYWdlci5zcGF3bldhdmUod2F2ZSk7CiAgICBHYW1lU3RhdGUuZ2V0KCkud2F2ZSA9IHdhdmU7CiAgICBjb25zdCB0ID0gdGhpcy5hZGQudGV4dChHQU1FX1dJRFRILzIsIEdBTUVfSEVJR0hULzIsIGBXQVZFICR7d2F2ZX1gLCB7IGZvbnRTaXplOic0MHB4JywgY29sb3I6JyNmZmZmZmYnLCBmb250RmFtaWx5Oidtb25vc3BhY2UnLCBzdHJva2U6JyMwMDAwNjYnLCBzdHJva2VUaGlja25lc3M6NCB9KS5zZXRPcmlnaW4oMC41KS5zZXREZXB0aCgxNTApLnNldEFscGhhKDApOwogICAgdGhpcy50d2VlbnMuYWRkKHsgdGFyZ2V0czp0LCBhbHBoYTp7ZnJvbTowLHRvOjF9LCB5Ontmcm9tOkdBTUVfSEVJR0hULzIrMjAsdG86R0FNRV9IRUlHSFQvMn0sIGR1cmF0aW9uOjQwMCwgaG9sZDo4MDAsIHlveW86dHJ1ZSwgb25Db21wbGV0ZTooKT0+dC5kZXN0cm95KCkgfSk7CiAgfQoKICBwcml2YXRlIGdyYW50TmV4dFByZUxldmVsKCkgewogICAgY29uc3QgZ3MgPSBHYW1lU3RhdGUuZ2V0KCk7CiAgICBjb25zdCBsdiA9IGdzLmxldmVsOwogICAgY29uc3QgbmVlZGVkID0gbHYgPD0gMTUKICAgICAgPyBNYXRoLmZsb29yKDYwICogTWF0aC5wb3coMS4yMCwgbHYgLSAxKSkKICAgICAgOiBNYXRoLmZsb29yKDYwICogTWF0aC5wb3coMS4yMCwgMTQpICogTWF0aC5wb3coMS4wNiwgbHYgLSAxNSkpOwogICAgdGhpcy54cFN5c3RlbS5hZGRYUChuZWVkZWQgKyAxKTsKICB9CgogIHByaXZhdGUgZ2FtZU92ZXIoKSB7CiAgICBpZiAoIXRoaXMuY29udGludWVVc2VkKSB7CiAgICAgIHRoaXMuc2hvd0NvbnRpbnVlT3ZlcmxheSgpOwogICAgfSBlbHNlIHsKICAgICAgdGhpcy5kb0dhbWVPdmVyKCk7CiAgICB9CiAgfQoKICBwcml2YXRlIHNob3dDb250aW51ZU92ZXJsYXkoKSB7CiAgICBjb25zdCBjeCA9IEdBTUVfV0lEVEggLyAyOwogICAgY29uc3QgZCA9IERFUFRIUy5PVkVSTEFZICsgNTsKCiAgICBjb25zdCBiZyA9IHRoaXMuYWRkLnJlY3RhbmdsZShjeCwgR0FNRV9IRUlHSFQgLyAyLCBHQU1FX1dJRFRILCBHQU1FX0hFSUdIVCwgMHgwMDAwMDAsIDAuODgpCiAgICAgIC5zZXREZXB0aChkKS5zZXRJbnRlcmFjdGl2ZSgpOwoKICAgIGNvbnN0IHRpdGxlVHh0ID0gdGhpcy5hZGQudGV4dChjeCwgR0FNRV9IRUlHSFQgLyAyIC0gMTQwLCAnR0FNRSBPVkVSJywgewogICAgICBmb250U2l6ZTogJzM0cHgnLCBjb2xvcjogJyNmZjQ0NDQnLCBmb250RmFtaWx5OiAnbW9ub3NwYWNlJywKICAgICAgc3Ryb2tlOiAnIzAwMDAwMCcsIHN0cm9rZVRoaWNrbmVzczogNCwKICAgIH0pLnNldE9yaWdpbigwLjUpLnNldERlcHRoKGQgKyAxKTsKCiAgICBjb25zdCBzdWJUeHQxID0gdGhpcy5hZGQudGV4dChjeCwgR0FNRV9IRUlHSFQgLyAyIC0gOTAsICdcdTMwYjNcdTMwZjNcdTMwYzZcdTMwY2JcdTMwZTVcdTMwZmNcdTMwNTdcdTMwN2VcdTMwNTlcdTMwNGJcdWZmMWYnLCB7CiAgICAgIGZvbnRTaXplOiAnMTVweCcsIGNvbG9yOiAnI2FhYWFhYScsIGZvbnRGYW1pbHk6ICdtb25vc3BhY2UnLAogICAgfSkuc2V0T3JpZ2luKDAuNSkuc2V0RGVwdGgoZCArIDEpOwoKICAgIGNvbnN0IHN1YlR4dDIgPSB0aGlzLmFkZC50ZXh0KGN4LCBHQU1FX0hFSUdIVCAvIDIgLSA2MCwgJ1x1ZmYwODFcdTU2ZGVcdTMwNmVcdTMwN2ZcdTMwZmJcdTY1NzVcdTUxNjhcdTZlYzVcdTMwNjdcdTMwYTZcdTMwYTdcdTMwZmNcdTMwZDZcdTdhODFcdTc4MzRcdWZmMDknLCB7CiAgICAgIGZvbnRTaXplOiAnMTJweCcsIGNvbG9yOiAnIzY2NjY4OCcsIGZvbnRGYW1pbHk6ICdtb25vc3BhY2UnLAogICAgfSkuc2V0T3JpZ2luKDAuNSkuc2V0RGVwdGgoZCArIDEpOwoKICAgIGNvbnN0IGNvbnRCdG4gPSB0aGlzLmFkZC5yZWN0YW5nbGUoY3gsIEdBTUVfSEVJR0hUIC8gMiArIDEwLCAzMTAsIDU0LCAweDBhMWEzYSkKICAgICAgLnNldFN0cm9rZVN0eWxlKDIsIDB4NDQ2NmNjKS5zZXRJbnRlcmFjdGl2ZSh7IHVzZUhhbmRDdXJzb3I6IHRydWUgfSkuc2V0RGVwdGgoZCArIDEpOwogICAgY29uc3QgY29udFR4dCA9IHRoaXMuYWRkLnRleHQoY3gsIEdBTUVfSEVJR0hUIC8gMiArIDEwLCAnXHVkODNkXHVkY2ZhIFx1NWU4M1x1NTQ0YVx1MzA5Mlx1ODk4Ylx1MzA2Nlx1MzBiM1x1MzBmM1x1MzBjNlx1MzBjYlx1MzBlNVx1MzBmYycsIHsKICAgICAgZm9udFNpemU6ICcxNXB4JywgY29sb3I6ICcjODhhYWZmJywgZm9udEZhbWlseTogJ21vbm9zcGFjZScsCiAgICB9KS5zZXRPcmlnaW4oMC41KS5zZXREZXB0aChkICsgMik7CgogICAgY29uc3QgcXVpdEJ0biA9IHRoaXMuYWRkLnJlY3RhbmdsZShjeCwgR0FNRV9IRUlHSFQgLyAyICsgODgsIDIwMCwgNDYsIENPTE9SUy5VSV9CRykKICAgICAgLnNldFN0cm9rZVN0eWxlKDIsIENPTE9SUy5TS0lMTF9DQVJEX0JPUkRFUikuc2V0SW50ZXJhY3RpdmUoeyB1c2VIYW5kQ3Vyc29yOiB0cnVlIH0pLnNldERlcHRoKGQgKyAxKTsKICAgIGNvbnN0IHF1aXRUeHQgPSB0aGlzLmFkZC50ZXh0KGN4LCBHQU1FX0hFSUdIVCAvIDIgKyA4OCwgJ1x1MzBhZVx1MzBkNlx1MzBhMlx1MzBjM1x1MzBkNycsIHsKICAgICAgZm9udFNpemU6ICcxNnB4JywgY29sb3I6ICcjYWFhYWFhJywgZm9udEZhbWlseTogJ21vbm9zcGFjZScsCiAgICB9KS5zZXRPcmlnaW4oMC41KS5zZXREZXB0aChkICsgMik7CgogICAgY29uc3QgZWxlbWVudHMgPSBbYmcsIHRpdGxlVHh0LCBzdWJUeHQxLCBzdWJUeHQyLCBjb250QnRuLCBjb250VHh0LCBxdWl0QnRuLCBxdWl0VHh0XTsKCiAgICBjb25zdCBkb0NvbnRpbnVlID0gKCkgPT4gewogICAgICBlbGVtZW50cy5mb3JFYWNoKG8gPT4geyBpZiAobyAmJiBvLmFjdGl2ZSkgby5kZXN0cm95KCk7IH0pOwogICAgICBjb25zdCBhbGl2ZSA9IFsuLi4odGhpcy5lbmVteU1hbmFnZXIuZW5lbWllcy5nZXRDaGlsZHJlbigpIGFzIEVuZW15W10pXTsKICAgICAgYWxpdmUuZm9yRWFjaChlID0+IHsgaWYgKGUuYWN0aXZlKSB0aGlzLmVuZW15TWFuYWdlci5raWxsRW5lbXkoZSk7IH0pOwogICAgICBjb25zdCBncyA9IEdhbWVTdGF0ZS5nZXQoKTsKICAgICAgZ3Muc3RhdHMuaHAgPSBNYXRoLmZsb29yKGdzLnN0YXRzLm1heEhwICogMC41KTsKICAgICAgZ3MuaXNHYW1lT3ZlciA9IGZhbHNlOwogICAgICB0aGlzLmNvbnRpbnVlVXNlZCA9IHRydWU7CiAgICB9OwoKICAgIGNvbnRCdG4ub24oJ3BvaW50ZXJvdmVyJywgKCkgPT4gY29udEJ0bi5zZXRGaWxsU3R5bGUoMHgwYTJhNWEpKTsKICAgIGNvbnRCdG4ub24oJ3BvaW50ZXJvdXQnLCAoKSA9PiBjb250QnRuLnNldEZpbGxTdHlsZSgweDBhMWEzYSkpOwogICAgY29udEJ0bi5vbigncG9pbnRlcmRvd24nLCAoKSA9PiB7CiAgICAgIGNvbnRCdG4uZGlzYWJsZUludGVyYWN0aXZlKCk7CiAgICAgIEFkU2VydmljZS5zaG93UmV3YXJkZWRBZCh0aGlzLCBkb0NvbnRpbnVlKTsKICAgIH0pOwoKICAgIHF1aXRCdG4ub24oJ3BvaW50ZXJvdmVyJywgKCkgPT4gcXVpdEJ0bi5zZXRGaWxsU3R5bGUoMHgyYTJhNGUpKTsKICAgIHF1aXRCdG4ub24oJ3BvaW50ZXJvdXQnLCAoKSA9PiBxdWl0QnRuLnNldEZpbGxTdHlsZShDT0xPUlMuVUlfQkcpKTsKICAgIHF1aXRCdG4ub24oJ3BvaW50ZXJkb3duJywgKCkgPT4gewogICAgICBlbGVtZW50cy5mb3JFYWNoKG8gPT4geyBpZiAobyAmJiBvLmFjdGl2ZSkgby5kZXN0cm95KCk7IH0pOwogICAgICB0aGlzLmRvR2FtZU92ZXIoKTsKICAgIH0pOwogIH0KCiAgcHJpdmF0ZSBkb0dhbWVPdmVyKCkgewogICAgdHJ5IHsgdGhpcy5iZ011c2ljPy5zdG9wKCk7IH0gY2F0Y2ggKF8pIHt9CiAgICB0aGlzLmNhbWVyYXMubWFpbi5zaGFrZSg0MDAsIDAuMDIpOwogICAgdGhpcy5jYW1lcmFzLm1haW4uZmxhc2goNTAwLCAyNTUsIDAsIDApOwogICAgdGhpcy50aW1lLmRlbGF5ZWRDYWxsKDYwMCwgICgpID0+IHRoaXMuY2FtZXJhcy5tYWluLmZhZGVPdXQoNDAwLCAwLCAwLCAwKSk7CiAgICB0aGlzLnRpbWUuZGVsYXllZENhbGwoMTEwMCwgKCkgPT4gdGhpcy5zY2VuZS5zdGFydCgnUmVzdWx0U2NlbmUnKSk7CiAgfQp9Cg==
+import Phaser from 'phaser';
+import { GAME_WIDTH, GAME_HEIGHT, WAVE, DEPTHS } from '../config';
+import { Player } from '../entities/Player';
+import { Enemy } from '../entities/Enemy';
+import { Bullet } from '../entities/Bullet';
+import { DroppedItem } from '../entities/DroppedItem';
+import { EnemyManager } from '../systems/EnemyManager';
+import { BulletManager } from '../systems/BulletManager';
+import { XPSystem } from '../systems/XPSystem';
+import { SkillSystem } from '../systems/SkillSystem';
+import { HUDController } from '../systems/HUDController';
+import { GameState } from '../store/GameState';
+import { PersistentState } from '../store/PersistentState';
+import { COLORS } from '../config';
+import { AdService } from '../services/AdService';
+
+const DRONE_OFFSETS = [{ x: -32, y: 8 }, { x: 32, y: 8 }, { x: 0, y: -20 }];
+const DRONE_FIRE_MS = 600;
+
+export class GameScene extends Phaser.Scene {
+  player!: Player;
+  enemyManager!: EnemyManager;
+  bulletManager!: BulletManager;
+  xpSystem!: XPSystem;
+  skillSystem!: SkillSystem;
+  hudController!: HUDController;
+  private bgMusic!: Phaser.Sound.BaseSound;
+  private stars!: Phaser.GameObjects.Graphics;
+  private starData: { x: number; y: number; speed: number; size: number }[] = [];
+  private droneSprites: Phaser.GameObjects.Arc[] = [];
+  private droneFireTimes: number[] = [];
+  private droppedItems: DroppedItem[] = [];
+  private lastAutoHealTime = 0;
+  private continueUsed = false;
+  private preGrantRemaining = 0;
+  private waveStarted = false;
+
+  constructor() { super({ key: 'GameScene' }); }
+
+  create() {
+    const { skipWave = 1, adCoinBoost = false } = (this.scene.settings.data ?? {}) as { skipWave?: number; adCoinBoost?: boolean };
+    const persistent = PersistentState.get();
+    GameState.init(persistent.upgrades, persistent.equippedParts ?? {}, persistent.partInventory ?? [], adCoinBoost);
+    this.starData = [];
+    this.stars = this.add.graphics();
+    for (let i = 0; i < 100; i++) this.starData.push({ x: Phaser.Math.Between(0,GAME_WIDTH), y: Phaser.Math.Between(0,GAME_HEIGHT), speed: Phaser.Math.FloatBetween(20,100), size: Math.random()<0.2?2:1 });
+    this.bulletManager = new BulletManager(this);
+    this.enemyManager  = new EnemyManager(this);
+    this.xpSystem      = new XPSystem(this);
+    this.skillSystem   = new SkillSystem(this);
+    this.hudController = new HUDController(this);
+    this.player = new Player(this, GAME_WIDTH/2, GAME_HEIGHT*0.82);
+    this.enemyManager.onWaveCleared        = () => {
+      PersistentState.updateWaveRecord(GameState.get().wave);
+      this.time.delayedCall(1200, () => this.startWave(GameState.get().wave + 1));
+    };
+    this.enemyManager.onEnemyReachedBottom = () => {
+      const dmg = Math.floor(GameState.get().stats.maxHp * 0.25);
+      if (this.player.takeDamage(dmg, this.time.now)) this.gameOver();
+      else this.cameras.main.shake(300, 0.015);
+    };
+    this.xpSystem.onLevelUp = (_level) => {
+      if (GameState.get().isPaused) return;
+      GameState.get().isPaused = true;
+      this.scene.pause();
+      this.scene.launch('LevelUpScene');
+      this.scene.get('LevelUpScene').events.once('shutdown', () => {
+        GameState.get().isPaused = false;
+        if (!this.waveStarted) {
+          if (this.preGrantRemaining > 0) {
+            this.preGrantRemaining--;
+            this.grantNextPreLevel();
+          } else {
+            this.waveStarted = true;
+            this.startWave(skipWave);
+          }
+        }
+      });
+    };
+    const lineY = GAME_HEIGHT * 0.85;
+    const dbg = this.add.graphics().setDepth(DEPTHS.HUD - 1);
+    dbg.lineStyle(1, 0xff0000, 0.5);
+    for (let x = 0; x < GAME_WIDTH; x += 12) dbg.lineBetween(x, lineY, x + 6, lineY);
+    this.add.text(GAME_WIDTH - 4, lineY - 3, 'DANGER', { fontSize: '9px', color: '#ff4444', fontFamily: 'monospace' }).setOrigin(1, 1).setDepth(DEPTHS.HUD - 1).setAlpha(0.7);
+
+    const preGrantLevels = skipWave > 1 ? Math.min(6, Math.floor((skipWave - 1) / 8)) : 0;
+    this.preGrantRemaining = preGrantLevels;
+    if (this.preGrantRemaining > 0) {
+      this.preGrantRemaining--;
+      this.grantNextPreLevel();
+    } else {
+      this.waveStarted = true;
+      this.startWave(skipWave);
+    }
+    try { this.bgMusic = this.sound.add('bgm_game', { loop:true, volume:0.4 }); this.bgMusic.play(); } catch (_) {}
+    this.cameras.main.fadeIn(400, 0, 0, 0);
+  }
+
+  update(time: number, delta: number) {
+    const state = GameState.get();
+    if (state.isGameOver || state.isPaused) return;
+    const dt = delta / 1000;
+    this.stars.clear();
+    this.starData.forEach(s => {
+      s.y += s.speed * dt; if (s.y > GAME_HEIGHT) { s.y = 0; s.x = Phaser.Math.Between(0, GAME_WIDTH); }
+      this.stars.fillStyle(0xffffff, Phaser.Math.Clamp(s.speed/100, 0.2, 1)); this.stars.fillRect(s.x, s.y, s.size, s.size);
+    });
+    this.player.update(time, delta);
+    this.enemyManager.update(time, delta);
+    this.bulletManager.update(time, delta);
+    this.skillSystem.update(time, delta);
+    this.hudController.update();
+    this.checkCollisions(time);
+    this.updateDrones(time);
+    this.updateItems(time, delta);
+    this.updateAutoHeal(time);
+  }
+
+  private updateDrones(time: number) {
+    const droneSkill = GameState.get().activeSkills.find(s => s.def.id === 'drone');
+    const count = droneSkill ? droneSkill.level : 0;
+    while (this.droneSprites.length < count) {
+      const d = this.add.circle(0, 0, 7, 0x00cfff, 0.9).setDepth(DEPTHS.PLAYER - 1);
+      this.droneSprites.push(d);
+      this.droneFireTimes.push(0);
+    }
+    while (this.droneSprites.length > count) {
+      this.droneSprites.pop()?.destroy();
+      this.droneFireTimes.pop();
+    }
+    const enemies = (this.enemyManager.enemies.getChildren() as Enemy[]).filter(e => e.active);
+    this.droneSprites.forEach((drone, i) => {
+      const off = DRONE_OFFSETS[i] ?? DRONE_OFFSETS[0];
+      drone.x = this.player.x + off.x;
+      drone.y = this.player.y + off.y;
+      if (enemies.length > 0 && time - this.droneFireTimes[i] >= DRONE_FIRE_MS) {
+        this.droneFireTimes[i] = time;
+        const target = enemies[i % enemies.length];
+        const angle = Phaser.Math.Angle.Between(drone.x, drone.y, target.x, target.y);
+        const s = GameState.get().stats;
+        this.bulletManager.firePlayerBullet(drone.x, drone.y, angle, { ...s, homing: false, penetrate: false, explosive: false }, i + 10);
+      }
+    });
+  }
+
+  private checkCollisions(time: number) {
+    const enemies = this.enemyManager.enemies.getChildren() as Enemy[];
+    const pBullets = this.bulletManager.playerBullets.getChildren() as Bullet[];
+    const eBullets = this.bulletManager.enemyBullets.getChildren() as Bullet[];
+
+    for (const bullet of pBullets) {
+      if (!bullet.active) continue;
+      const bx = bullet.x, by = bullet.y, bhw = 3, bhh = 9;
+      for (const enemy of enemies) {
+        if (!enemy.active) continue;
+        const ehw = enemy.def.width / 2, ehh = enemy.def.height / 2;
+        if (Math.abs(bx - enemy.x) < bhw + ehw && Math.abs(by - enemy.y) < bhh + ehh) {
+          const died = enemy.takeDamage(bullet.damage);
+          if (bullet.isCrit) this.showCritEffect(enemy.x, enemy.y, bullet.damage);
+          if (!bullet.penetrate) { bullet.destroy(); }
+          if (died) {
+            const { xp, coin } = this.enemyManager.killEnemy(enemy);
+            this.xpSystem.addXP(xp);
+            GameState.addScore(enemy.def.scoreValue);
+            if (coin > 0) GameState.addCurrency(coin);
+            if (xp > 0) {
+              const stats = GameState.get().stats;
+              const boost = stats.dropBoost;
+              if (Math.random() < 0.40 + boost) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'coin'));
+              if (Math.random() < 0.10 + boost * 0.5) this.droppedItems.push(new DroppedItem(this, enemy.x, enemy.y, 'heart'));
+              if (stats.vampireHealPct > 0) stats.hp = Math.min(stats.maxHp, stats.hp + Math.floor(stats.maxHp * stats.vampireHealPct));
+            }
+            if (bullet.explosive) this.splashDamage(enemy.x, enemy.y, 60, bullet.damage * 0.5);
+          }
+          if (!bullet.active) break;
+        }
+      }
+    }
+
+    const phw = 16, phh = 16;
+    for (const bullet of eBullets) {
+      if (!bullet.active) continue;
+      if (Math.abs(bullet.x - this.player.x) < phw + 4 && Math.abs(bullet.y - this.player.y) < phh + 6) {
+        bullet.destroy();
+        if (this.player.takeDamage(bullet.damage, time)) this.gameOver();
+      }
+    }
+
+    if (this.enemyManager.laserDamageActive) {
+      if (Math.abs(this.player.y - this.enemyManager.laserY) < 25) {
+        if (this.player.takeDamage(30, time)) this.gameOver();
+      }
+    }
+
+    for (const enemy of enemies) {
+      if (!enemy.active) continue;
+      const ehw = enemy.def.width / 2, ehh = enemy.def.height / 2;
+      if (Math.abs(enemy.x - this.player.x) < phw + ehw && Math.abs(enemy.y - this.player.y) < phh + ehh) {
+        enemy.takeDamage(999);
+        this.enemyManager.killEnemy(enemy);
+        if (this.player.takeDamage(15, time, true)) this.gameOver();
+      }
+    }
+  }
+
+  private updateItems(_time: number, delta: number) {
+    const stats = GameState.get().stats;
+    const px = this.player.x, py = this.player.y;
+    const toRemove: DroppedItem[] = [];
+    for (const item of this.droppedItems) {
+      item.update(delta);
+      if (item.y > GAME_HEIGHT + 20) { toRemove.push(item); continue; }
+      const dist = Phaser.Math.Distance.Between(px, py, item.x, item.y);
+      if (dist < stats.magnetRadius && dist > 1) {
+        const angle = Phaser.Math.Angle.Between(item.x, item.y, px, py);
+        const pull = 200;
+        item.velX = Math.cos(angle) * pull;
+        item.velY = Math.sin(angle) * pull;
+      }
+      if (dist < 20) {
+        if (item.itemType === 'coin') {
+          GameState.addCurrency(1);
+          try { this.sound.play('sfx_coin', { volume: 0.5 }); } catch (_) {}
+        } else {
+          const s = GameState.get().stats;
+          s.hp = Math.min(s.maxHp, s.hp + Math.floor(s.maxHp * 0.05));
+          try { this.sound.play('sfx_select', { volume: 0.5 }); } catch (_) {}
+        }
+        toRemove.push(item);
+      }
+    }
+    for (const item of toRemove) {
+      item.destroy();
+      this.droppedItems.splice(this.droppedItems.indexOf(item), 1);
+    }
+  }
+
+  private showCritEffect(x: number, y: number, damage: number) {
+    const d = DEPTHS.HUD - 1;
+    const t = this.add.text(x, y - 8, `${damage}\nCRIT!`, {
+      fontSize: '18px', color: '#ffaa00', fontFamily: 'monospace',
+      stroke: '#000000', strokeThickness: 3, align: 'center',
+    }).setOrigin(0.5).setDepth(d).setScale(0.5);
+    this.tweens.add({
+      targets: t,
+      scaleX: 1.2, scaleY: 1.2, alpha: { from: 1, to: 0 },
+      y: y - 55,
+      duration: 700,
+      ease: 'Cubic.easeOut',
+      onComplete: () => t.destroy(),
+    });
+  }
+
+  private updateAutoHeal(time: number) {
+    const stats = GameState.get().stats;
+    if (stats.autoHealPct <= 0) return;
+    if (time - this.lastAutoHealTime >= 10000) {
+      this.lastAutoHealTime = time;
+      stats.hp = Math.min(stats.maxHp, stats.hp + Math.floor(stats.maxHp * stats.autoHealPct));
+    }
+  }
+
+  private splashDamage(cx: number, cy: number, r: number, dmg: number) {
+    (this.enemyManager.enemies.getChildren() as Enemy[]).forEach(e => {
+      if (!e.active) return;
+      if (Phaser.Math.Distance.Between(cx, cy, e.x, e.y) <= r) {
+        if (e.takeDamage(Math.floor(dmg))) {
+          const { xp, coin } = this.enemyManager.killEnemy(e);
+          this.xpSystem.addXP(xp); GameState.addScore(e.def.scoreValue);
+          if (coin > 0) GameState.addCurrency(coin);
+        }
+      }
+    });
+  }
+
+  private startWave(wave: number) {
+    this.enemyManager.spawnWave(wave);
+    GameState.get().wave = wave;
+    const t = this.add.text(GAME_WIDTH/2, GAME_HEIGHT/2, `WAVE ${wave}`, { fontSize:'40px', color:'#ffffff', fontFamily:'monospace', stroke:'#000066', strokeThickness:4 }).setOrigin(0.5).setDepth(150).setAlpha(0);
+    this.tweens.add({ targets:t, alpha:{from:0,to:1}, y:{from:GAME_HEIGHT/2+20,to:GAME_HEIGHT/2}, duration:400, hold:800, yoyo:true, onComplete:()=>t.destroy() });
+  }
+
+  private grantNextPreLevel() {
+    const gs = GameState.get();
+    const lv = gs.level;
+    const needed = lv <= 15
+      ? Math.floor(60 * Math.pow(1.20, lv - 1))
+      : Math.floor(60 * Math.pow(1.20, 14) * Math.pow(1.06, lv - 15));
+    this.xpSystem.addXP(needed + 1);
+  }
+
+  private gameOver() {
+    if (!this.continueUsed) {
+      this.showContinueOverlay();
+    } else {
+      this.doGameOver();
+    }
+  }
+
+  private showContinueOverlay() {
+    const cx = GAME_WIDTH / 2;
+    const d = DEPTHS.OVERLAY + 5;
+
+    const bg = this.add.rectangle(cx, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.88)
+      .setDepth(d).setInteractive();
+
+    const titleTxt = this.add.text(cx, GAME_HEIGHT / 2 - 140, 'GAME OVER', {
+      fontSize: '34px', color: '#ff4444', fontFamily: 'monospace',
+      stroke: '#000000', strokeThickness: 4,
+    }).setOrigin(0.5).setDepth(d + 1);
+
+    const subTxt1 = this.add.text(cx, GAME_HEIGHT / 2 - 90, '\u30b3\u30f3\u30c6\u30cb\u30e5\u30fc\u3057\u307e\u3059\u304b\uff1f', {
+      fontSize: '15px', color: '#aaaaaa', fontFamily: 'monospace',
+    }).setOrigin(0.5).setDepth(d + 1);
+
+    const subTxt2 = this.add.text(cx, GAME_HEIGHT / 2 - 60, '\uff081\u56de\u306e\u307f\u30fb\u6575\u5168\u6ec5\u3067\u30a6\u30a7\u30fc\u30d6\u7a81\u7834\uff09', {
+      fontSize: '12px', color: '#666688', fontFamily: 'monospace',
+    }).setOrigin(0.5).setDepth(d + 1);
+
+    const contBtn = this.add.rectangle(cx, GAME_HEIGHT / 2 + 10, 310, 54, 0x0a1a3a)
+      .setStrokeStyle(2, 0x4466cc).setInteractive({ useHandCursor: true }).setDepth(d + 1);
+    const contTxt = this.add.text(cx, GAME_HEIGHT / 2 + 10, '\ud83d\udcfa \u5e83\u544a\u3092\u898b\u3066\u30b3\u30f3\u30c6\u30cb\u30e5\u30fc', {
+      fontSize: '15px', color: '#88aaff', fontFamily: 'monospace',
+    }).setOrigin(0.5).setDepth(d + 2);
+
+    const quitBtn = this.add.rectangle(cx, GAME_HEIGHT / 2 + 88, 200, 46, COLORS.UI_BG)
+      .setStrokeStyle(2, COLORS.SKILL_CARD_BORDER).setInteractive({ useHandCursor: true }).setDepth(d + 1);
+    const quitTxt = this.add.text(cx, GAME_HEIGHT / 2 + 88, '\u30ae\u30d6\u30a2\u30c3\u30d7', {
+      fontSize: '16px', color: '#aaaaaa', fontFamily: 'monospace',
+    }).setOrigin(0.5).setDepth(d + 2);
+
+    const elements = [bg, titleTxt, subTxt1, subTxt2, contBtn, contTxt, quitBtn, quitTxt];
+
+    const doContinue = () => {
+      elements.forEach(o => { if (o && o.active) o.destroy(); });
+      const alive = [...(this.enemyManager.enemies.getChildren() as Enemy[])];
+      alive.forEach(e => { if (e.active) this.enemyManager.killEnemy(e); });
+      const gs = GameState.get();
+      gs.stats.hp = Math.floor(gs.stats.maxHp * 0.5);
+      gs.isGameOver = false;
+      this.continueUsed = true;
+    };
+
+    contBtn.on('pointerover', () => contBtn.setFillStyle(0x0a2a5a));
+    contBtn.on('pointerout', () => contBtn.setFillStyle(0x0a1a3a));
+    contBtn.on('pointerdown', () => {
+      contBtn.disableInteractive();
+      AdService.showRewardedAd(this, doContinue);
+    });
+
+    quitBtn.on('pointerover', () => quitBtn.setFillStyle(0x2a2a4e));
+    quitBtn.on('pointerout', () => quitBtn.setFillStyle(COLORS.UI_BG));
+    quitBtn.on('pointerdown', () => {
+      elements.forEach(o => { if (o && o.active) o.destroy(); });
+      this.doGameOver();
+    });
+  }
+
+  private doGameOver() {
+    try { this.bgMusic?.stop(); } catch (_) {}
+    this.cameras.main.shake(400, 0.02);
+    this.cameras.main.flash(500, 255, 0, 0);
+    this.time.delayedCall(600,  () => this.cameras.main.fadeOut(400, 0, 0, 0));
+    this.time.delayedCall(1100, () => this.scene.start('ResultScene'));
+  }
+}

@@ -1,1 +1,69 @@
-aW1wb3J0IFBoYXNlciBmcm9tICdwaGFzZXInOwppbXBvcnQgeyBHQU1FX1dJRFRILCBHQU1FX0hFSUdIVCwgQ09MT1JTIH0gZnJvbSAnLi4vY29uZmlnJzsKaW1wb3J0IHsgUGVyc2lzdGVudFN0YXRlIH0gZnJvbSAnLi4vc3RvcmUvUGVyc2lzdGVudFN0YXRlJzsKaW1wb3J0IHR5cGUgeyBVcGdyYWRlVHJlZSB9IGZyb20gJy4uL3N0b3JlL1BlcnNpc3RlbnRTdGF0ZSc7Cgpjb25zdCBVUEdSQURFX0lURU1TOiB7IGtleToga2V5b2YgVXBncmFkZVRyZWU7IGxhYmVsOiBzdHJpbmc7IGRlc2NyaXB0aW9uOiBzdHJpbmcgfVtdID0gWwogIHsga2V5OiAnYXR0YWNrTGV2ZWwnLCAgICAgbGFiZWw6ICfmlLvmkoPlipsnLCAgICAgZGVzY3JpcHRpb246ICfjg4Djg6Hjg7zjgrggKzEyJS9MdicgfSwKICB7IGtleTogJ2hwTGV2ZWwnLCAgICAgICAgIGxhYmVsOiAnSFAnLCAgICAgICAgIGRlc2NyaXB0aW9uOiAn5pyA5aSnSFAgKzE1JS9MdicgfSwKICB7IGtleTogJ2J1bGxldExldmVsJywgICAgIGxhYmVsOiAn6ZaL5aeL5by+5pWwJywgICBkZXNjcmlwdGlvbjogJ+WIneacn+W8vuaVsCArMS9MdiAo5pyA5aSnNSknIH0sCiAgeyBrZXk6ICdmaXJlUmF0ZUxldmVsJywgICBsYWJlbDogJ+aUu+aSg+mAn+W6picsICAgZGVzY3JpcHRpb246ICfnmbrlsITplpPpmpQgLTMwbXMvTHYnIH0sCiAgeyBrZXk6ICdjdXJyZW5jeUxldmVsJywgICBsYWJlbDogJ+OCs+OCpOODs+mBiycsICAgZGVzY3JpcHRpb246ICfjg4njg63jg4Pjg5cgKzMwJS9MdicgfSwKICB7IGtleTogJ3hwTGV2ZWwnLCAgICAgICAgIGxhYmVsOiAn57WM6aiT5YCk5Yq5546HJywgZGVzY3JpcHRpb246ICdYUOeNsuW+lyArMTUlL0x2JyB9LAogIHsga2V5OiAnc2hpZWxkTGV2ZWwnLCAgICAgbGFiZWw6ICfjgrfjg7zjg6vjg4knLCAgIGRlc2NyaXB0aW9uOiAn6ZaL5aeL5pmC44K344O844Or44OJICszMC9Mdiwg54Sh5pW15pmC6ZaTICswLjHnp5IvTHYnIH0sCiAgeyBrZXk6ICdjcml0TGV2ZWwnLCAgICAgICBsYWJlbDogJ+OCr+ODqueiuueOhycsICAgZGVzY3JpcHRpb246ICfliJ3mnJ/jgq/jg6rnorrnjocgKzglL0x2JyB9LAogIHsga2V5OiAnYmFzZURhbWFnZUxldmVsJywgbGFiZWw6ICfln7rnpI7mlLvmkoPlipsnLCBkZXNjcmlwdGlvbjogJ+aUu+aSg+WKmyArMy9MdiAo5Zu65a6a5YCkKScgfSwKXTsKCmV4cG9ydCBjbGFzcyBIYW5nYXJTY2VuZSBleHRlbmRzIFBoYXNlci5TY2VuZSB7CiAgY29uc3RydWN0b3IoKSB7IHN1cGVyKHsga2V5OiAnSGFuZ2FyU2NlbmUnIH0pOyB9CgogIGNyZWF0ZSgpIHsKICAgIGNvbnN0IGN4ID0gR0FNRV9XSURUSCAvIDI7CiAgICBjb25zdCBnID0gdGhpcy5hZGQuZ3JhcGhpY3MoKTsKICAgIGZvciAobGV0IGkgPSAwOyBpIDwgODA7IGkrKykgeyBnLmZpbGxTdHlsZSgweGZmZmZmZiwgUGhhc2VyLk1hdGguRmxvYXRCZXR3ZWVuKDAuMSwwLjYpKTsgZy5maWxsUmVjdChQaGFzZXIuTWF0aC5CZXR3ZWVuKDAsR0FNRV9XSURUSCksIFBoYXNlci5NYXRoLkJldHdlZW4oMCxHQU1FX0hFSUdIVCksIDEsIDEpOyB9CiAgICB0aGlzLmFkZC50ZXh0KGN4LCA1MCwgJ1x1ZDgzZFx1ZGU4MCBIQU5HQVInLCB7IGZvbnRTaXplOicyOHB4JywgY29sb3I6JyNmZmZmZmYnLCBmb250RmFtaWx5Oidtb25vc3BhY2UnIH0pLnNldE9yaWdpbigwLjUpOwogICAgY29uc3QgY29pblRleHQgPSB0aGlzLmFkZC50ZXh0KGN4LCA5MCwgYFx1ZDgzZVx1ZGU5OSAke1BlcnNpc3RlbnRTdGF0ZS5nZXQoKS50b3RhbEN1cnJlbmN5LnRvTG9jYWxlU3RyaW5nKCl9YCwgeyBmb250U2l6ZTonMTZweCcsIGNvbG9yOicjZmZkZDAwJywgZm9udEZhbWlseTonbW9ub3NwYWNlJyB9KS5zZXRPcmlnaW4oMC41KTsKICAgIGNvbnN0IHJvd1NwYWNpbmcgPSBNYXRoLmZsb29yKChHQU1FX0hFSUdIVCAtIDIyMCkgLyBVUEdSQURFX0lURU1TLmxlbmd0aCk7CiAgICBVUEdSQURFX0lURU1TLmZvckVhY2goKGl0ZW0sIGkpID0+IHRoaXMuY3JlYXRlUm93KGl0ZW0sIDE0MCArIGkgKiByb3dTcGFjaW5nLCBjb2luVGV4dCwgcm93U3BhY2luZyAtIDgpKTsKICAgIHRoaXMuY3JlYXRlQnRuKGN4LCBHQU1FX0hFSUdIVCAtIDYwLCAnXHUyMTkwIEJBQ0snLCAoKSA9PiB0aGlzLnNjZW5lLnN0YXJ0KCdNYWluTWVudVNjZW5lJykpOwogICAgdGhpcy5jYW1lcmFzLm1haW4uZmFkZUluKDIwMCwgMCwgMCwgMCk7CiAgfQoKICBwcml2YXRlIGNyZWF0ZVJvdyhpdGVtOiB0eXBlb2YgVVBHUkFERV9JVEVNU1swXSwgeTogbnVtYmVyLCBjb2luVGV4dDogUGhhc2VyLkdhbWVPYmplY3RzLlRleHQsIHJvd0ggPSA3MikgewogICAgY29uc3QgY3ggPSBHQU1FX1dJRFRIIC8gMjsKICAgIGNvbnN0IHN0YXRlID0gUGVyc2lzdGVudFN0YXRlLmdldCgpOwogICAgY29uc3QgbHYgPSBzdGF0ZS51cGdyYWRlc1tpdGVtLmtleV0gPz8gMTsKICAgIGNvbnN0IGNvc3QgPSBpdGVtLmtleSA9PT0gJ2Jhc2VEYW1hZ2VMZXZlbCcKICAgICAgPyBNYXRoLmZsb29yKDIwMCAqIE1hdGgucG93KDEuNiwgbHYgLSAxKSkKICAgICAgOiBQZXJzaXN0ZW50U3RhdGUudXBncmFkZUNvc3QobHYpOwogICAgY29uc3QgaGFsZiA9IHJvd0ggLyAyOwogICAgdGhpcy5hZGQucmVjdGFuZ2xlKGN4LCB5LCBHQU1FX1dJRFRILTI0LCByb3dILCBDT0xPUlMuVUlfQkcpLnNldFN0cm9rZVN0eWxlKDEsIDB4MzMzMzU1KTsKICAgIHRoaXMuYWRkLnRleHQoMjQsIHkgLSBoYWxmICsgOCwgaXRlbS5sYWJlbCwgICAgICAgeyBmb250U2l6ZTonMTVweCcsIGNvbG9yOicjZmZmZmZmJywgZm9udEZhbWlseTonbW9ub3NwYWNlJyB9KTsKICAgIHRoaXMuYWRkLnRleHQoMjQsIHkgLSBoYWxmICsgMjYsIGl0ZW0uZGVzY3JpcHRpb24sIHsgZm9udFNpemU6JzExcHgnLCBjb2xvcjonIzg4ODg4OCcsIGZvbnRGYW1pbHk6J21vbm9zcGFjZScgfSk7CiAgICBjb25zdCBzdGFyQ291bnQgPSBNYXRoLm1pbihsdiwgNSk7CiAgICBmb3IgKGxldCBzID0gMDsgcyA8IDU7IHMrKykgdGhpcy5hZGQudGV4dCgyNCtzKjIwLCB5ICsgaGFsZiAtIDE2LCAnXHUyNjA1JywgeyBmb250U2l6ZTonMTRweCcsIGNvbG9yOiBzIDwgc3RhckNvdW50ID8gJyNmZmRkMDAnIDogJyMzMzMzNTUnIH0pOwogICAgdGhpcy5hZGQudGV4dCgyNCArIDUqMjAgKyA0LCB5ICsgaGFsZiAtIDE2LCBgTHYke2x2fWAsIHsgZm9udFNpemU6JzExcHgnLCBjb2xvcjonIzg4ODg4OCcsIGZvbnRGYW1pbHk6J21vbm9zcGFjZScgfSk7CiAgICBjb25zdCBidG4gPSB0aGlzLmFkZC5yZWN0YW5nbGUoR0FNRV9XSURUSC04MCwgeSwgMTEwLCA0NCwgMHgwYTNhMGEpLnNldFN0cm9rZVN0eWxlKDIsIDB4MDBhYTQ0KS5zZXRJbnRlcmFjdGl2ZSh7IHVzZUhhbmRDdXJzb3I6dHJ1ZSB9KTsKICAgIHRoaXMuYWRkLnRleHQoR0FNRV9XSURUSC04MCwgeSwgYFVQXG5cdWQ4M2VcdWRlOTkgJHtjb3N0fWAsIHsgZm9udFNpemU6JzEzcHgnLCBjb2xvcjonIzAwZmY4OCcsIGZvbnRGYW1pbHk6J21vbm9zcGFjZScsIGFsaWduOidjZW50ZXInIH0pLnNldE9yaWdpbigwLjUpOwogICAgYnRuLm9uKCdwb2ludGVyb3ZlcicsICgpID0+IGJ0bi5zZXRGaWxsU3R5bGUoMHgwYTVhMGEpKTsKICAgIGJ0bi5vbigncG9pbnRlcm91dCcsICAoKSA9PiBidG4uc2V0RmlsbFN0eWxlKDB4MGEzYTBhKSk7CiAgICBidG4ub24oJ3BvaW50ZXJkb3duJywgKCkgPT4gewogICAgICBpZiAoIVBlcnNpc3RlbnRTdGF0ZS5zcGVuZEN1cnJlbmN5KGNvc3QpKSB7IHRoaXMuY2FtZXJhcy5tYWluLmZsYXNoKDIwMCwgMjU1LCAwLCAwKTsgcmV0dXJuOyB9CiAgICAgIGNvbnN0IHVwZ3JhZGVzID0gUGVyc2lzdGVudFN0YXRlLmdldCgpLnVwZ3JhZGVzOwogICAgICAodXBncmFkZXNbaXRlbS5rZXldIGFzIG51bWJlcikrKzsKICAgICAgUGVyc2lzdGVudFN0YXRlLnNhdmUoeyB1cGdyYWRlcyB9KTsKICAgICAgdGhpcy5zb3VuZC5wbGF5KCdzZnhfbGV2ZWx1cCcsIHsgdm9sdW1lOjAuNiB9KTsKICAgICAgdGhpcy5zY2VuZS5yZXN0YXJ0KCk7CiAgICB9KTsKICAgIHZvaWQgY29pblRleHQ7IC8vIHJlZmVyZW5jZWQgdG8gYXZvaWQgdW51c2VkLXZhcmlhYmxlIHdhcm5pbmcKICB9CgogIHByaXZhdGUgY3JlYXRlQnRuKHg6IG51bWJlciwgeTogbnVtYmVyLCBsYWJlbDogc3RyaW5nLCBvbkNsaWNrOiAoKSA9PiB2b2lkKSB7CiAgICBjb25zdCBidG4gPSB0aGlzLmFkZC5yZWN0YW5nbGUoeCwgeSwgMTgwLCA0NCwgQ09MT1JTLlVJX0JHKS5zZXRTdHJva2VTdHlsZSgyLCBDT0xPUlMuU0tJTExfQ0FSRF9CT1JERVIpLnNldEludGVyYWN0aXZlKHsgdXNlSGFuZEN1cnNvcjp0cnVlIH0pOwogICAgY29uc3QgdGV4dCA9IHRoaXMuYWRkLnRleHQoeCwgeSwgbGFiZWwsIHsgZm9udFNpemU6JzE2cHgnLCBjb2xvcjonI2FhYWFmZicsIGZvbnRGYW1pbHk6J21vbm9zcGFjZScgfSkuc2V0T3JpZ2luKDAuNSk7CiAgICBidG4ub24oJ3BvaW50ZXJvdmVyJywgKCkgPT4gYnRuLnNldEZpbGxTdHlsZSgweDJhMmE0ZSkpOwogICAgYnRuLm9uKCdwb2ludGVyb3V0JywgICgpID0+IGJ0bi5zZXRGaWxsU3R5bGUoQ09MT1JTLlVJX0JHKSk7CiAgICBidG4ub24oJ3BvaW50ZXJkb3duJywgKCkgPT4geyB0aGlzLnNvdW5kLnBsYXkoJ3NmeF9zZWxlY3QnKTsgb25DbGljaygpOyB9KTsKICB9Cn0K
+import Phaser from 'phaser';
+import { GAME_WIDTH, GAME_HEIGHT, COLORS } from '../config';
+import { PersistentState } from '../store/PersistentState';
+import type { UpgradeTree } from '../store/PersistentState';
+
+const UPGRADE_ITEMS: { key: keyof UpgradeTree; label: string; description: string }[] = [
+  { key: 'attackLevel',     label: '攻撃力',     description: 'ダメージ +12%/Lv' },
+  { key: 'hpLevel',         label: 'HP',         description: '最大HP +15%/Lv' },
+  { key: 'bulletLevel',     label: '開始弾数',   description: '初期弾数 +1/Lv (最大5)' },
+  { key: 'fireRateLevel',   label: '攻撃速度',   description: '発射間隔 -30ms/Lv' },
+  { key: 'currencyLevel',   label: 'コイン運',   description: 'ドロップ +30%/Lv' },
+  { key: 'xpLevel',         label: '経験値効率', description: 'XP獲得 +15%/Lv' },
+  { key: 'shieldLevel',     label: 'シールド',   description: '開始時シールド +30/Lv, 無敵時間 +0.1秒/Lv' },
+  { key: 'critLevel',       label: 'クリ確率',   description: '初期クリ確率 +8%/Lv' },
+  { key: 'baseDamageLevel', label: '基礎攻撃力', description: '攻撃力 +3/Lv (固定値)' },
+];
+
+export class HangarScene extends Phaser.Scene {
+  constructor() { super({ key: 'HangarScene' }); }
+
+  create() {
+    const cx = GAME_WIDTH / 2;
+    const g = this.add.graphics();
+    for (let i = 0; i < 80; i++) { g.fillStyle(0xffffff, Phaser.Math.FloatBetween(0.1,0.6)); g.fillRect(Phaser.Math.Between(0,GAME_WIDTH), Phaser.Math.Between(0,GAME_HEIGHT), 1, 1); }
+    this.add.text(cx, 50, '\ud83d\ude80 HANGAR', { fontSize:'28px', color:'#ffffff', fontFamily:'monospace' }).setOrigin(0.5);
+    const coinText = this.add.text(cx, 90, `\ud83e\ude99 ${PersistentState.get().totalCurrency.toLocaleString()}`, { fontSize:'16px', color:'#ffdd00', fontFamily:'monospace' }).setOrigin(0.5);
+    const rowSpacing = Math.floor((GAME_HEIGHT - 220) / UPGRADE_ITEMS.length);
+    UPGRADE_ITEMS.forEach((item, i) => this.createRow(item, 140 + i * rowSpacing, coinText, rowSpacing - 8));
+    this.createBtn(cx, GAME_HEIGHT - 60, '\u2190 BACK', () => this.scene.start('MainMenuScene'));
+    this.cameras.main.fadeIn(200, 0, 0, 0);
+  }
+
+  private createRow(item: typeof UPGRADE_ITEMS[0], y: number, coinText: Phaser.GameObjects.Text, rowH = 72) {
+    const cx = GAME_WIDTH / 2;
+    const state = PersistentState.get();
+    const lv = state.upgrades[item.key] ?? 1;
+    const cost = item.key === 'baseDamageLevel'
+      ? Math.floor(200 * Math.pow(1.6, lv - 1))
+      : PersistentState.upgradeCost(lv);
+    const half = rowH / 2;
+    this.add.rectangle(cx, y, GAME_WIDTH-24, rowH, COLORS.UI_BG).setStrokeStyle(1, 0x333355);
+    this.add.text(24, y - half + 8, item.label,       { fontSize:'15px', color:'#ffffff', fontFamily:'monospace' });
+    this.add.text(24, y - half + 26, item.description, { fontSize:'11px', color:'#888888', fontFamily:'monospace' });
+    const starCount = Math.min(lv, 5);
+    for (let s = 0; s < 5; s++) this.add.text(24+s*20, y + half - 16, '\u2605', { fontSize:'14px', color: s < starCount ? '#ffdd00' : '#333355' });
+    this.add.text(24 + 5*20 + 4, y + half - 16, `Lv${lv}`, { fontSize:'11px', color:'#888888', fontFamily:'monospace' });
+    const btn = this.add.rectangle(GAME_WIDTH-80, y, 110, 44, 0x0a3a0a).setStrokeStyle(2, 0x00aa44).setInteractive({ useHandCursor:true });
+    this.add.text(GAME_WIDTH-80, y, `UP\n\ud83e\ude99 ${cost}`, { fontSize:'13px', color:'#00ff88', fontFamily:'monospace', align:'center' }).setOrigin(0.5);
+    btn.on('pointerover', () => btn.setFillStyle(0x0a5a0a));
+    btn.on('pointerout',  () => btn.setFillStyle(0x0a3a0a));
+    btn.on('pointerdown', () => {
+      if (!PersistentState.spendCurrency(cost)) { this.cameras.main.flash(200, 255, 0, 0); return; }
+      const upgrades = PersistentState.get().upgrades;
+      (upgrades[item.key] as number)++;
+      PersistentState.save({ upgrades });
+      this.sound.play('sfx_levelup', { volume:0.6 });
+      this.scene.restart();
+    });
+    void coinText; // referenced to avoid unused-variable warning
+  }
+
+  private createBtn(x: number, y: number, label: string, onClick: () => void) {
+    const btn = this.add.rectangle(x, y, 180, 44, COLORS.UI_BG).setStrokeStyle(2, COLORS.SKILL_CARD_BORDER).setInteractive({ useHandCursor:true });
+    const text = this.add.text(x, y, label, { fontSize:'16px', color:'#aaaaff', fontFamily:'monospace' }).setOrigin(0.5);
+    btn.on('pointerover', () => btn.setFillStyle(0x2a2a4e));
+    btn.on('pointerout',  () => btn.setFillStyle(COLORS.UI_BG));
+    btn.on('pointerdown', () => { this.sound.play('sfx_select'); onClick(); });
+  }
+}
