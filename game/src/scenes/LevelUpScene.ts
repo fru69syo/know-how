@@ -11,7 +11,7 @@ export class LevelUpScene extends Phaser.Scene {
   create() {
     const state = GameState.get();
     const choices = getSkillChoices(state.activeSkills, 3);
-    this.add.rectangle(GAME_WIDTH/2, GAME_HEIGHT/2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.75).setDepth(DEPTHS.OVERLAY).setInteractive();
+    this.add.rectangle(GAME_WIDTH/2, GAME_HEIGHT/2, GAME_WIDTH, GAME_HEIGHT, 0x000000, 0.95).setDepth(DEPTHS.OVERLAY).setInteractive();
     this.add.text(GAME_WIDTH/2, 110, `LEVEL UP!  Lv.${state.level}`, { fontSize:'26px', color:'#ffdd00', fontFamily:'monospace', stroke:'#885500', strokeThickness:3 }).setOrigin(0.5).setDepth(DEPTHS.OVERLAY+1);
     this.add.text(GAME_WIDTH/2, 148, 'スキルを選択してください', { fontSize:'14px', color:'#aaaaff', fontFamily:'monospace' }).setOrigin(0.5).setDepth(DEPTHS.OVERLAY+1);
     choices.forEach((skill, i) => this.createCard(GAME_WIDTH/2, 205 + i*110, GAME_WIDTH-48, 100, skill));

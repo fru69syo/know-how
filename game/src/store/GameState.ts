@@ -1,4 +1,4 @@
-// 1\u30e9\u30f3\u306e\u307f\u6709\u52b9\u306a\u30e9\u30f3\u30bf\u30a4\u30e0\u30b9\u30c6\u30fc\u30c8
+// 1ランのみ有効なランタイムステート
 
 import type { ActiveSkill } from '../skills/SkillDefinitions';
 import { getPartDef } from '../data/PartData';
@@ -22,14 +22,18 @@ export interface PlayerStats {
   homing: boolean;
   spreadShot: boolean;
   magnetRadius: number;
+  baseMagnetRadius: number;
   shieldHp: number;
   invincibleExtendMs: number;
   damageMitigation: number;
   dodgeChance: number;
   vampireHealPct: number;
+  baseVampireHealPct: number;
   autoHealPct: number;
+  baseAutoHealPct: number;
   dropBoost: number;
   rageMultiplier: number;
+  baseCritMultiplier: number;
 }
 
 export interface GameStateData {
@@ -65,14 +69,18 @@ const BASE_STATS: PlayerStats = {
   homing: false,
   spreadShot: false,
   magnetRadius: 60,
+  baseMagnetRadius: 60,
   shieldHp: 0,
   invincibleExtendMs: 0,
   damageMitigation: 0,
   dodgeChance: 0,
   vampireHealPct: 0,
+  baseVampireHealPct: 0,
   autoHealPct: 0,
+  baseAutoHealPct: 0,
   dropBoost: 0,
   rageMultiplier: 1,
+  baseCritMultiplier: 2.0,
 };
 
 let _state: GameStateData | null = null;
@@ -114,6 +122,7 @@ export const GameState = {
       activeSkills: [], isGameOver: false, isPaused: false, adCoinBoost,
     };
 
+    // Apply equipped parts
     const slots = Object.keys(equippedParts) as PartSlot[];
     for (const slot of slots) {
       const uid = equippedParts[slot];
@@ -124,6 +133,18 @@ export const GameState = {
       if (!def) continue;
       def.apply(_state.stats, ownedPart.level);
     }
+
+    // Sync all base values to current values after parts are applied.
+    // This ensures skills always calculate from post-part baselines.
+    const st = _state.stats;
+    st.baseDamage        = st.damage;
+    st.baseBulletCount   = st.bulletCount;
+    st.baseFireRateMs    = st.fireRateMs;
+    st.baseCritChance    = st.critChance;
+    st.baseCritMultiplier = st.critMultiplier;
+    st.baseMagnetRadius  = st.magnetRadius;
+    st.baseVampireHealPct = st.vampireHealPct;
+    st.baseAutoHealPct   = st.autoHealPct;
 
     return _state;
   },
