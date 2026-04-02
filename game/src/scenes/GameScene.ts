@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { GAME_WIDTH, GAME_HEIGHT, WAVE, DEPTHS } from '../config';
+import { GAME_WIDTH, GAME_HEIGHT, DEPTHS } from '../config';
 import { Player } from '../entities/Player';
 import { Enemy } from '../entities/Enemy';
 import { Bullet } from '../entities/Bullet';
@@ -50,14 +50,13 @@ export class GameScene extends Phaser.Scene {
     this.skillSystem   = new SkillSystem(this);
     this.hudController = new HUDController(this);
     this.player = new Player(this, GAME_WIDTH/2, GAME_HEIGHT*0.82);
-    this.enemyManager.onWaveCleared        = () => {
+    this.enemyManager.onWaveCleared = () => {
       PersistentState.updateWaveRecord(GameState.get().wave);
-      this.time.delayedCall(1200, () => this.startWave(GameState.get().wave + 1));
-    };
-    this.enemyManager.onEnemyReachedBottom = () => {
-      const dmg = Math.floor(GameState.get().stats.maxHp * 0.25);
-      if (this.player.takeDamage(dmg, this.time.now)) this.gameOver();
-      else this.cameras.main.shake(300, 0.015);
+      this.showWaveClearMessage();
+      this.time.delayedCall(2000, () => {
+        try { this.bgMusic?.stop(); } catch (_) {}
+        this.scene.start('MainMenuScene');
+      });
     };
     this.xpSystem.onLevelUp = (_level) => {
       if (GameState.get().isPaused) return;
@@ -77,13 +76,7 @@ export class GameScene extends Phaser.Scene {
         }
       });
     };
-    const lineY = GAME_HEIGHT * 0.85;
-    const dbg = this.add.graphics().setDepth(DEPTHS.HUD - 1);
-    dbg.lineStyle(1, 0xff0000, 0.5);
-    for (let x = 0; x < GAME_WIDTH; x += 12) dbg.lineBetween(x, lineY, x + 6, lineY);
-    this.add.text(GAME_WIDTH - 4, lineY - 3, 'DANGER', { fontSize: '9px', color: '#ff4444', fontFamily: 'monospace' }).setOrigin(1, 1).setDepth(DEPTHS.HUD - 1).setAlpha(0.7);
-
-    const preGrantLevels = skipWave > 1 ? Math.min(6, Math.floor((skipWave - 1) / 8)) : 0;
+    const preGrantLevels = skipWave > 1 ? Math.min(25, Math.floor(skipWave / 3)) : 0;
     this.preGrantRemaining = preGrantLevels;
     if (this.preGrantRemaining > 0) {
       this.preGrantRemaining--;
@@ -354,6 +347,14 @@ export class GameScene extends Phaser.Scene {
       elements.forEach(o => { if (o && o.active) o.destroy(); });
       this.doGameOver();
     });
+  }
+
+  private showWaveClearMessage() {
+    const t = this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'WAVE CLEAR!', {
+      fontSize: '36px', color: '#ffdd00', fontFamily: 'monospace',
+      stroke: '#000000', strokeThickness: 4,
+    }).setOrigin(0.5).setDepth(200);
+    this.tweens.add({ targets: t, alpha: 0, y: t.y - 60, duration: 1800, delay: 200, onComplete: () => t.destroy() });
   }
 
   private doGameOver() {
