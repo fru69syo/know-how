@@ -1,1 +1,107 @@
-aW1wb3J0IHR5cGUgeyBQbGF5ZXJTdGF0cyB9IGZyb20gJy4uL3N0b3JlL0dhbWVTdGF0ZSc7CgpleHBvcnQgdHlwZSBQYXJ0U2xvdCA9ICdtYWluV2VhcG9uJyB8ICdzdWJXZWFwb24nIHwgJ2NvcmUnIHwgJ3dpbmcnIHwgJ2VuZ2luZSc7CmV4cG9ydCB0eXBlIFBhcnRSYXJpdHkgPSAnY29tbW9uJyB8ICdyYXJlJyB8ICdlcGljJyB8ICdsZWdlbmRhcnknOwoKZXhwb3J0IGludGVyZmFjZSBQYXJ0RGVmIHsKICBpZDogc3RyaW5nOwogIHNsb3Q6IFBhcnRTbG90OwogIG5hbWU6IHN0cmluZzsKICBkZXNjcmlwdGlvbjogc3RyaW5nOyAvLyBzaG93cyBiYXNlIChsdjEpIGJvbnVzCiAgcmFyaXR5OiBQYXJ0UmFyaXR5OwogIC8vIGFwcGx5IHN0YXRzIGZvciBnaXZlbiBlbmhhbmNlbWVudCBsZXZlbCAobGluZWFyIHNjYWxlOiBsdjEgYm9udXMgw5cgbGV2ZWwpCiAgYXBwbHk6IChzdGF0czogUGxheWVyU3RhdHMsIGxldmVsOiBudW1iZXIpID0+IHZvaWQ7Cn0KCmV4cG9ydCBpbnRlcmZhY2UgT3duZWRQYXJ0IHsKICB1aWQ6IHN0cmluZzsgICAvLyB1bmlxdWUgaW5zdGFuY2UgaWQgKG5hbm9pZC1zdHlsZTogRGF0ZS5ub3coKSArIHJhbmRvbSkKICBpZDogc3RyaW5nOyAgICAvLyBQYXJ0RGVmLmlkCiAgbGV2ZWw6IG51bWJlcjsgLy8gZW5oYW5jZW1lbnQgbGV2ZWwsIHN0YXJ0cyBhdCAxCn0KCmV4cG9ydCBjb25zdCBHQUNIQV9DT1NUX1NJTkdMRSA9IDUwMDsKZXhwb3J0IGNvbnN0IEdBQ0hBX0NPU1RfTVVMVEkgID0gNTAwMDsgLy8gMTEgcHVsbHMKCi8vIEVuaGFuY2VtZW50IHN1Y2Nlc3MgcmF0ZTogMTAwJSBmb3IgbHYx4oCTNCwgdGhlbiAtMTAlIHBlciBsZXZlbCwgbWluIDEwJQpleHBvcnQgZnVuY3Rpb24gZW5oYW5jZVN1Y2Nlc3NSYXRlKGN1cnJlbnRMZXZlbDogbnVtYmVyKTogbnVtYmVyIHsKICByZXR1cm4gTWF0aC5tYXgoMC4xMCwgMS4wIC0gTWF0aC5tYXgoMCwgY3VycmVudExldmVsIC0gNCkgKiAwLjEwKTsKfQoKZXhwb3J0IGNvbnN0IFJBUklUWV9DT0xPUlM6IFJlY29yZDxQYXJ0UmFyaXR5LCBudW1iZXI+ID0gewogIGNvbW1vbjogMHg4ODg4ODgsCiAgcmFyZTogMHgwMDY2Y2MsCiAgZXBpYzogMHg4ODAwY2MsCiAgbGVnZW5kYXJ5OiAweGNjODgwMCwKfTsKCmV4cG9ydCBjb25zdCBTTE9UX0xBQkVMUzogUmVjb3JkPFBhcnRTbG90LCBzdHJpbmc+ID0gewogIG1haW5XZWFwb246ICfjg6HjgqTjg7Pjgqbjgqfjg53jg7MnLAogIHN1YldlYXBvbjogICfjgrXjg5bjgqbjgqfjg53jg7MnLAogIGNvcmU6ICAgICAgICfjgrPjgqInLAogIHdpbmc6ICAgICAgICfjgqbjgqTjg7PjgrAnLAogIGVuZ2luZTogICAgICfjgqjjg7Pjgrjjg7MnLAp9OwoKLy8gMjAgcGFydHMsIDQgcGVyIHNsb3QKZXhwb3J0IGNvbnN0IFBBUlRfREVGUzogUGFydERlZltdID0gWwogIC8vIOKUgOKUgCBNYWluIFdlYXBvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKICB7IGlkOidtd19pcm9uJywgICAgc2xvdDonbWFpbldlYXBvbicsIHJhcml0eTonY29tbW9uJywgICAgbmFtZTon44Ki44Kk44Ki44Oz44Kt44Oj44OO44OzJywgIGRlc2NyaXB0aW9uOifmlLvmkoPlipsgKzEwJS9MdicsCiAgICBhcHBseToocyxsdik9PnsgY29uc3QgbT0xKzAuMTAqbHY7IHMuYmFzZURhbWFnZT1NYXRoLmZsb29yKHMuYmFzZURhbWFnZSptKTsgcy5kYW1hZ2U9cy5iYXNlRGFtYWdlOyB9IH0sCiAgeyBpZDonbXdfc3RlZWwnLCAgIHNsb3Q6J21haW5XZWFwb24nLCByYXJpdHk6J3JhcmUnLCAgICAgIG5hbWU6J+OCueODgeODvOODq+OCreODo+ODjuODsycsICBkZXNjcmlwdGlvbjon5pS75pKD5YqbICsyMCUvTHYnLAogICAgYXBwbHk6KHMsbHYpPT57IGNvbnN0IG09MSswLjIwKmx2OyBzLmJhc2VEYW1hZ2U9TWF0aC5mbG9vcihzLmJhc2VEYW1hZ2UqbSk7IHMuZGFtYWdlPXMuYmFzZURhbWFnZTsgfSB9LAogIHsgaWQ6J213X3BsYXNtYScsICBzbG90OidtYWluV2VhcG9uJywgcmFyaXR5OidlcGljJywgICAgICBuYW1lOifjg5fjg6njgrrjg57jg6njgqTjg5Xjg6snLCAgIGRlc2NyaXB0aW9uOifmlLvmkoPlipsgKzM1JS9MdicsCiAgICBhcHBseToocyxsdik9PnsgY29uc3QgbT0xKzAuMzUqbHY7IHMuYmFzZURhbWFnZT1NYXRoLmZsb29yKHMuYmFzZURhbWFnZSptKTsgcy5kYW1hZ2U9cy5iYXNlRGFtYWdlOyB9IH0sCiAgeyBpZDonbXdfcXVhbnR1bScsIHNsb3Q6J21haW5XZWFwb24nLCByYXJpdHk6J2xlZ2VuZGFyeScsIG5hbWU6J+mHj+WtkOOCreODo+ODjuODsycsICAgICAgZGVzY3JpcHRpb246J+aUu+aSg+WKmyArNjAlL0x2JywKICAgIGFwcGx5OihzLGx2KT0+eyBjb25zdCBtPTErMC42MCpsdjsgcy5iYXNlRGFtYWdlPU1hdGguZmxvb3Iocy5iYXNlRGFtYWdlKm0pOyBzLmRhbWFnZT1zLmJhc2VEYW1hZ2U7IH0gfSwKCiAgLy8g4pSA4pSAIFN1YiBXZWFwb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSACiAgeyBpZDonc3dfYnVyc3QnLCAgIHNsb3Q6J3N1YldlYXBvbicsIHJhcml0eTonY29tbW9uJywgICAgbmFtZTon44OQ44O844K544OI44K344Kn44OrJywgICAgZGVzY3JpcHRpb246J+W8vuaVsCArMS9MdicsCiAgICBhcHBseToocyxsdik9Pnsgcy5iYXNlQnVsbGV0Q291bnQ9TWF0aC5taW4oNSwgcy5iYXNlQnVsbGV0Q291bnQrbHYpOyBzLmJ1bGxldENvdW50PXMuYmFzZUJ1bGxldENvdW50OyB9IH0sCiAgeyBpZDonc3dfaG9taW5nJywgIHNsb3Q6J3N1YldlYXBvbicsIHJhcml0eToncmFyZScsICAgICAgbmFtZTon44Ob44O844Of44Oz44Kw44Of44K144Kk44OrJywgZGVzY3JpcHRpb246J+W8vuOBjOi/veWwvu+8iEx2MuOBp+W8t+WMlu+8iScsCiAgICBhcHBseToocyxsdik9Pnsgcy5ob21pbmc9dHJ1ZTsgaWYobHY+PTIpeyBjb25zdCBiPTAuMDUqKGx2LTEpOyBzLmJhc2VDcml0Q2hhbmNlPU1hdGgubWluKDAuOSxzLmJhc2VDcml0Q2hhbmNlK2IpOyBzLmNyaXRDaGFuY2U9cy5iYXNlQ3JpdENoYW5jZTsgfSB9IH0sCiAgeyBpZDonc3dfZXhwbG9kZScsIHNsb3Q6J3N1YldlYXBvbicsIHJhcml0eTonZXBpYycsICAgICAgbmFtZTon54iG55m65by+JywgICAgICAgICAgICBkZXNjcmlwdGlvbjon552A5by+5pmC54iG55m677yITHYy44Gn5by+5pWwKzHvvIknLAogICAgYXBwbHk6KHMsbHYpPT57IHMuZXhwbG9zaXZlPXRydWU7IGlmKGx2Pj0yKSBzLmJ1bGxldENvdW50PU1hdGgubWluKDUscy5idWxsZXRDb3VudCtNYXRoLmZsb29yKChsdi0xKS8yKSk7IH0gfSwKICB7IGlkOidzd192b2lkJywgICAgc2xvdDonc3ViV2VhcG9uJywgcmFyaXR5OidsZWdlbmRhcnknLCBuYW1lOifjg7TjgqnjgqTjg4njg6njg7PjgrknLCAgICBkZXNjcmlwdGlvbjon6LKr6YCaK+i/veWwvuOAgeW8vuaVsCsxLzJMdicsCiAgICBhcHBseToocyxsdik9Pnsgcy5wZW5ldHJhdGU9dHJ1ZTsgcy5ob21pbmc9dHJ1ZTsgcy5idWxsZXRDb3VudD1NYXRoLm1pbig1LHMuYnVsbGV0Q291bnQrTWF0aC5mbG9vcihsdi8yKSk7IH0gfSwKCiAgLy8g4pSA4pSAIENvcmUg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSACiAgeyBpZDonY29faXJvbicsICAgIHNsb3Q6J2NvcmUnLCByYXJpdHk6J2NvbW1vbicsICAgIG5hbWU6J+OCouOCpOOCouODs+OCs+OCoicsICAgIGRlc2NyaXB0aW9uOifmnIDlpKdIUCArMTUlL0x2JywKICAgIGFwcGx5OihzLGx2KT0+eyBjb25zdCBiPU1hdGguZmxvb3Iocy5tYXhIcCowLjE1Kmx2KTsgcy5tYXhIcCs9Yjsgcy5ocD1NYXRoLm1pbihzLm1heEhwLHMuaHArYik7IH0gfSwKICB7IGlkOidjb19zdGVlbCcsICAgc2xvdDonY29yZScsIHJhcml0eToncmFyZScsICAgICAgbmFtZTon44K544OB44O844Or44Kz44KiJywgICAgZGVzY3JpcHRpb246J+acgOWkp0hQICsyMCUvTHYg44K344O844Or44OJKzE1L0x2JywKICAgIGFwcGx5OihzLGx2KT0+eyBjb25zdCBiPU1hdGguZmxvb3Iocy5tYXhIcCowLjIwKmx2KTsgcy5tYXhIcCs9Yjsgcy5ocD1NYXRoLm1pbihzLm1heEhwLHMuaHArYik7IHMuc2hpZWxkSHArPTE1Kmx2OyB9IH0sCiAgeyBpZDonY29fY3J5c3RhbCcsIHNsb3Q6J2NvcmUnLCByYXJpdHk6J2VwaWMnLCAgICAgIG5hbWU6J+OCr+ODquOCueOCv+ODq+OCs+OCoicsICBkZXNjcmlwdGlvbjon5pyA5aSnSFAgKzMwJS9MdiDjgrfjg7zjg6vjg4krMzAvTHYnLAogICAgYXBwbHk6KHMsbHYpPT57IGNvbnN0IGI9TWF0aC5mbG9vcihzLm1heEhwKjAuMzAqbHYpOyBzLm1heEhwKz1iOyBzLmhwPU1hdGgubWluKHMubWF4SHAscy5ocCtiKTsgcy5zaGllbGRIcCs9MzAqbHY7IH0gfSwKICB7IGlkOidjb19vbWVnYScsICAgc2xvdDonY29yZScsIHJhcml0eTonbGVnZW5kYXJ5JywgbmFtZTon44Kq44Oh44Ks44Kz44KiJywgICAgICBkZXNjcmlwdGlvbjon5pyA5aSnSFAgKzUwJS9MdiDjgrfjg7zjg6vjg4krNjAvTHYnLAogICAgYXBwbHk6KHMsbHYpPT57IGNvbnN0IGI9TWF0aC5mbG9vcihzLm1heEhwKjAuNTAqbHYpOyBzLm1heEhwKz1iOyBzLmhwPU1hdGgubWluKHMubWF4SHAscy5ocCtiKTsgcy5zaGllbGRIcCs9NjAqbHY7IH0gfSwKCiAgLy8g4pSA4pSAIFdpbmcg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSACiAgeyBpZDond2lfZmVhdGhlcicsIHNsb3Q6J3dpbmcnLCByYXJpdHk6J2NvbW1vbicsICAgIG5hbWU6J+ODleOCp+OCtuODvOOCpuOCpOODs+OCsCcsIGRlc2NyaXB0aW9uOifnmbrlsITplpPpmpQgLTglL0x2JywKICAgIGFwcGx5OihzLGx2KT0+eyBjb25zdCBtPU1hdGgucG93KDAuOTIsbHYpOyBzLmJhc2VGaXJlUmF0ZU1zPU1hdGgubWF4KDgwLE1hdGguZmxvb3Iocy5iYXNlRmlyZVJhdGVNcyptKSk7IHMuZmlyZVJhdGVNcz1zLmJhc2VGaXJlUmF0ZU1zOyB9IH0sCiAgeyBpZDond2lfc2hhcnAnLCAgIHNsb3Q6J3dpbmcnLCByYXJpdHk6J3JhcmUnLCAgICAgIG5hbWU6J+OCt+ODo+ODvOODl+OCpuOCpOODs+OCsCcsIGRlc2NyaXB0aW9uOifjgq/jg6rnorrnjocgKzglL0x2JywKICAgIGFwcGx5OihzLGx2KT0+eyBzLmJhc2VDcml0Q2hhbmNlPU1hdGgubWluKDAuOSxzLmJhc2VDcml0Q2hhbmNlKzAuMDgqbHYpOyBzLmNyaXRDaGFuY2U9cy5iYXNlQ3JpdENoYW5jZTsgfSB9LAogIHsgaWQ6J3dpX3N3aWZ0JywgICBzbG90Oid3aW5nJywgcmFyaXR5OidlcGljJywgICAgICBuYW1lOifjgrnjgqbjgqPjg5Xjg4jjgqbjgqTjg7PjgrAnLGRlc2NyaXB0aW9uOifnmbrlsITplpPpmpQgLTEyJS9MdiDjgq/jg6rnorrnjocgKzYlL0x2JywKICAgIGFwcGx5OihzLGx2KT0+eyBjb25zdCBtPU1hdGgucG93KDAuODgsbHYpOyBzLmJhc2VGaXJlUmF0ZU1zPU1hdGgubWF4KDgwLE1hdGguZmxvb3Iocy5iYXNlRmlyZVJhdGVNcyptKSk7IHMuZmlyZVJhdGVNcz1zLmJhc2VGaXJlUmF0ZU1zOyBzLmJhc2VDcml0Q2hhbmNlPU1hdGgubWluKDAuOSxzLmJhc2VDcml0Q2hhbmNlKzAuMDYqbHYpOyBzLmNyaXRDaGFuY2U9cy5iYXNlQ3JpdENoYW5jZTsgfSB9LAogIHsgaWQ6J3dpX2FuZ2VsJywgICBzbG90Oid3aW5nJywgcmFyaXR5OidsZWdlbmRhcnknLCBuYW1lOifjgqjjg7Pjgrjjgqfjg6vjgqbjgqTjg7PjgrAnLGRlc2NyaXB0aW9uOifnmbrlsITplpPpmpQgLTE1JS9MdiDjgq/jg6rnorrnjocgKzEwJS9MdiDjgq/jg6rlgI3njocgKzAuMy9MdicsCiAgICBhcHBseToocyxsdik9PnsgY29uc3QgbT1NYXRoLnBvdygwLjg1LGx2KTsgcy5iYXNlRmlyZVJhdGVNcz1NYXRoLm1heCg4MCxNYXRoLmZsb29yKHMuYmFzZUZpcmVSYXRlTXMqbSkpOyBzLmZpcmVSYXRlTXM9cy5iYXNlRmlyZVJhdGVNczsgcy5iYXNlQ3JpdENoYW5jZT1NYXRoLm1pbigwLjkscy5iYXNlQ3JpdENoYW5jZSswLjEwKmx2KTsgcy5jcml0Q2hhbmNlPXMuYmFzZUNyaXRDaGFuY2U7IHMuYmFzZUNyaXRNdWx0aXBsaWVyKz0wLjMqbHY7IHMuY3JpdE11bHRpcGxpZXI9cy5iYXNlQ3JpdE11bHRpcGxpZXI7IH0gfSwKCiAgLy8g4pSA4pSAIEVuZ2luZSDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKICB7IGlkOidlbl9ib29zdCcsICAgc2xvdDonZW5naW5lJywgcmFyaXR5Oidjb21tb24nLCAgICBuYW1lOifjg5bjg7zjgrnjg4jjgqjjg7Pjgrjjg7MnLCAgZGVzY3JpcHRpb246J+ejgeWKm+evhOWbsiArNDAvTHYnLAogICAgYXBwbHk6KHMsbHYpPT57IHMubWFnbmV0UmFkaXVzKz00MCpsdjsgfSB9LAogIHsgaWQ6J2VuX3dhcnAnLCAgICBzbG90OidlbmdpbmUnLCByYXJpdHk6J3JhcmUnLCAgICAgIG5hbWU6J+ODr+ODvOODl+OCqOODs+OCuOODsycsICAgIGRlc2NyaXB0aW9uOifnhKHmlbXmmYLplpMgKzAuNOenki9MdicsCiAgICBhcHBseToocyxsdik9Pnsgcy5pbnZpbmNpYmxlRXh0ZW5kTXMrPTQwMCpsdjsgfSB9LAogIHsgaWQ6J2VuX2Z1cnknLCAgICBzbG90OidlbmdpbmUnLCByYXJpdHk6J2VwaWMnLCAgICAgIG5hbWU6J+ODleODpeODvOODquODvOOCqOODs+OCuOODsycsIGRlc2NyaXB0aW9uOidIUDMwJeS7peS4i+OBp+aUu+aSg+WKmyDDlygxKzAuNS9MdiknLAogICAgYXBwbHk6KHMsbHYpPT57IHMucmFnZU11bHRpcGxpZXI9TWF0aC5tYXgocy5yYWdlTXVsdGlwbGllciwgMSswLjUqbHYpOyB9IH0sCiAgeyBpZDonZW5fdm9pZCcsICAgIHNsb3Q6J2VuZ2luZScsIHJhcml0eTonbGVnZW5kYXJ5JywgbmFtZTon44O044Kp44Kk44OJ44Ko44Oz44K444OzJywgIGRlc2NyaXB0aW9uOiflkLjooYAgKzIlL0x2IOiHquWLleWbnuW+qSArMSUvTHYnLAogICAgYXBwbHk6KHMsbHYpPT57IHMuYmFzZVZhbXBpcmVIZWFsUGN0Kz0wLjAyKmx2OyBzLnZhbXBpcmVIZWFsUGN0PXMuYmFzZVZhbXBpcmVIZWFsUGN0OyBzLmJhc2VBdXRvSGVhbFBjdCs9MC4wMSpsdjsgcy5hdXRvSGVhbFBjdD1zLmJhc2VBdXRvSGVhbFBjdDsgfSB9LApdOwoKZXhwb3J0IGZ1bmN0aW9uIGdldFBhcnREZWYoaWQ6IHN0cmluZyk6IFBhcnREZWYgfCB1bmRlZmluZWQgewogIHJldHVybiBQQVJUX0RFRlMuZmluZChwID0+IHAuaWQgPT09IGlkKTsKfQoKLy8gV2VpZ2h0ZWQgZ2FjaGEgcHVsbApleHBvcnQgZnVuY3Rpb24gcHVsbEdhY2hhKG46IG51bWJlcik6IFBhcnREZWZbXSB7CiAgY29uc3QgcmVzdWx0OiBQYXJ0RGVmW10gPSBbXTsKICBmb3IgKGxldCBpID0gMDsgaSA8IG47IGkrKykgewogICAgY29uc3QgciA9IE1hdGgucmFuZG9tKCk7CiAgICBsZXQgcmFyaXR5OiBQYXJ0UmFyaXR5OwogICAgaWYgICAgICAociA8IDAuMDEpICAgICAgIHJhcml0eSA9ICdsZWdlbmRhcnknOwogICAgZWxzZSBpZiAociA8IDAuMTUpICAgICAgIHJhcml0eSA9ICdlcGljJzsKICAgIGVsc2UgaWYgKHIgPCAwLjQwKSAgICAgICByYXJpdHkgPSAncmFyZSc7CiAgICBlbHNlICAgICAgICAgICAgICAgICAgICAgcmFyaXR5ID0gJ2NvbW1vbic7CiAgICBjb25zdCBwb29sID0gUEFSVF9ERUZTLmZpbHRlcihwID0+IHAucmFyaXR5ID09PSByYXJpdHkpOwogICAgcmVzdWx0LnB1c2gocG9vbFtNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkgKiBwb29sLmxlbmd0aCldKTsKICB9CiAgcmV0dXJuIHJlc3VsdDsKfQoKZXhwb3J0IGZ1bmN0aW9uIG1ha2VVaWQoKTogc3RyaW5nIHsKICByZXR1cm4gYCR7RGF0ZS5ub3coKX1fJHtNYXRoLnJhbmRvbSgpLnRvU3RyaW5nKDM2KS5zbGljZSgyLCA3KX1gOwp9Cg==
+import type { PlayerStats } from '../store/GameState';
+
+export type PartSlot = 'mainWeapon' | 'subWeapon' | 'core' | 'wing' | 'engine';
+export type PartRarity = 'common' | 'rare' | 'epic' | 'legendary';
+
+export interface PartDef {
+  id: string;
+  slot: PartSlot;
+  name: string;
+  description: string;
+  rarity: PartRarity;
+  apply: (stats: PlayerStats, level: number) => void;
+}
+
+export interface OwnedPart {
+  uid: string;
+  id: string;
+  level: number;
+}
+
+export const GACHA_COST_SINGLE = 500;
+export const GACHA_COST_MULTI  = 5000;
+
+export function enhanceSuccessRate(currentLevel: number): number {
+  return Math.max(0.10, 1.0 - Math.max(0, currentLevel - 4) * 0.10);
+}
+
+export const RARITY_COLORS: Record<PartRarity, number> = {
+  common: 0x888888,
+  rare: 0x0066cc,
+  epic: 0x8800cc,
+  legendary: 0xcc8800,
+};
+
+export const SLOT_LABELS: Record<PartSlot, string> = {
+  mainWeapon: '\u30e1\u30a4\u30f3\u30a6\u30a7\u30dd\u30f3',
+  subWeapon:  '\u30b5\u30d6\u30a6\u30a7\u30dd\u30f3',
+  core:       '\u30b3\u30a2',
+  wing:       '\u30a6\u30a4\u30f3\u30b0',
+  engine:     '\u30a8\u30f3\u30b8\u30f3',
+};
+
+export const PART_DEFS: PartDef[] = [
+  { id:'mw_iron',    slot:'mainWeapon', rarity:'common',    name:'\u30a2\u30a4\u30a2\u30f3\u30ad\u30e3\u30ce\u30f3',  description:'\u653b\u6483\u529b +10%/Lv',
+    apply:(s,lv)=>{ const m=1+0.10*lv; s.baseDamage=Math.floor(s.baseDamage*m); s.damage=s.baseDamage; } },
+  { id:'mw_steel',   slot:'mainWeapon', rarity:'rare',      name:'\u30b9\u30c1\u30fc\u30eb\u30ad\u30e3\u30ce\u30f3',  description:'\u653b\u6483\u529b +20%/Lv',
+    apply:(s,lv)=>{ const m=1+0.20*lv; s.baseDamage=Math.floor(s.baseDamage*m); s.damage=s.baseDamage; } },
+  { id:'mw_plasma',  slot:'mainWeapon', rarity:'epic',      name:'\u30d7\u30e9\u30ba\u30de\u30e9\u30a4\u30d5\u30eb',   description:'\u653b\u6483\u529b +35%/Lv',
+    apply:(s,lv)=>{ const m=1+0.35*lv; s.baseDamage=Math.floor(s.baseDamage*m); s.damage=s.baseDamage; } },
+  { id:'mw_quantum', slot:'mainWeapon', rarity:'legendary', name:'\u91cf\u5b50\u30ad\u30e3\u30ce\u30f3',      description:'\u653b\u6483\u529b +60%/Lv',
+    apply:(s,lv)=>{ const m=1+0.60*lv; s.baseDamage=Math.floor(s.baseDamage*m); s.damage=s.baseDamage; } },
+  { id:'sw_burst',   slot:'subWeapon', rarity:'common',    name:'\u30d0\u30fc\u30b9\u30c8\u30b7\u30a7\u30eb',    description:'\u5f3e\u6570 +1/Lv',
+    apply:(s,lv)=>{ s.baseBulletCount=Math.min(5, s.baseBulletCount+lv); s.bulletCount=s.baseBulletCount; } },
+  { id:'sw_homing',  slot:'subWeapon', rarity:'rare',      name:'\u30db\u30fc\u30df\u30f3\u30b0\u30df\u30b5\u30a4\u30eb', description:'\u5f3e\u304c\u8ffd\u5c3e\uff08Lv2\u3067\u5f37\u5316\uff09',
+    apply:(s,lv)=>{ s.homing=true; if(lv>=2){ const b=0.05*(lv-1); s.baseCritChance=Math.min(0.9,s.baseCritChance+b); s.critChance=s.baseCritChance; } } },
+  { id:'sw_explode', slot:'subWeapon', rarity:'epic',      name:'\u7206\u767a\u5f3e',            description:'\u7740\u5f3e\u6642\u7206\u767a\uff08Lv2\u3067\u5f3e\u6570+1\uff09',
+    apply:(s,lv)=>{ s.explosive=true; if(lv>=2) s.bulletCount=Math.min(5,s.bulletCount+Math.floor((lv-1)/2)); } },
+  { id:'sw_void',    slot:'subWeapon', rarity:'legendary', name:'\u30f4\u30a9\u30a4\u30c9\u30e9\u30f3\u30b9',    description:'\u8cab\u901a+\u8ffd\u5c3e\u3001\u5f3e\u6570+1/2Lv',
+    apply:(s,lv)=>{ s.penetrate=true; s.homing=true; s.bulletCount=Math.min(5,s.bulletCount+Math.floor(lv/2)); } },
+  { id:'co_iron',    slot:'core', rarity:'common',    name:'\u30a2\u30a4\u30a2\u30f3\u30b3\u30a2',    description:'\u6700\u5927HP +15%/Lv',
+    apply:(s,lv)=>{ const b=Math.floor(s.maxHp*0.15*lv); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); } },
+  { id:'co_steel',   slot:'core', rarity:'rare',      name:'\u30b9\u30c1\u30fc\u30eb\u30b3\u30a2',    description:'\u6700\u5927HP +20%/Lv \u30b7\u30fc\u30eb\u30c9+15/Lv',
+    apply:(s,lv)=>{ const b=Math.floor(s.maxHp*0.20*lv); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); s.shieldHp+=15*lv; } },
+  { id:'co_crystal', slot:'core', rarity:'epic',      name:'\u30af\u30ea\u30b9\u30bf\u30eb\u30b3\u30a2',  description:'\u6700\u5927HP +30%/Lv \u30b7\u30fc\u30eb\u30c9+30/Lv',
+    apply:(s,lv)=>{ const b=Math.floor(s.maxHp*0.30*lv); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); s.shieldHp+=30*lv; } },
+  { id:'co_omega',   slot:'core', rarity:'legendary', name:'\u30aa\u30e1\u30ac\u30b3\u30a2',      description:'\u6700\u5927HP +50%/Lv \u30b7\u30fc\u30eb\u30c9+60/Lv',
+    apply:(s,lv)=>{ const b=Math.floor(s.maxHp*0.50*lv); s.maxHp+=b; s.hp=Math.min(s.maxHp,s.hp+b); s.shieldHp+=60*lv; } },
+  { id:'wi_feather', slot:'wing', rarity:'common',    name:'\u30d5\u30a7\u30b6\u30fc\u30a6\u30a4\u30f3\u30b0', description:'\u767a\u5c04\u9593\u9694 -8%/Lv',
+    apply:(s,lv)=>{ const m=Math.pow(0.92,lv); s.baseFireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); s.fireRateMs=s.baseFireRateMs; } },
+  { id:'wi_sharp',   slot:'wing', rarity:'rare',      name:'\u30b7\u30e3\u30fc\u30d7\u30a6\u30a4\u30f3\u30b0', description:'\u30af\u30ea\u78ba\u7387 +8%/Lv',
+    apply:(s,lv)=>{ s.baseCritChance=Math.min(0.9,s.baseCritChance+0.08*lv); s.critChance=s.baseCritChance; } },
+  { id:'wi_swift',   slot:'wing', rarity:'epic',      name:'\u30b9\u30a6\u30a3\u30d5\u30c8\u30a6\u30a4\u30f3\u30b0',description:'\u767a\u5c04\u9593\u9694 -12%/Lv \u30af\u30ea\u78ba\u7387 +6%/Lv',
+    apply:(s,lv)=>{ const m=Math.pow(0.88,lv); s.baseFireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); s.fireRateMs=s.baseFireRateMs; s.baseCritChance=Math.min(0.9,s.baseCritChance+0.06*lv); s.critChance=s.baseCritChance; } },
+  { id:'wi_angel',   slot:'wing', rarity:'legendary', name:'\u30a8\u30f3\u30b8\u30a7\u30eb\u30a6\u30a4\u30f3\u30b0',description:'\u767a\u5c04\u9593\u9694 -15%/Lv \u30af\u30ea\u78ba\u7387 +10%/Lv \u30af\u30ea\u500d\u7387 +0.3/Lv',
+    apply:(s,lv)=>{ const m=Math.pow(0.85,lv); s.baseFireRateMs=Math.max(80,Math.floor(s.baseFireRateMs*m)); s.fireRateMs=s.baseFireRateMs; s.baseCritChance=Math.min(0.9,s.baseCritChance+0.10*lv); s.critChance=s.baseCritChance; s.critMultiplier+=0.3*lv; } },
+  { id:'en_boost',   slot:'engine', rarity:'common',    name:'\u30d6\u30fc\u30b9\u30c8\u30a8\u30f3\u30b8\u30f3',  description:'\u78c1\u529b\u7bc4\u56f2 +40/Lv',
+    apply:(s,lv)=>{ s.magnetRadius+=40*lv; } },
+  { id:'en_warp',    slot:'engine', rarity:'rare',      name:'\u30ef\u30fc\u30d7\u30a8\u30f3\u30b8\u30f3',    description:'\u7121\u6575\u6642\u9593 +0.4\u79d2/Lv',
+    apply:(s,lv)=>{ s.invincibleExtendMs+=400*lv; } },
+  { id:'en_fury',    slot:'engine', rarity:'epic',      name:'\u30d5\u30e5\u30fc\u30ea\u30fc\u30a8\u30f3\u30b8\u30f3', description:'HP30%\u4ee5\u4e0b\u3067\u653b\u6483\u529b \xd7(1+0.5/Lv)',
+    apply:(s,lv)=>{ s.rageMultiplier=Math.max(s.rageMultiplier, 1+0.5*lv); } },
+  { id:'en_void',    slot:'engine', rarity:'legendary', name:'\u30f4\u30a9\u30a4\u30c9\u30a8\u30f3\u30b8\u30f3',  description:'\u5438\u8840 +2%/Lv \u81ea\u52d5\u56de\u5fa9 +1%/Lv',
+    apply:(s,lv)=>{ s.vampireHealPct+=0.02*lv; s.autoHealPct+=0.01*lv; } },
+];
+
+export function getPartDef(id: string): PartDef | undefined {
+  return PART_DEFS.find(p => p.id === id);
+}
+
+export function pullGacha(n: number): PartDef[] {
+  const result: PartDef[] = [];
+  for (let i = 0; i < n; i++) {
+    const r = Math.random();
+    let rarity: PartRarity;
+    if      (r < 0.01)       rarity = 'legendary';
+    else if (r < 0.15)       rarity = 'epic';
+    else if (r < 0.40)       rarity = 'rare';
+    else                     rarity = 'common';
+    const pool = PART_DEFS.filter(p => p.rarity === rarity);
+    result.push(pool[Math.floor(Math.random() * pool.length)]);
+  }
+  return result;
+}
+
+export function makeUid(): string {
+  return `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+}
