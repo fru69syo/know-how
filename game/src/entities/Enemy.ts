@@ -4,12 +4,15 @@ import type { EnemyDef } from '../data/EnemyData';
 
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
   def: EnemyDef; hp: number; maxHp: number;
-  gridRow: number = 0;
-  gridCol: number = 0;
   private hpBar!: Phaser.GameObjects.Rectangle;
   private hpBarBg!: Phaser.GameObjects.Rectangle;
   private lastShootTime: number = 0;
   isFrozen: boolean = false;
+  scrollSpeed = 0;
+  baseX = 0;
+  oscillateAmp = 0;
+  oscillateFreq = 0.003;
+  oscillatePhase = 0;
 
   constructor(scene: Phaser.Scene, x: number, y: number, def: EnemyDef, scaledHp: number) {
     super(scene, x, y, def.textureKey);
