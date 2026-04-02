@@ -13,11 +13,11 @@ export class MainMenuScene extends Phaser.Scene {
     this.add.text(cx, 310, `BEST: ${state.highScore.toLocaleString()}`, { fontSize:'16px', color:'#aaaaff', fontFamily:'monospace' }).setOrigin(0.5);
     this.add.text(cx, 340, `\ud83e\ude99 ${state.totalCurrency.toLocaleString()}`, { fontSize:'18px', color:'#ffdd00', fontFamily:'monospace' }).setOrigin(0.5);
     const waveRecord = state.waveRecord ?? 0;
-    const skipWave = Math.floor(waveRecord / 50) * 50;
-    this.createButton(cx, 400, 'PLAY', () => this.scene.start('GameScene'));
-    if (waveRecord >= 50) {
-      this.createButton(cx, 465, `Wave ${skipWave} \u304b\u3089\u518d\u958b`, () => {
-        this.scene.start('GameScene', { skipWave });
+    const nextWave = waveRecord + 1;
+    this.createButton(cx, 400, 'PLAY', () => this.scene.start('GameScene', { skipWave: 1 }));
+    if (waveRecord > 0) {
+      this.createButton(cx, 465, `Wave ${nextWave} \u304b\u3089\u518d\u958b`, () => {
+        this.scene.start('GameScene', { skipWave: nextWave });
       }, false);
       this.createButton(cx, 530, 'HANGAR', () => this.scene.start('HangarScene'));
       this.createButton(cx, 595, 'SHOP',   () => this.scene.start('ShopScene'));
