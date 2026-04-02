@@ -4,15 +4,15 @@ import { PersistentState } from '../store/PersistentState';
 import type { UpgradeTree } from '../store/PersistentState';
 
 const UPGRADE_ITEMS: { key: keyof UpgradeTree; label: string; description: string }[] = [
-  { key: 'attackLevel',     label: '攻撃力',     description: 'ダメージ +12%/Lv' },
-  { key: 'hpLevel',         label: 'HP',         description: '最大HP +15%/Lv' },
-  { key: 'bulletLevel',     label: '開始弾数',   description: '初期弾数 +1/Lv (最大5)' },
-  { key: 'fireRateLevel',   label: '攻撃速度',   description: '発射間隔 -30ms/Lv' },
-  { key: 'currencyLevel',   label: 'コイン運',   description: 'ドロップ +30%/Lv' },
-  { key: 'xpLevel',         label: '経験値効率', description: 'XP獲得 +15%/Lv' },
-  { key: 'shieldLevel',     label: 'シールド',   description: '開始時シールド +30/Lv, 無敵時間 +0.1秒/Lv' },
-  { key: 'critLevel',       label: 'クリ確率',   description: '初期クリ確率 +8%/Lv' },
-  { key: 'baseDamageLevel', label: '基礎攻撃力', description: '攻撃力 +3/Lv (固定値)' },
+  { key: 'attackLevel',     label: '\u653b\u6483\u529b',     description: '\u30c0\u30e1\u30fc\u30b8 +12%/Lv' },
+  { key: 'hpLevel',         label: 'HP',         description: '\u6700\u5927HP +15%/Lv' },
+  { key: 'bulletLevel',     label: '\u958b\u59cb\u5f3e\u6570',   description: '\u521d\u671f\u5f3e\u6570 +1/Lv (\u6700\u592745)' },
+  { key: 'fireRateLevel',   label: '\u653b\u6483\u901f\u5ea6',   description: '\u767a\u5c04\u9593\u9694 -30ms/Lv' },
+  { key: 'currencyLevel',   label: '\u30b3\u30a4\u30f3\u904b',   description: '\u30c9\u30ed\u30c3\u30d7 +30%/Lv' },
+  { key: 'xpLevel',         label: '\u7d4c\u9a13\u5024\u52b9\u7387', description: 'XP\u7372\u5f97 +15%/Lv' },
+  { key: 'shieldLevel',     label: '\u30b7\u30fc\u30eb\u30c9',   description: '\u958b\u59cb\u6642\u30b7\u30fc\u30eb\u30c9 +30/Lv' },
+  { key: 'critLevel',       label: '\u30af\u30ea\u78ba\u7387',   description: '\u521d\u671f\u30af\u30ea\u78ba\u7387 +8%/Lv' },
+  { key: 'baseDamageLevel', label: '\u57fa\u790e\u653b\u6483\u529b', description: '\u653b\u6483\u529b +3/Lv (\u56fa\u5b9a\u5024)' },
 ];
 
 export class HangarScene extends Phaser.Scene {
@@ -56,7 +56,7 @@ export class HangarScene extends Phaser.Scene {
       this.sound.play('sfx_levelup', { volume:0.6 });
       this.scene.restart();
     });
-    void coinText; // referenced to avoid unused-variable warning
+    void coinText;
   }
 
   private createBtn(x: number, y: number, label: string, onClick: () => void) {
